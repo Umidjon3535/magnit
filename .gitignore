@@ -8,3 +8,8 @@ staticfiles/
 backup/
 *.sqlite3
 .vercel/
+
+.vercel
+.env*
+!.env.example
+.agents/
