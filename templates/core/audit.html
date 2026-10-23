@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load i18n money %}
+{% block title %}{% translate "Avto-Audit" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="page-head">
+    <div>
+      <span class="badge badge-brand"><svg style="width:13px;height:13px"><use href="#i-search"/></svg>{% if AI_ENABLED %}{% translate "AI ulangan · Claude" %}{% else %}{% translate "Avto-Audit" %}{% endif %}</span>
+      <h1>{% translate "Yillik hisobotni tashlang — mos to'lovlarni o'zimiz topamiz" %}</h1>
+      <p>{% translate "Universitet, bog'cha, maktab va klinika to'lovlari avtomatik ajratiladi." %}</p>
+    </div>
+  </div>
+
+  <div class="split split-wide audit-split">
+    <div class="card">
+      <form method="post" enctype="multipart/form-data" id="audit-form">{% csrf_token %}
+        <label class="dropzone dropzone-lg" id="audit-drop">
+          <input type="file" name="file" accept="application/pdf" required id="audit-file">
+          <div class="feature-icon"><svg><use href="#i-file"/></svg></div>
+          <h3 id="audit-file-name">{% translate "PDF-hisobotni shu yerga tashlang" %}</h3>
+          <p>{% translate "yoki" %} <strong style="color:var(--brand-ink)">{% translate "tanlash uchun bosing" %}</strong> · PDF · 10 MB</p>
+        </label>
+        {% if form.file.errors %}<div class="alert alert-error mt-2"><svg><use href="#i-alert"/></svg>{{ form.file.errors.0 }}</div>{% endif %}
+        <div class="progress-steps" id="audit-progress" hidden>
+          <div class="pstep" data-step="1"><span class="ico"><svg><use href="#i-check"/></svg></span>{% translate "Hisobot yuklanmoqda" %}</div>
+          <div class="pstep" data-step="2"><span class="ico"><svg><use href="#i-check"/></svg></span>{% translate "To'lovlar o'qilmoqda" %}</div>
+          <div class="pstep" data-step="3"><span class="ico"><svg><use href="#i-check"/></svg></span>{% translate "Mos to'lovlar ajratilmoqda" %}</div>
+        </div>
+      </form>
+      <div class="audit-chips mt-2" aria-label="{% translate "Nimalar qidiriladi?" %}">
+        <span><svg><use href="#i-grad"/></svg>{% translate "Kontrakt" %}</span>
+        <span>🧸 {% translate "Bog'cha" %}</span>
+        <span><svg><use href="#i-file"/></svg>{% translate "Maktab" %}</span>
+        <span><svg><use href="#i-heart"/></svg>{% translate "Tibbiyot" %}</span>
+        <span><svg><use href="#i-shield"/></svg>STIR</span>
+      </div>
+      <form method="post" action="{% url 'audit_demo' %}" class="text-center mt-2">{% csrf_token %}
+        <button class="link-btn" type="submit"><svg><use href="#i-sparkle"/></svg>{% translate "Hisobot yo'qmi? Namuna bilan sinab ko'ring" %}</button>
+      </form>
+    </div>
+
+    <div class="card">
+      {% if statements %}
+      <div class="card-title mb-2">{% translate "Oldingi tekshiruvlar" %}</div>
+      <div class="list">
+        {% for s in statements %}
+        <a href="{% url 'audit_result' s.pk %}" class="list-item">
+          <div class="thumb"><svg><use href="#i-file"/></svg></div>
+          {% translate "PDF-hisobot" as pdf %}
+          <div class="meta"><div class="title">{{ s.source|default:pdf }}</div><div class="small muted">{% blocktranslate trimmed with n=s.included_count %}{{ n }} ta mos to'lov{% endblocktranslate %} · {{ s.created_at|date:"d.m.Y" }}</div></div>
+          <div class="amount pos">+{{ s.refund|som }}</div>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="card-title mb-2">{% translate "Qanday ishlaydi" %}</div>
+      <ol class="how-steps">
+        <li><span class="n">1</span><div><strong>{% translate "Ilovadan PDF oling" %}</strong><small>Click · Payme · Uzum · Anorbank → {% translate "Tarix → Hisobot" %}</small></div></li>
+        <li><span class="n">2</span><div><strong>{% translate "Shu yerga tashlang" %}</strong><small>{% translate "Tahlil o'zi boshlanadi" %}</small></div></li>
+        <li><span class="n">3</span><div><strong>{% translate "Natijani tekshiring" %}</strong><small>{% translate "Keraksiz to'lovni bir bosishda olib tashlaysiz" %}</small></div></li>
+      </ol>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+{% translate "⏳ Tahlil qilinmoqda…" as L_busy %}
+<script>
+(function () {
+  const L = { busy: "{{ L_busy|escapejs }}" };
+  const form = document.getElementById("audit-form"), f = document.getElementById("audit-file"), drop = document.getElementById("audit-drop");
+  const progress = document.getElementById("audit-progress");
+  const start = () => {
+    if (!f.files[0]) return;
+    document.getElementById("audit-file-name").textContent = "📄 " + f.files[0].name;
+    drop.classList.add("busy");
+    progress.hidden = false;
+    const steps = progress.querySelectorAll(".pstep");
+    const set = (n) => steps.forEach((el, i) => { el.classList.toggle("done", i < n); el.classList.toggle("active", i === n); });
+    set(0); setTimeout(() => set(1), 600); setTimeout(() => set(2), 1800);
+    form.submit();  // fayl tanlanishi bilan tahlil o'zi boshlanadi
+  };
+  f.addEventListener("change", start);
+  ["dragenter", "dragover"].forEach((e) => drop.addEventListener(e, () => drop.classList.add("drag")));
+  ["dragleave", "drop"].forEach((e) => drop.addEventListener(e, () => drop.classList.remove("drag")));
+})();
+</script>
+{% endblock %}

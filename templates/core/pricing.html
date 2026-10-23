@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n money %}
+{% block title %}{% translate "Narxlar" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="section-head reveal" style="margin-bottom:24px">
+    <span class="eyebrow">{% translate "Narxlar" %}</span>
+    <h2>{% blocktranslate trimmed %}Shaffof narx — <span class="gradient-text">qaytgan pulingizdan foiz olmaymiz</span>{% endblocktranslate %}</h2>
+    <p>{% translate "Bepul boshlang. Kerak bo'lsa — oila yoki frilanser tarifiga o'ting." %}</p>
+  </div>
+
+  <div class="bill-toggle" role="tablist" aria-label="{% translate "To'lov davri" %}">
+    <button type="button" role="tab" aria-selected="true" data-period="yearly">{% translate "Yillik" %} <span class="bill-save">{% translate "2 oy tekin" %}</span></button>
+    <button type="button" role="tab" aria-selected="false" data-period="monthly">{% translate "Oylik" %}</button>
+  </div>
+
+  <div class="plans plans-v2">
+    {% for plan in plans %}
+    <div class="card plan plan-{{ plan.key }}{% if plan.featured %} featured{% endif %}" data-monthly="{{ plan.monthly|stringformat:"d" }}" data-yearly="{{ plan.yearly|stringformat:"d" }}">
+      {% if plan.featured %}<span class="plan-ribbon"><svg><use href="#i-star"/></svg>{% translate "Eng ommabop" %}</span>{% endif %}
+      <div class="plan-head">
+        <span class="plan-icon"><svg><use href="#{{ plan.icon }}"/></svg></span>
+        <div><h3>{{ plan.name }}</h3><p class="plan-audience">{{ plan.audience }}</p></div>
+      </div>
+      <div class="plan-price">
+        {% if plan.yearly %}
+        <span class="plan-amount" data-price>{{ plan.yearly|som }}</span> <span class="plan-unit"><span data-unit-yearly>{% translate "so'm / yil" %}</span><span data-unit-monthly hidden>{% translate "so'm / oy" %}</span></span>
+        {% else %}
+        <span class="plan-amount">0</span> <span class="plan-unit">{% translate "so'm · doimo" %}</span>
+        {% endif %}
+      </div>
+      <div class="plan-sub">{% if plan.yearly %}<span data-sub-yearly>≈ <b data-per-month>{% widthratio plan.yearly 12 1 %}</b> {% translate "so'm oyiga" %}</span><span data-sub-monthly hidden>{% translate "Istalgan vaqt bekor qilasiz" %}</span>{% else %}{% translate "Karta talab qilinmaydi" %}{% endif %}</div>
+      <ul>
+        {% for f in plan.highlights %}<li><svg><use href="#i-check"/></svg>{{ f }}</li>{% endfor %}
+      </ul>
+      <a href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'home' %}#register{% endif %}" class="btn btn-block {% if plan.featured %}btn-primary{% else %}btn-ghost{% endif %}">{{ plan.cta }}</a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <section class="card mt-3 roi">
+    <div class="roi-input">
+      <label for="roi-amount" class="cb-label">{% translate "Yillik to'lovingiz (kontrakt, bog'cha, davolanish)" %}</label>
+      <div class="input-suffix"><input id="roi-amount" class="input" data-money inputmode="numeric" value="12 000 000"><span>{% translate "so'm" %}</span></div>
+    </div>
+    <div class="roi-out">
+      <div><small>{% translate "Sizga qaytadi" %}</small><b class="pos" id="roi-refund">0</b></div>
+      <div><small>{% translate "Oila tarifi" %}</small><b id="roi-price">0</b></div>
+      <div class="roi-x"><small>{% translate "Tarif o'zini qoplaydi" %}</small><b id="roi-times">×0</b></div>
+    </div>
+  </section>
+
+  <section class="card mt-3">
+    <div class="card-title mb-2"><svg style="width:20px;height:20px"><use href="#i-grid"/></svg>{% translate "Tariflarni taqqoslash" %}</div>
+    <div class="table-wrap">
+      <table class="table plan-table">
+        <thead><tr><th></th>{% for plan in plans %}<th class="{% if plan.featured %}us{% endif %}">{{ plan.name }}</th>{% endfor %}</tr></thead>
+        <tbody>
+          {% for label, values in matrix %}
+          <tr>
+            <td>{{ label }}</td>
+            {% for v in values %}
+            <td class="{% if forloop.counter == 2 %}us{% endif %}">
+              {% if v is True %}<span class="yes" aria-label="{% translate "Bor" %}"><svg><use href="#i-check"/></svg></span>
+              {% elif v is False %}<span class="dash" aria-label="{% translate "Yo'q" %}">—</span>
+              {% else %}<strong>{{ v }}</strong>{% endif %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="small muted mt-2">ⓘ {% translate "Pullik tariflar tez orada ishga tushadi — hozircha barcha imkoniyatlar ro'yxatdan o'tgan foydalanuvchilar uchun ochiq." %}</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const { fmt, parseNum } = window.Magnit;
+  const plans = [...document.querySelectorAll(".plans-v2 .plan")];
+  const family = document.querySelector(".plan-family");
+  let period = "yearly";
+
+  const render = () => {
+    plans.forEach((p) => {
+      const price = Number(p.dataset[period]);
+      const amount = p.querySelector("[data-price]");
+      if (!amount) return;
+      amount.textContent = fmt(price);
+      p.querySelector("[data-unit-yearly]").hidden = period !== "yearly";
+      p.querySelector("[data-unit-monthly]").hidden = period !== "monthly";
+      p.querySelector("[data-sub-yearly]").hidden = period !== "yearly";
+      p.querySelector("[data-sub-monthly]").hidden = period !== "monthly";
+      p.querySelector("[data-per-month]").textContent = fmt(Math.round(Number(p.dataset.yearly) / 12));
+    });
+    roi();
+  };
+  document.querySelectorAll(".bill-toggle [data-period]").forEach((b) => b.addEventListener("click", () => {
+    period = b.dataset.period;
+    document.querySelectorAll(".bill-toggle [data-period]").forEach((x) => x.setAttribute("aria-selected", x === b));
+    render();
+  }));
+
+  // "Tarif o'zini qoplaydimi?" — yillik qaytadigan 12% ni tarifning yillik narxi bilan solishtiramiz
+  const input = document.getElementById("roi-amount");
+  const roi = () => {
+    const refund = Math.round(parseNum(input.value) * 0.12);
+    const yearlyCost = period === "yearly" ? Number(family.dataset.yearly) : Number(family.dataset.monthly) * 12;
+    document.getElementById("roi-refund").textContent = fmt(refund);
+    document.getElementById("roi-price").textContent = fmt(yearlyCost);
+    document.getElementById("roi-times").textContent = "×" + (yearlyCost ? Math.max(0, Math.floor(refund / yearlyCost)) : 0);
+  };
+  input.addEventListener("input", roi);
+  render();
+})();
+</script>
+{% endblock %}

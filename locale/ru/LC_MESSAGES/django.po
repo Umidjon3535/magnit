@@ -1,0 +1,2513 @@
+# Magnit — ru tarjimasi. Yangilash: python manage.py build_locale
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ru\n"
+
+#: templates/base.html
+msgid "Magnit — 12%% soliqni qaytaring"
+msgstr "Magnit — верните 12%% налога"
+
+#: templates/base.html
+msgid "Kontrakt, bog'cha va tibbiyot to'lovlaridan 12%% JShOD ni qaytarish, chek OCR, Avto-Audit, keshbek va frilanserlar uchun 1%% soliq kalkulyatori."
+msgstr "Возврат 12%% НДФЛ за контракт, детсад и медицину, распознавание чеков, Авто-аудит, кэшбэк и калькулятор налога 1%% для фрилансеров."
+
+#: templates/base.html
+msgid "Magnit bosh sahifa"
+msgstr "Главная страница Magnit"
+
+#: templates/base.html
+msgid "Asosiy menyu"
+msgstr "Главное меню"
+
+#: templates/base.html
+msgid "Soliq qaytarish"
+msgstr "Возврат налога"
+
+#: core/views.py templates/base.html templates/core/scan.html
+msgid "Chek skanerlash"
+msgstr "Сканирование чека"
+
+#: templates/base.html
+msgid "Rasm yoki PDF'dan avto-to'ldirish"
+msgstr "Автозаполнение из фото или PDF"
+
+#: templates/base.html templates/core/audit.html templates/core/audit_result.html templates/core/dashboard.html templates/core/home.html
+msgid "Avto-Audit"
+msgstr "Авто-аудит"
+
+#: templates/base.html
+msgid "Yillik hisobotdan mos to'lovlarni topish"
+msgstr "Поиск подходящих платежей в годовой выписке"
+
+#: templates/base.html
+msgid "Ariza tayyorlash"
+msgstr "Подготовка заявления"
+
+#: templates/base.html
+msgid "Reestrni shakllantirish va chop etish"
+msgstr "Формирование и печать реестра"
+
+#: templates/base.html
+msgid "Tejash"
+msgstr "Экономия"
+
+#: templates/base.html templates/core/cashback.html
+msgid "Keshbek optimizatori"
+msgstr "Оптимизатор кэшбэка"
+
+#: templates/base.html
+msgid "Eng foydali to'lov ilovasini tanlang"
+msgstr "Выберите самое выгодное платёжное приложение"
+
+#: templates/base.html
+msgid "Frilanser 1%%"
+msgstr "Фрилансер 1%%"
+
+#: templates/base.html
+msgid "12%% o'rniga 1%% soliq hisob-kitobi"
+msgstr "Расчёт налога 1%% вместо 12%%"
+
+#: templates/base.html
+msgid "Rad etilish xavfi va haqiqiy summa"
+msgstr "Риск отказа и реальная сумма"
+
+#: templates/base.html
+msgid "Yangi"
+msgstr "Новое"
+
+#: templates/base.html templates/core/checkup.html templates/core/tracker.html
+msgid "Ariza tekshiruvi"
+msgstr "Проверка заявления"
+
+#: templates/base.html
+msgid "Arizangiz qaysi bosqichda"
+msgstr "На каком этапе ваше заявление"
+
+#: templates/base.html templates/core/dashboard.html templates/core/home.html templates/core/tracker.html
+msgid "Ariza holati"
+msgstr "Статус заявления"
+
+#: templates/base.html templates/core/home.html templates/core/pricing.html
+msgid "Narxlar"
+msgstr "Цены"
+
+#: templates/base.html templates/core/settings.html
+msgid "Til"
+msgstr "Язык"
+
+#: templates/base.html
+msgid "Mavzuni almashtirish"
+msgstr "Сменить тему"
+
+#: templates/base.html templates/core/home.html
+msgid "Kabinet"
+msgstr "Кабинет"
+
+#: templates/base.html templates/core/home.html templates/registration/verify.html
+msgid "Kirish"
+msgstr "Войти"
+
+#: core/views.py templates/base.html templates/core/why.html
+msgid "Bepul boshlash"
+msgstr "Начать бесплатно"
+
+#: templates/base.html
+msgid "Boshlash"
+msgstr "Начать"
+
+#: templates/base.html
+msgid "Menyu"
+msgstr "Меню"
+
+#: templates/base.html
+msgid "Arizam"
+msgstr "Мои заявления"
+
+#: templates/base.html templates/core/application.html templates/core/dashboard.html templates/core/settings.html
+msgid "Shaxsiy kabinet"
+msgstr "Личный кабинет"
+
+#: templates/base.html templates/core/dashboard.html templates/core/home.html templates/core/settings.html
+msgid "Sozlamalar"
+msgstr "Настройки"
+
+#: templates/base.html
+msgid "Pulingizni o'ziga tortadi: 12%% soliqni qaytarish, keshbek va frilanser soliqlari — bitta platformada."
+msgstr "Притягивает ваши деньги: возврат 12%% налога, кэшбэк и налоги фрилансеров — на одной платформе."
+
+#: templates/base.html
+msgid "Mahsulot"
+msgstr "Продукт"
+
+#: templates/base.html
+msgid "Kompaniya"
+msgstr "Компания"
+
+#: templates/base.html templates/core/about.html templates/core/home.html
+msgid "Biz haqimizda"
+msgstr "О нас"
+
+#: templates/base.html templates/core/home.html templates/core/why.html
+msgid "Nega Magnit?"
+msgstr "Почему Magnit?"
+
+#: templates/base.html templates/core/about.html
+msgid "Yo'l xaritasi"
+msgstr "Дорожная карта"
+
+#: templates/base.html
+msgid "Yordam"
+msgstr "Помощь"
+
+#: templates/base.html templates/core/faq.html templates/core/home.html
+msgid "Savol-javob"
+msgstr "Вопросы и ответы"
+
+#: core/views.py templates/base.html templates/core/about.html templates/partials/chat.html
+msgid "AI-yordamchi"
+msgstr "AI-помощник"
+
+#: templates/base.html templates/core/about.html
+msgid "Bog'lanish"
+msgstr "Контакты"
+
+#: templates/base.html
+msgid "Moliyaviy va soliq platformasi"
+msgstr "Финансовая и налоговая платформа"
+
+#: templates/base.html
+msgid "Ma'lumotlar himoyalangan · Hisob-kitoblar ma'lumot uchun"
+msgstr "Данные защищены · Расчёты носят справочный характер"
+
+#: templates/core/_checkup_result.html
+msgid "Rad etilish xavfi past"
+msgstr "Риск отказа низкий"
+
+#: templates/core/_checkup_result.html
+msgid "Xavf o'rtacha"
+msgstr "Средний риск"
+
+#: templates/core/_checkup_result.html
+msgid "Xavf yuqori"
+msgstr "Высокий риск"
+
+#: templates/core/_checkup_result.html
+msgid "Hammasi joyida — arizani yuborishingiz mumkin."
+msgstr "Всё в порядке — можно подавать заявление."
+
+#: templates/core/_checkup_result.html templates/core/application.html templates/core/audit_result.html templates/core/cashback.html templates/core/checkup.html templates/core/dashboard.html templates/core/freelancer.html templates/core/home.html templates/core/pricing.html templates/core/scan.html
+msgid "so'm"
+msgstr "сум"
+
+#: templates/core/_checkup_result.html
+msgid "Haqiqatda qaytadi"
+msgstr "Реально вернётся"
+
+#: templates/core/_checkup_result.html
+msgid "Nimani tuzatish kerak"
+msgstr "Что нужно исправить"
+
+#: templates/core/_checkup_result.html
+msgid "Sizning hujjatlar ro'yxatingiz"
+msgstr "Ваш список документов"
+
+#: templates/core/_checkup_result.html
+msgid "Chop etish"
+msgstr "Печать"
+
+#: templates/core/_checkup_result.html
+msgid "Cheklarni yuklash"
+msgstr "Загрузить чеки"
+
+#: templates/core/_checkup_result.html
+msgid "Ariza holatini kuzatish"
+msgstr "Отслеживать статус заявления"
+
+#: templates/core/_checkup_result.html
+msgid "Natija shu yerda chiqadi"
+msgstr "Результат появится здесь"
+
+#: templates/core/_checkup_result.html
+msgid "Maosh va to'lov summasini kiriting, savollarga «Ha» yoki «Yo'q» deb javob bering — rad etilish xavfi va haqiqiy summa darhol hisoblanadi."
+msgstr "Введите зарплату и сумму платежа, ответьте «Да» или «Нет» — риск отказа и реальная сумма посчитаются сразу."
+
+#: templates/core/_checkup_result.html
+msgid "Maosh va to'lov summasini kiriting."
+msgstr "Введите зарплату и сумму платежа."
+
+#: templates/core/_checkup_result.html
+msgid "Tuzatish kerak: %(n)s"
+msgstr "Нужно исправить: %(n)s"
+
+#: templates/core/_checkup_result.html
+msgid "%(n)s ta savol hali javobsiz — natija taxminiy."
+msgstr "Без ответа вопросов: %(n)s — результат приблизительный."
+
+#: templates/core/_checkup_result.html
+msgid "Kutilgan (to'lovning %(p)s%%)"
+msgstr "Ожидается (%(p)s%% от платежа)"
+
+#: templates/core/_checkup_result.html
+msgid "Qaytariladigan summa yil davomida maoshingizdan ushlangan JShOD'dan (%(tax)s so'm) oshmaydi. Ko'p kalkulyatorlar buni hisobga olmaydi."
+msgstr "Сумма возврата не превышает НДФЛ, удержанный из вашей зарплаты за год (%(tax)s сум). Большинство калькуляторов этого не учитывают."
+
+#: templates/core/about.html
+msgid "Magnit — har bir oilaga qonuniy ravishda qaytishi kerak bo'lgan pulni oson qaytarib olishga yordam beradigan o'zbek fintex startapi."
+msgstr "Magnit — узбекский финтех-стартап, который помогает каждой семье легко вернуть деньги, положенные ей по закону."
+
+#: templates/core/about.html
+msgid "Muammo"
+msgstr "Проблема"
+
+#: templates/core/about.html
+msgid "Ko'pchilik kontrakt, bog'cha va tibbiyot to'lovlaridan 12%% soliqni qaytarish mumkinligini bilmaydi yoki hujjat yig'ish qiyinligi sababli voz kechadi."
+msgstr "Многие не знают, что можно вернуть 12%% налога за контракт, детсад и медицину, или отказываются из-за сложного сбора документов."
+
+#: templates/core/about.html
+msgid "Yechim"
+msgstr "Решение"
+
+#: templates/core/about.html
+msgid "AI cheklarni o'qiydi, bank hisobotidan mos to'lovlarni topadi va ariza reestrini tayyorlaydi — jarayon soatlardan daqiqalarga qisqaradi."
+msgstr "AI читает чеки, находит подходящие платежи в банковской выписке и готовит реестр заявления — процесс сокращается с часов до минут."
+
+#: templates/core/about.html
+msgid "Missiya"
+msgstr "Миссия"
+
+#: templates/core/about.html
+msgid "Moliyaviy savodxonlikni oshirish va har bir so'mni oila byudjetiga qaytarish."
+msgstr "Повышать финансовую грамотность и возвращать каждый сум в семейный бюджет."
+
+#: templates/core/about.html
+msgid "Qayerdamiz va qayerga boramiz"
+msgstr "Где мы сейчас и куда идём"
+
+#: templates/core/about.html
+msgid "Hamkorlik, investitsiya yoki taklif bo'yicha yozing."
+msgstr "Пишите по вопросам сотрудничества, инвестиций или с предложениями."
+
+#: templates/core/about.html
+msgid "Pulingiz davlatda <span class=\"gradient-text\">qolib ketmasin</span>"
+msgstr "Пусть ваши деньги <span class=\"gradient-text\">не остаются у государства</span>"
+
+#: templates/core/application.html
+msgid "Chop etish / PDF"
+msgstr "Печать / PDF"
+
+#: templates/core/application.html
+msgid "my.soliq.uz'ga o'tish"
+msgstr "Перейти на my.soliq.uz"
+
+#: templates/core/application.html
+msgid "Jismoniy shaxs daromad solig'ini (JShOD) qaytarish uchun to'lovlar reestri"
+msgstr "Реестр платежей для возврата налога на доходы физических лиц (НДФЛ)"
+
+#: templates/core/application.html templates/core/scan.html
+msgid "Sana"
+msgstr "Дата"
+
+#: templates/core/application.html
+msgid "Tashkilot / tavsif"
+msgstr "Организация / описание"
+
+#: templates/core/application.html
+msgid "STIR"
+msgstr "ИНН"
+
+#: templates/core/application.html
+msgid "Turi"
+msgstr "Тип"
+
+#: templates/core/application.html
+msgid "Summa, so'm"
+msgstr "Сумма, сум"
+
+#: templates/core/application.html
+msgid "Ushbu reestr ma'lumot uchun tayyorlangan. Rasmiy arizani my.soliq.uz orqali yuboring va to'lov hujjatlari asl nusxalarini saqlab qo'ying. Qoidalar o'zgarishi mumkin — yakuniy summani soliq organi belgilaydi."
+msgstr "Этот реестр подготовлен для справки. Официальное заявление подайте через my.soliq.uz и сохраните оригиналы платёжных документов. Правила могут меняться — окончательную сумму определяет налоговый орган."
+
+#: templates/core/application.html templates/core/dashboard.html
+msgid "%(year)s-yil arizasi"
+msgstr "Заявление за %(year)s год"
+
+#: templates/core/application.html
+msgid "%(year)s-yil · Shakllantirildi: %(created)s · Ariza egasi: %(owner)s"
+msgstr "%(year)s год · Сформировано: %(created)s · Заявитель: %(owner)s"
+
+#: templates/core/application.html
+msgid "Jami: %(total)s so'm → qaytariladi (12%%)"
+msgstr "Итого: %(total)s сум → к возврату (12%%)"
+
+#: templates/core/audit.html
+msgid "AI ulangan · Claude"
+msgstr "AI подключён · Claude"
+
+#: templates/core/audit.html
+msgid "Yillik hisobotni tashlang — mos to'lovlarni o'zimiz topamiz"
+msgstr "Загрузите годовую выписку — подходящие платежи найдём сами"
+
+#: templates/core/audit.html templates/core/dashboard.html
+msgid "Universitet, bog'cha, maktab va klinika to'lovlari avtomatik ajratiladi."
+msgstr "Платежи вузам, детсадам, школам и клиникам выделяются автоматически."
+
+#: templates/core/audit.html
+msgid "PDF-hisobotni shu yerga tashlang"
+msgstr "Перетащите PDF-выписку сюда"
+
+#: templates/core/audit.html templates/core/home.html templates/core/scan.html
+msgid "yoki"
+msgstr "или"
+
+#: templates/core/audit.html templates/core/scan.html
+msgid "tanlash uchun bosing"
+msgstr "нажмите, чтобы выбрать"
+
+#: templates/core/audit.html
+msgid "Hisobot yuklanmoqda"
+msgstr "Загружаем выписку"
+
+#: templates/core/audit.html
+msgid "To'lovlar o'qilmoqda"
+msgstr "Читаем платежи"
+
+#: templates/core/audit.html
+msgid "Mos to'lovlar ajratilmoqda"
+msgstr "Отбираем подходящие платежи"
+
+#: templates/core/audit.html
+msgid "Nimalar qidiriladi?"
+msgstr "Что ищем?"
+
+#: templates/core/audit.html
+msgid "Kontrakt"
+msgstr "Контракт"
+
+#: core/models.py templates/core/audit.html
+msgid "Bog'cha"
+msgstr "Детский сад"
+
+#: core/models.py templates/core/audit.html
+msgid "Maktab"
+msgstr "Школа"
+
+#: core/models.py templates/core/audit.html
+msgid "Tibbiyot"
+msgstr "Медицина"
+
+#: templates/core/audit.html
+msgid "Hisobot yo'qmi? Namuna bilan sinab ko'ring"
+msgstr "Нет выписки? Попробуйте на примере"
+
+#: templates/core/audit.html
+msgid "Oldingi tekshiruvlar"
+msgstr "Предыдущие проверки"
+
+#: templates/core/audit.html templates/core/audit_result.html templates/core/dashboard.html
+msgid "PDF-hisobot"
+msgstr "PDF-выписка"
+
+#: templates/core/audit.html
+msgid "Qanday ishlaydi"
+msgstr "Как это работает"
+
+#: templates/core/audit.html
+msgid "Ilovadan PDF oling"
+msgstr "Скачайте PDF в приложении"
+
+#: templates/core/audit.html
+msgid "Tarix → Hisobot"
+msgstr "История → Выписка"
+
+#: templates/core/audit.html
+msgid "Shu yerga tashlang"
+msgstr "Перетащите сюда"
+
+#: templates/core/audit.html
+msgid "Tahlil o'zi boshlanadi"
+msgstr "Анализ начнётся сам"
+
+#: templates/core/audit.html
+msgid "Natijani tekshiring"
+msgstr "Проверьте результат"
+
+#: templates/core/audit.html
+msgid "Keraksiz to'lovni bir bosishda olib tashlaysiz"
+msgstr "Лишний платёж убирается одним нажатием"
+
+#: templates/core/audit.html
+msgid "⏳ Tahlil qilinmoqda…"
+msgstr "⏳ Анализируем…"
+
+#: templates/core/audit.html templates/core/dashboard.html templates/core/home.html
+msgid "%(n)s ta mos to'lov"
+msgstr "Подходящих платежей: %(n)s"
+
+#: templates/core/audit_result.html
+msgid "Avto-Audit natijasi"
+msgstr "Результат Авто-аудита"
+
+#: templates/core/audit_result.html
+msgid "Qaytarib olishingiz mumkin"
+msgstr "Вы можете вернуть"
+
+#: templates/core/audit_result.html
+msgid "ta to'lov"
+msgstr "платежей"
+
+#: templates/core/audit_result.html
+msgid "jami"
+msgstr "всего"
+
+#: templates/core/audit_result.html
+msgid "Turlar bo'yicha"
+msgstr "По типам"
+
+#: templates/core/audit_result.html
+msgid "Arizani shakllantirish"
+msgstr "Сформировать заявление"
+
+#: templates/core/audit_result.html
+msgid "Noto'g'ri topilgan to'lovni o'ngdagi tugma bilan o'chiring"
+msgstr "Ошибочно найденный платёж отключите переключателем справа"
+
+#: templates/core/audit_result.html
+msgid "Topilgan to'lovlar"
+msgstr "Найденные платежи"
+
+#: templates/core/audit_result.html
+msgid "Hisobga olish"
+msgstr "Учитывать"
+
+#: templates/core/audit_result.html
+msgid "Mos to'lovlar topilmadi"
+msgstr "Подходящие платежи не найдены"
+
+#: templates/core/audit_result.html
+msgid "Hisobotda ta'lim, bog'cha, maktab yoki tibbiyot to'lovlari aniqlanmadi. Boshqa davr yoki boshqa ilova hisobotini yuklab ko'ring."
+msgstr "В выписке не найдено платежей за обучение, детсад, школу или медицину. Попробуйте выписку за другой период или из другого приложения."
+
+#: templates/core/audit_result.html
+msgid "Boshqa hisobot yuklash"
+msgstr "Загрузить другую выписку"
+
+#: templates/core/audit_result.html
+msgid "%(n)s ta"
+msgstr "%(n)s шт."
+
+#: templates/core/cashback.html
+msgid "Qaysi ilova orqali to'lash foydaliroq?"
+msgstr "Через какое приложение выгоднее платить?"
+
+#: templates/core/cashback.html
+msgid "Summani kiriting — 12%% soliq, keshbek va komissiyani hisoblab, ilovalarni foyda bo'yicha saralaymiz."
+msgstr "Введите сумму — посчитаем 12%% налога, кэшбэк и комиссию и отсортируем приложения по выгоде."
+
+#: templates/core/cashback.html
+msgid "Shartnoma summasi"
+msgstr "Сумма договора"
+
+#: templates/core/cashback.html templates/core/dashboard.html templates/core/freelancer.html
+msgid "mln"
+msgstr "млн"
+
+#: templates/core/cashback.html
+msgid "Eng foydali:"
+msgstr "Самое выгодное:"
+
+#: templates/core/cashback.html
+msgid "umumiy foyda"
+msgstr "общая выгода"
+
+#: templates/core/cashback.html
+msgid "12%% soliq"
+msgstr "12%% налога"
+
+#: templates/core/cashback.html
+msgid "Keshbek"
+msgstr "Кэшбэк"
+
+#: templates/core/cashback.html
+msgid "Komissiya"
+msgstr "Комиссия"
+
+#: templates/core/cashback.html
+msgid "Ilovalar reytingi"
+msgstr "Рейтинг приложений"
+
+#: templates/core/cashback.html
+msgid "Shartnomani qaysi ilova orqali to'lash foydaliroq?"
+msgstr "Через какое приложение выгоднее оплатить договор?"
+
+#: templates/core/cashback.html templates/core/freelancer.html
+msgid "AI maslahati"
+msgstr "Совет AI"
+
+#: templates/core/cashback.html
+msgid "Tariflar namuna sifatida berilgan va admin paneldan yangilanadi."
+msgstr "Тарифы указаны для примера и обновляются в админ-панели."
+
+#: templates/core/cashback.html
+msgid "To'lashdan oldin ilovadagi joriy shartlarni tekshiring."
+msgstr "Перед оплатой проверьте актуальные условия в приложении."
+
+#: templates/core/cashback.html
+msgid "Eng foydali"
+msgstr "Самый выгодный"
+
+#: templates/core/cashback.html
+msgid "Jami to'lov"
+msgstr "Итого к оплате"
+
+#: templates/core/cashback.html
+msgid "foyda"
+msgstr "выгода"
+
+#: templates/core/cashback.html
+msgid "Tariflar namuna sifatida berilgan (%(date)s holatiga) va admin paneldan yangilanadi."
+msgstr "Тарифы указаны для примера (на %(date)s) и обновляются в админ-панели."
+
+#: templates/core/checkup.html
+msgid "Yuborishdan oldin tekshiring"
+msgstr "Проверьте перед отправкой"
+
+#: templates/core/checkup.html
+msgid "Arizangiz rad etilmaydimi?"
+msgstr "Не откажут ли вам в заявлении?"
+
+#: templates/core/checkup.html
+msgid "Savollarga «Ha» yoki «Yo'q» deb javob bering — natija o'ng tomonda darhol chiqadi."
+msgstr "Ответьте «Да» или «Нет» — результат сразу появится справа."
+
+#: templates/core/checkup.html
+msgid "Daromad va to'lov"
+msgstr "Доход и платёж"
+
+#: templates/core/checkup.html
+msgid "Oylik maosh (rasmiy)"
+msgstr "Зарплата в месяц (официальная)"
+
+#: templates/core/checkup.html
+msgid "Yillik to'lov (kontrakt, bog'cha…)"
+msgstr "Платёж за год (контракт, детсад…)"
+
+#: templates/core/checkup.html
+msgid "Hujjatlar"
+msgstr "Документы"
+
+#: templates/core/checkup.html
+msgid "javob"
+msgstr "ответов"
+
+#: templates/core/checkup.html
+msgid "To'lov kim uchun?"
+msgstr "За кого платёж?"
+
+#: templates/core/checkup.html
+msgid "Farzand yoki oila a'zosi uchun bo'lsa, qarindoshlik hujjati ham kerak"
+msgstr "Если за ребёнка или члена семьи — нужен документ о родстве"
+
+#: templates/core/checkup.html
+msgid "O'zim uchun"
+msgstr "За себя"
+
+#: templates/core/checkup.html
+msgid "Oila a'zosi"
+msgstr "Член семьи"
+
+#: templates/core/checkup.html
+msgid "Ha"
+msgstr "Да"
+
+#: templates/core/checkup.html templates/core/pricing.html templates/core/why.html
+msgid "Yo'q"
+msgstr "Нет"
+
+#: templates/core/checkup.html
+msgid "Tekshirish"
+msgstr "Проверить"
+
+#: templates/core/checkup.html
+msgid "Tekshiruv amaliyotdagi tipik holatlarga asoslangan va ma'lumot uchun. Yakuniy qarorni soliq organi qabul qiladi."
+msgstr "Проверка основана на типичных ситуациях из практики и носит справочный характер. Окончательное решение принимает налоговый орган."
+
+#: templates/core/dashboard.html
+msgid "Yil"
+msgstr "Год"
+
+#: templates/core/dashboard.html templates/core/home.html
+msgid "Chek qo'shish"
+msgstr "Добавить чек"
+
+#: templates/core/dashboard.html templates/core/tracker.html
+msgid "Ariza shakllantirish"
+msgstr "Сформировать заявление"
+
+#: templates/core/dashboard.html
+msgid "Tasdiq kutmoqda"
+msgstr "Ожидают подтверждения"
+
+#: templates/core/dashboard.html
+msgid "Ko'rib chiqish →"
+msgstr "Посмотреть →"
+
+#: templates/core/dashboard.html
+msgid "hammasi tayyor ✓"
+msgstr "всё готово ✓"
+
+#: templates/core/dashboard.html
+msgid "Batafsil →"
+msgstr "Подробнее →"
+
+#: templates/core/dashboard.html
+msgid "Hali shakllantirilmagan"
+msgstr "Ещё не сформировано"
+
+#: templates/core/dashboard.html
+msgid "Statistika"
+msgstr "Статистика"
+
+#: templates/core/dashboard.html
+msgid "Oylik mos to'lovlar, so'm"
+msgstr "Подходящие платежи по месяцам, сум"
+
+#: templates/core/dashboard.html
+msgid "Oylar bo'yicha mos to'lovlar"
+msgstr "Подходящие платежи по месяцам"
+
+#: templates/core/dashboard.html
+msgid "To'lov turlari bo'yicha"
+msgstr "По типам платежей"
+
+#: templates/core/dashboard.html
+msgid "Hali ma'lumot yo'q"
+msgstr "Пока нет данных"
+
+#: templates/core/dashboard.html
+msgid "Chek yuklang yoki Avto-Audit'dan foydalaning — grafik shu yerda paydo bo'ladi."
+msgstr "Загрузите чек или воспользуйтесь Авто-аудитом — график появится здесь."
+
+#: templates/core/dashboard.html
+msgid "Chek yuklash"
+msgstr "Загрузить чек"
+
+#: templates/core/dashboard.html
+msgid "Cheklar"
+msgstr "Чеки"
+
+#: templates/core/dashboard.html
+msgid "Arizalar"
+msgstr "Заявления"
+
+#: templates/core/dashboard.html
+msgid "+ Yangi"
+msgstr "+ Новый"
+
+#: templates/core/dashboard.html
+msgid "Faylni ochish"
+msgstr "Открыть файл"
+
+#: templates/core/dashboard.html
+msgid "Nomsiz chek"
+msgstr "Чек без названия"
+
+#: templates/core/dashboard.html
+msgid "O'qilmadi"
+msgstr "Не распознан"
+
+#: core/models.py templates/core/dashboard.html
+msgid "Tasdiqlanmagan"
+msgstr "Не подтверждён"
+
+#: templates/core/dashboard.html
+msgid "Chekni o'chirasizmi?"
+msgstr "Удалить чек?"
+
+#: templates/core/dashboard.html
+msgid "O'chirish"
+msgstr "Удалить"
+
+#: templates/core/dashboard.html
+msgid "Cheklar yo'q"
+msgstr "Чеков нет"
+
+#: templates/core/dashboard.html
+msgid "Birinchi chekingizni yuklang — 30 soniya kifoya."
+msgstr "Загрузите первый чек — это займёт 30 секунд."
+
+#: templates/core/dashboard.html
+msgid "Hali hisobot yuklanmagan."
+msgstr "Выписки ещё не загружены."
+
+#: templates/core/dashboard.html
+msgid "Ariza shakllantirilmagan."
+msgstr "Заявлений пока нет."
+
+#: core/views.py templates/core/dashboard.html
+msgid "To'lovlaringiz tayyor — reestrni bir bosishda yarating."
+msgstr "Платежи готовы — создайте реестр в один клик."
+
+#: templates/core/dashboard.html
+msgid "Qaytadi"
+msgstr "К возврату"
+
+#: templates/core/dashboard.html templates/core/home.html
+msgid "Salom, %(name)s 👋"
+msgstr "Здравствуйте, %(name)s 👋"
+
+#: templates/core/dashboard.html
+msgid "%(year)s-yil bo'yicha soliq qaytarish holatingiz."
+msgstr "Статус возврата налога за %(year)s год."
+
+#: templates/core/dashboard.html
+msgid "%(year)s-yilda qaytariladi (12%%)"
+msgstr "К возврату за %(year)s год (12%%)"
+
+#: templates/core/dashboard.html templates/core/home.html
+msgid "jami %(total)s so'm"
+msgstr "всего %(total)s сум"
+
+#: templates/core/dashboard.html templates/core/tracker.html
+msgid "%(n)s kun o'tdi"
+msgstr "прошло дней: %(n)s"
+
+#: templates/core/faq.html
+msgid "Yordam markazi"
+msgstr "Центр помощи"
+
+#: templates/core/faq.html
+msgid "Ko'p beriladigan savollar"
+msgstr "Частые вопросы"
+
+#: templates/core/faq.html
+msgid "Javob topmadingizmi? AI-yordamchidan so'rang — u 24/7 o'zbek tilida javob beradi."
+msgstr "Не нашли ответ? Спросите AI-помощника — он отвечает 24/7."
+
+#: templates/core/faq.html
+msgid "Savolingiz qoldimi?"
+msgstr "Остались вопросы?"
+
+#: templates/core/faq.html
+msgid "AI-yordamchi to'lovingizga qarab aniq hisoblab beradi."
+msgstr "AI-помощник точно рассчитает всё по вашему платежу."
+
+#: templates/core/faq.html
+msgid "AI-yordamchidan so'rash"
+msgstr "Спросить AI-помощника"
+
+#: templates/core/freelancer.html
+msgid "Frilanserlar uchun 1%%"
+msgstr "1%% для фрилансеров"
+
+#: templates/core/freelancer.html
+msgid "2026-yilgi islohot"
+msgstr "Реформа 2026 года"
+
+#: templates/core/freelancer.html
+msgid "O'zini o'zi band qilgan shaxs sifatida yillik aylanma 1 mlrd so'mgacha bo'lsa — atigi 1%% soliq."
+msgstr "Самозанятые с годовым оборотом до 1 млрд сум платят всего 1%% налога."
+
+#: templates/core/freelancer.html
+msgid "Oylik daromad"
+msgstr "Ежемесячный доход"
+
+#: templates/core/freelancer.html
+msgid "Sohangiz"
+msgstr "Ваша сфера"
+
+#: templates/core/freelancer.html
+msgid "Yiliga tejaysiz"
+msgstr "Экономия в год"
+
+#: templates/core/freelancer.html
+msgid "Oyiga"
+msgstr "В месяц"
+
+#: templates/core/freelancer.html
+msgid "Jismoniy shaxs · 12%%"
+msgstr "Физлицо · 12%%"
+
+#: templates/core/freelancer.html
+msgid "O'zini o'zi band · 1%%"
+msgstr "Самозанятый · 1%%"
+
+#: templates/core/freelancer.html
+msgid "my.soliq.uz'da ro'yxatdan o'tish"
+msgstr "Зарегистрироваться на my.soliq.uz"
+
+#: templates/core/freelancer.html
+msgid "Yillik aylanma 1 mlrd so'mdan oshadi — 1%% rejim qo'llanilmaydi. YaTT yoki boshqa soliq rejimini ko'rib chiqing."
+msgstr "Годовой оборот превышает 1 млрд сум — режим 1%% не применяется. Рассмотрите ИП или другой налоговый режим."
+
+#: templates/core/freelancer.html
+msgid "Qanday o'tish mumkin?"
+msgstr "Как перейти?"
+
+#: templates/core/freelancer.html
+msgid "my.soliq.uz yoki «Soliq» ilovasi"
+msgstr "my.soliq.uz или приложение «Soliq»"
+
+#: templates/core/freelancer.html
+msgid "«O'zini o'zi band qilgan shaxs» sifatida ro'yxatdan o'ting"
+msgstr "Зарегистрируйтесь как «самозанятое лицо»"
+
+#: templates/core/freelancer.html
+msgid "Faoliyat turini tanlang"
+msgstr "Выберите вид деятельности"
+
+#: templates/core/freelancer.html
+msgid "Ro'yxatda sohangiz borligini tekshiring"
+msgstr "Проверьте, есть ли ваша сфера в списке"
+
+#: templates/core/freelancer.html
+msgid "Daromadni chek orqali qayd eting"
+msgstr "Фиксируйте доход чеком"
+
+#: templates/core/freelancer.html
+msgid "Har bir tushum uchun elektron chek"
+msgstr "Электронный чек на каждое поступление"
+
+#: templates/core/freelancer.html
+msgid "ⓘ Hisob-kitob ma'lumot uchun. Rejim shartlari va faoliyat turlari ro'yxatini soliq.uz'da tekshiring."
+msgstr "ⓘ Расчёт справочный. Условия режима и список видов деятельности проверьте на soliq.uz."
+
+#: templates/core/freelancer.html
+msgid "Men {field} sifatida ishlayman, oylik daromadim {income} so'm. 1%% rejimga o'tsam qancha tejayman va nimalarga e'tibor berishim kerak?"
+msgstr "Я работаю как {field}, мой ежемесячный доход {income} сум. Сколько я сэкономлю при переходе на режим 1%% и на что обратить внимание?"
+
+#: templates/core/freelancer.html
+msgid "12%% o'rniga <span class=\"gradient-text\">1%%</span> soliq to'lang"
+msgstr "Платите <span class=\"gradient-text\">1%%</span> налога вместо 12%%"
+
+#: templates/core/home.html
+msgid "Kontrakt · bog'cha · maktab · tibbiyot"
+msgstr "Контракт · детсад · школа · медицина"
+
+#: templates/core/home.html
+msgid "Chekni yuklang — AI uni o'qiydi, arizani rad etilmaydigan qilib tayyorlaydi va pulingiz qaytguncha kuzatib boradi."
+msgstr "Загрузите чек — AI прочитает его, подготовит заявление без риска отказа и будет следить, пока деньги не вернутся."
+
+#: templates/core/home.html
+msgid "Chek o'qiladi, ariza reestri chop etiladi, tasdiqlanadi va pul qaytadi"
+msgstr "Чек распознаётся, реестр заявления печатается, подтверждается, и деньги возвращаются"
+
+#: templates/core/home.html
+msgid "Kontrakt to'lovi"
+msgstr "Оплата контракта"
+
+#: templates/core/home.html templates/core/scan.html
+msgid "Tashkilot"
+msgstr "Организация"
+
+#: templates/core/home.html
+msgid "Summa"
+msgstr "Сумма"
+
+#: templates/core/home.html
+msgid "Ariza reestri"
+msgstr "Реестр заявления"
+
+#: templates/core/home.html
+msgid "Qaytariladi (12%%)"
+msgstr "К возврату (12%%)"
+
+#: templates/core/home.html
+msgid "TASDIQLANDI"
+msgstr "ОДОБРЕНО"
+
+#: templates/core/home.html
+msgid "Chop etilmoqda…"
+msgstr "Печать…"
+
+#: templates/core/home.html
+msgid "Chek o'qildi"
+msgstr "Чек распознан"
+
+#: templates/core/home.html
+msgid "Ariza tayyor"
+msgstr "Заявление готово"
+
+#: core/models.py templates/core/home.html
+msgid "Tasdiqlandi"
+msgstr "Одобрено"
+
+#: templates/core/home.html
+msgid "Pul qaytdi"
+msgstr "Деньги вернулись"
+
+#: templates/core/home.html
+msgid "do'st"
+msgstr "друг"
+
+#: templates/core/home.html
+msgid "Keyingi qadam"
+msgstr "Следующий шаг"
+
+#: templates/core/home.html
+msgid "Ro'yxatdan o'tish"
+msgstr "Регистрация"
+
+#: templates/core/home.html
+msgid "1 daqiqa — raqamingiz Telegram-bot orqali tasdiqlanadi"
+msgstr "1 минута — номер подтверждается через Telegram-бот"
+
+#: core/forms.py templates/core/home.html templates/core/settings.html
+msgid "Telefon raqam"
+msgstr "Номер телефона"
+
+#: core/forms.py templates/core/home.html templates/core/settings.html templates/registration/complete.html
+msgid "Ism"
+msgstr "Имя"
+
+#: templates/core/home.html templates/registration/complete.html
+msgid "Aziz"
+msgstr "Азиз"
+
+#: core/forms.py templates/core/home.html templates/core/settings.html templates/registration/complete.html
+msgid "Familiya"
+msgstr "Фамилия"
+
+#: templates/core/home.html templates/registration/complete.html
+msgid "Karimov"
+msgstr "Каримов"
+
+#: core/forms.py templates/core/home.html
+msgid "Parol"
+msgstr "Пароль"
+
+#: templates/core/home.html
+msgid "Parolni ko'rsatish"
+msgstr "Показать пароль"
+
+#: templates/core/home.html templates/core/settings.html
+msgid "Kamida 8 ta belgi, faqat raqamlardan iborat bo'lmasin"
+msgstr "Минимум 8 символов, не только цифры"
+
+#: templates/core/home.html
+msgid "Telegram orqali kirish"
+msgstr "Войти через Telegram"
+
+#: templates/core/home.html
+msgid "Parolsiz: botda raqamingizni yuborasiz. Hisobingiz bo'lmasa — shu yo'l bilan ro'yxatdan o'tasiz"
+msgstr "Без пароля: отправьте номер в боте. Если аккаунта нет — так же и зарегистрируетесь"
+
+#: templates/core/home.html
+msgid "Ma'lumotlaringiz uchinchi shaxslarga berilmaydi"
+msgstr "Ваши данные не передаются третьим лицам"
+
+#: templates/core/home.html
+msgid "To'lovlaringizdan <span class=\"gradient-text\">12%% soliqni</span> qaytaring"
+msgstr "Верните <span class=\"gradient-text\">12%% налога</span> с ваших платежей"
+
+#: templates/core/home.html
+msgid "%(year)s-yil holatingiz"
+msgstr "Ваш статус за %(year)s год"
+
+#: templates/core/pricing.html
+msgid "Bepul boshlang. Kerak bo'lsa — oila yoki frilanser tarifiga o'ting."
+msgstr "Начните бесплатно. При необходимости перейдите на семейный или фриланс-тариф."
+
+#: templates/core/pricing.html
+msgid "To'lov davri"
+msgstr "Период оплаты"
+
+#: templates/core/pricing.html
+msgid "Yillik"
+msgstr "Годовой"
+
+#: templates/core/pricing.html
+msgid "2 oy tekin"
+msgstr "2 месяца бесплатно"
+
+#: templates/core/pricing.html
+msgid "Oylik"
+msgstr "Ежемесячно"
+
+#: templates/core/pricing.html
+msgid "Eng ommabop"
+msgstr "Самый популярный"
+
+#: templates/core/pricing.html
+msgid "so'm / yil"
+msgstr "сум / год"
+
+#: templates/core/pricing.html
+msgid "so'm / oy"
+msgstr "сум / мес"
+
+#: templates/core/pricing.html
+msgid "so'm · doimo"
+msgstr "сум · навсегда"
+
+#: templates/core/pricing.html
+msgid "so'm oyiga"
+msgstr "сум в месяц"
+
+#: templates/core/pricing.html
+msgid "Istalgan vaqt bekor qilasiz"
+msgstr "Отмена в любой момент"
+
+#: templates/core/pricing.html
+msgid "Karta talab qilinmaydi"
+msgstr "Карта не нужна"
+
+#: templates/core/pricing.html
+msgid "Yillik to'lovingiz (kontrakt, bog'cha, davolanish)"
+msgstr "Ваш годовой платёж (контракт, детсад, лечение)"
+
+#: templates/core/pricing.html
+msgid "Sizga qaytadi"
+msgstr "Вам вернётся"
+
+#: templates/core/pricing.html
+msgid "Oila tarifi"
+msgstr "Тариф «Семья»"
+
+#: templates/core/pricing.html
+msgid "Tarif o'zini qoplaydi"
+msgstr "Тариф окупается"
+
+#: templates/core/pricing.html
+msgid "Tariflarni taqqoslash"
+msgstr "Сравнение тарифов"
+
+#: templates/core/pricing.html templates/core/why.html
+msgid "Bor"
+msgstr "Есть"
+
+#: templates/core/pricing.html
+msgid "Pullik tariflar tez orada ishga tushadi — hozircha barcha imkoniyatlar ro'yxatdan o'tgan foydalanuvchilar uchun ochiq."
+msgstr "Платные тарифы скоро заработают — пока все возможности открыты для зарегистрированных пользователей."
+
+#: templates/core/pricing.html
+msgid "Shaffof narx — <span class=\"gradient-text\">qaytgan pulingizdan foiz olmaymiz</span>"
+msgstr "Прозрачная цена — <span class=\"gradient-text\">без процента с вашего возврата</span>"
+
+#: templates/core/scan.html
+msgid "AI ulangan · Claude Vision"
+msgstr "AI подключён · Claude Vision"
+
+#: templates/core/scan.html
+msgid "Sehrli Avto-To'ldirish"
+msgstr "Волшебное автозаполнение"
+
+#: templates/core/scan.html
+msgid "Chekni yuklang — qolganini AI qiladi"
+msgstr "Загрузите чек — остальное сделает AI"
+
+#: templates/core/scan.html
+msgid "Summa, sana, tashkilot va to'lov turi avtomatik aniqlanadi. Siz faqat tasdiqlaysiz."
+msgstr "Сумма, дата, организация и тип платежа определяются автоматически. Вам остаётся только подтвердить."
+
+#: templates/core/scan.html
+msgid "Chek yoki kvitansiyani shu yerga tashlang"
+msgstr "Перетащите чек или квитанцию сюда"
+
+#: templates/core/scan.html
+msgid "Suratga olish"
+msgstr "Сфотографировать"
+
+#: templates/core/scan.html
+msgid "Fayl yuklanmoqda"
+msgstr "Загрузка файла"
+
+#: templates/core/scan.html
+msgid "AI chekni o'qimoqda"
+msgstr "AI читает чек"
+
+#: templates/core/scan.html
+msgid "OCR: matn o'qilmoqda"
+msgstr "OCR: распознаём текст"
+
+#: templates/core/scan.html
+msgid "Summa, sana va STIR ajratilmoqda"
+msgstr "Извлекаем сумму, дату и ИНН"
+
+#: templates/core/scan.html
+msgid "Chek to'liq kadrda, yorug' joyda va tekis bo'lsin."
+msgstr "Чек целиком в кадре, при хорошем свете и ровно."
+
+#: templates/core/scan.html
+msgid "AI natijasi"
+msgstr "Результат AI"
+
+#: templates/core/scan.html
+msgid "Chek yuklangach, AI aniqlagan ma'lumotlar shu yerda chiqadi."
+msgstr "После загрузки чека здесь появятся данные, найденные AI."
+
+#: templates/core/scan.html
+msgid "AI hozir ulanmagan — chek saqlanadi, ma'lumotlarni esa o'zingiz kiritasiz."
+msgstr "AI сейчас не подключён — чек сохранится, а данные вы введёте сами."
+
+#: templates/core/scan.html
+msgid "To'lov summasi"
+msgstr "Сумма платежа"
+
+#: templates/core/scan.html
+msgid "To'lov turi"
+msgstr "Тип платежа"
+
+#: templates/core/scan.html
+msgid "Tahrirlash"
+msgstr "Редактировать"
+
+#: templates/core/scan.html
+msgid "To'lov sanasi"
+msgstr "Дата платежа"
+
+#: templates/core/scan.html
+msgid "Tashkilot STIR (INN)"
+msgstr "ИНН организации"
+
+#: templates/core/scan.html
+msgid "9 ta raqam"
+msgstr "9 цифр"
+
+#: templates/core/scan.html
+msgid "Tashkilot nomi"
+msgstr "Название организации"
+
+#: templates/core/scan.html
+msgid "Masalan: TDIU"
+msgstr "Например: ТГЭУ"
+
+#: templates/core/scan.html
+msgid "Tasdiqlash va kabinetga saqlash"
+msgstr "Подтвердить и сохранить в кабинете"
+
+#: templates/core/scan.html
+msgid "Avval chek faylini yuklang"
+msgstr "Сначала загрузите файл чека"
+
+#: core/forms.py templates/core/scan.html
+msgid "Fayl hajmi 10 MB dan oshmasligi kerak."
+msgstr "Размер файла не должен превышать 10 МБ."
+
+#: templates/core/scan.html
+msgid "Chek ko'rinishi"
+msgstr "Просмотр чека"
+
+#: templates/core/scan.html
+msgid "Faylni yuklab bo'lmadi."
+msgstr "Не удалось загрузить файл."
+
+#: templates/core/scan.html
+msgid "Hammasi to'g'rimi? Tasdiqlang"
+msgstr "Всё верно? Подтвердите"
+
+#: templates/core/scan.html
+msgid "Server bilan aloqa uzildi. Qayta urinib ko'ring."
+msgstr "Связь с сервером прервалась. Попробуйте ещё раз."
+
+#: templates/core/scan.html
+msgid "AI aniqlay olmagan maydonlarni to'ldiring:"
+msgstr "Заполните поля, которые AI не смог определить:"
+
+#: templates/core/scan.html
+msgid "Kerak bo'lsa, ma'lumotlarni tuzating:"
+msgstr "При необходимости исправьте данные:"
+
+#: templates/core/scan.html templates/partials/chat.html
+msgid "Yopish"
+msgstr "Закрыть"
+
+#: templates/core/scan.html
+msgid "✨ AI hamma ma'lumotni topdi — tekshirib, tasdiqlang."
+msgstr "✨ AI нашёл все данные — проверьте и подтвердите."
+
+#: templates/core/scan.html
+msgid "Qaytariladi (%(p)s%%)"
+msgstr "К возврату (%(p)s%%)"
+
+#: templates/core/settings.html
+msgid "Shaxsiy ma'lumotlar, parol, til va ko'rinish."
+msgstr "Личные данные, пароль, язык и внешний вид."
+
+#: templates/core/settings.html
+msgid "Shaxsiy ma'lumotlar"
+msgstr "Личные данные"
+
+#: templates/core/settings.html
+msgid "Telegram bog'langan"
+msgstr "Telegram привязан"
+
+#: templates/core/settings.html
+msgid "Telegram bog'lanmagan"
+msgstr "Telegram не привязан"
+
+#: templates/core/settings.html
+msgid "Telefon raqam hisobingiz logini — u Telegram orqali tasdiqlangan."
+msgstr "Номер телефона — логин вашего аккаунта, он подтверждён через Telegram."
+
+#: templates/core/settings.html templates/core/tracker.html
+msgid "Saqlash"
+msgstr "Сохранить"
+
+#: templates/core/settings.html
+msgid "Parolni o'zgartirish"
+msgstr "Сменить пароль"
+
+#: templates/core/settings.html
+msgid "Parol o'rnatish"
+msgstr "Установить пароль"
+
+#: templates/core/settings.html
+msgid "Hozir faqat Telegram orqali kirasiz. Parol o'rnatsangiz, telefon va parol bilan ham kira olasiz."
+msgstr "Сейчас вы входите только через Telegram. Установив пароль, сможете входить и по телефону с паролем."
+
+#: templates/core/settings.html
+msgid "Joriy parol"
+msgstr "Текущий пароль"
+
+#: templates/core/settings.html
+msgid "Yangi parol"
+msgstr "Новый пароль"
+
+#: templates/core/settings.html
+msgid "Yangi parolni takrorlang"
+msgstr "Повторите новый пароль"
+
+#: templates/core/settings.html
+msgid "Parolni saqlash"
+msgstr "Сохранить пароль"
+
+#: templates/core/settings.html
+msgid "Interfeys"
+msgstr "Интерфейс"
+
+#: templates/core/settings.html
+msgid "Mavzu"
+msgstr "Тема"
+
+#: templates/core/settings.html
+msgid "Hisobdan chiqish"
+msgstr "Выход из аккаунта"
+
+#: templates/core/settings.html
+msgid "Ushbu qurilmada tizimdan chiqasiz. Qayta kirish uchun telefon va parol yoki Telegram kerak bo'ladi."
+msgstr "Вы выйдете из аккаунта на этом устройстве. Чтобы войти снова, понадобится телефон и пароль или Telegram."
+
+#: templates/core/settings.html
+msgid "Chiqish"
+msgstr "Выйти"
+
+#: templates/core/tracker.html
+msgid "Ariza kuzatuvi"
+msgstr "Отслеживание заявлений"
+
+#: templates/core/tracker.html
+msgid "Pulim qayerda qoldi?"
+msgstr "Где мои деньги?"
+
+#: templates/core/tracker.html
+msgid "Yuborilgan"
+msgstr "Отправлено"
+
+#: templates/core/tracker.html
+msgid "Hali yuborilmagan"
+msgstr "Ещё не отправлено"
+
+#: core/models.py templates/core/tracker.html
+msgid "Rad etildi"
+msgstr "Отклонено"
+
+#: templates/core/tracker.html
+msgid "Reestrni chop eting yoki PDF qiling va my.soliq.uz orqali yuboring. So'ng quyida «Yuborildi» holatini va sanani belgilang."
+msgstr "Распечатайте реестр или сохраните в PDF и отправьте через my.soliq.uz. Затем ниже отметьте статус «Отправлено» и дату."
+
+#: templates/core/tracker.html
+msgid "Ariza rad etildi — sababini yozma so'rang va kamchilikni tuzatib qayta topshiring."
+msgstr "Заявление отклонено — запросите причину письменно, исправьте недочёты и подайте снова."
+
+#: templates/core/tracker.html
+msgid "Tayyor murojaat xati"
+msgstr "Готовое обращение"
+
+#: templates/core/tracker.html
+msgid "Nusxa olish"
+msgstr "Копировать"
+
+#: templates/core/tracker.html
+msgid "my.soliq.uz orqali yuborish"
+msgstr "Отправить через my.soliq.uz"
+
+#: templates/core/tracker.html
+msgid "Holatni yangilash"
+msgstr "Обновить статус"
+
+#: templates/core/tracker.html
+msgid "Holat"
+msgstr "Статус"
+
+#: templates/core/tracker.html
+msgid "Yuborilgan sana"
+msgstr "Дата отправки"
+
+#: templates/core/tracker.html
+msgid "Pul tushgan / rad etilgan sana"
+msgstr "Дата зачисления / отказа"
+
+#: templates/core/tracker.html
+msgid "Izoh"
+msgstr "Комментарий"
+
+#: templates/core/tracker.html
+msgid "Reestrni ochish"
+msgstr "Открыть реестр"
+
+#: templates/core/tracker.html
+msgid "Hali ariza yo'q"
+msgstr "Заявлений пока нет"
+
+#: templates/core/tracker.html
+msgid "Avval cheklarni yuklang va kabinetda arizani shakllantiring — keyin uni shu yerda kuzatasiz."
+msgstr "Сначала загрузите чеки и сформируйте заявление в кабинете — затем отслеживайте его здесь."
+
+#: templates/core/tracker.html
+msgid "Nusxa olindi ✓"
+msgstr "Скопировано ✓"
+
+#: templates/core/tracker.html
+msgid "Har bir arizangiz qaysi bosqichda ekanini belgilab boring. Javob %(expected_days)s kundan ko'p kechiksa yoki ariza rad etilsa, tayyor murojaat xatini beramiz."
+msgstr "Отмечайте, на каком этапе каждое заявление. Если ответа нет дольше %(expected_days)s дней или заявление отклонено, мы подготовим готовое обращение."
+
+#: templates/core/tracker.html
+msgid "%(year)s-yil arizasi · %(sum)s so'm"
+msgstr "Заявление за %(year)s год · %(sum)s сум"
+
+#: templates/core/tracker.html
+msgid "Javob %(expected_days)s kundan ortiq kechikdi — soliq inspeksiyasiga murojaat qilish vaqti keldi."
+msgstr "Ответа нет дольше %(expected_days)s дней — пора обратиться в налоговую инспекцию."
+
+#: templates/core/why.html
+msgid "Soliqni qaytarish, keshbekni ko'paytirish va frilanser soliqlarini kamaytirish — bitta kabinetda, 5 daqiqada."
+msgstr "Возврат налога, больше кэшбэка и меньше налогов для фрилансеров — в одном кабинете, за 5 минут."
+
+#: templates/core/why.html
+msgid "Muqobil yo'llar bilan taqqoslash"
+msgstr "Сравнение с альтернативами"
+
+#: templates/core/why.html
+msgid "Imkoniyat"
+msgstr "Возможность"
+
+#: templates/core/why.html
+msgid "Qisman"
+msgstr "Частично"
+
+#: templates/core/why.html
+msgid "~ — qisman yoki qo'shimcha haq evaziga."
+msgstr "~ — частично или за дополнительную плату."
+
+#: templates/core/why.html
+msgid "Farqni o'zingiz ko'ring"
+msgstr "Убедитесь сами"
+
+#: templates/core/why.html
+msgid "Birinchi chekni yuklang — 30 soniyada qancha qaytishini bilasiz."
+msgstr "Загрузите первый чек — за 30 секунд узнаете, сколько вернётся."
+
+#: templates/core/why.html
+msgid "Boshqalar bitta ishni qiladi — <span class=\"gradient-text\">Magnit hammasini</span>"
+msgstr "Другие делают что-то одно — <span class=\"gradient-text\">Magnit делает всё</span>"
+
+#: templates/partials/chat.html
+msgid "AI-yordamchini ochish"
+msgstr "Открыть AI-помощника"
+
+#: templates/partials/chat.html
+msgid "Xatolik yuz berdi."
+msgstr "Произошла ошибка."
+
+#: templates/partials/chat.html
+msgid "Aloqa uzildi 😔 Internetni tekshirib, qayta urinib ko'ring."
+msgstr "Связь прервалась 😔 Проверьте интернет и попробуйте снова."
+
+#: templates/partials/chat.html
+msgid "Onlayn · Claude"
+msgstr "Онлайн · Claude"
+
+#: templates/partials/chat.html
+msgid "Oflayn rejim"
+msgstr "Офлайн-режим"
+
+#: templates/partials/chat.html
+msgid "Suhbatni tozalash"
+msgstr "Очистить чат"
+
+#: templates/partials/chat.html
+msgid "Yangi suhbat"
+msgstr "Новый чат"
+
+#: templates/partials/chat.html
+msgid "Qanday yordam kerak?"
+msgstr "Чем помочь?"
+
+#: templates/partials/chat.html
+msgid "Kontrakt 12 mln — qancha qaytadi?"
+msgstr "Контракт 12 млн — сколько вернётся?"
+
+#: core/views.py templates/partials/chat.html
+msgid "Chekni qanday yuklayman?"
+msgstr "Как загрузить чек?"
+
+#: templates/partials/chat.html
+msgid "Frilanser, oyiga 15 mln"
+msgstr "Фрилансер, 15 млн в месяц"
+
+#: templates/partials/chat.html
+msgid "Qaysi ilovada keshbek ko'p?"
+msgstr "В каком приложении больше кэшбэк?"
+
+#: templates/partials/chat.html
+msgid "Savolingizni yozing…"
+msgstr "Напишите вопрос…"
+
+#: templates/partials/chat.html
+msgid "Xabar"
+msgstr "Сообщение"
+
+#: core/views.py templates/partials/chat.html
+msgid "Yuborish"
+msgstr "Отправить"
+
+#: templates/partials/chat.html
+msgid "Karta raqami, CVV yoki SMS-kodni hech qachon yozmang 🔒"
+msgstr "Никогда не пишите номер карты, CVV или SMS-код 🔒"
+
+#: templates/partials/chat.html
+msgid "Salom! 👋 Men <strong>Magnit AI</strong>. Kontrakt, bog'cha yoki tibbiyot to'lovlaringizdan <strong>12%% soliqni</strong> qaytarishga yordam beraman."
+msgstr "Здравствуйте! 👋 Я <strong>Magnit AI</strong>. Помогу вернуть <strong>12%% налога</strong> за контракт, детсад или медицину."
+
+#: templates/registration/complete.html
+msgid "Hisobni yakunlash"
+msgstr "Завершение регистрации"
+
+#: templates/registration/complete.html
+msgid "Oxirgi qadam"
+msgstr "Последний шаг"
+
+#: templates/registration/complete.html
+msgid "Ism va familiyangizni kiriting — hisobingiz yaratiladi."
+msgstr "Введите имя и фамилию — аккаунт будет создан."
+
+#: templates/registration/complete.html
+msgid "Hisob yaratish va kirish"
+msgstr "Создать аккаунт и войти"
+
+#: templates/registration/complete.html
+msgid "Keyingi safar ham «Telegram orqali kirish» tugmasi bilan kirasiz"
+msgstr "В следующий раз тоже входите кнопкой «Войти через Telegram»"
+
+#: templates/registration/complete.html
+msgid "<b>+%(phone)s</b> raqami Telegram orqali tasdiqlandi."
+msgstr "Номер <b>+%(phone)s</b> подтверждён через Telegram."
+
+#: templates/registration/verify.html
+msgid "Telefonni tasdiqlash"
+msgstr "Подтверждение телефона"
+
+#: templates/registration/verify.html
+msgid "Kirish kodi"
+msgstr "Код для входа"
+
+#: templates/registration/verify.html
+msgid "Raqamni tasdiqlang"
+msgstr "Подтвердите номер"
+
+#: templates/registration/verify.html
+msgid "Botda raqamingizni yuboring — kirish kodi Telegram'ga keladi."
+msgstr "Отправьте номер в боте — код для входа придёт в Telegram."
+
+#: templates/registration/verify.html
+msgid "Botdan kelgan 6 xonali kodni kiriting"
+msgstr "Введите 6-значный код из бота"
+
+#: templates/registration/verify.html
+msgid "Botni qayta ochish"
+msgstr "Открыть бот снова"
+
+#: templates/registration/verify.html
+msgid "Botni ochish"
+msgstr "Открыть бот"
+
+#: templates/registration/verify.html
+msgid "Tasdiqlash kodi"
+msgstr "Код подтверждения"
+
+#: templates/registration/verify.html
+msgid "Tasdiqlash va hisob yaratish"
+msgstr "Подтвердить и создать аккаунт"
+
+#: templates/registration/verify.html
+msgid "Qaytadan boshlash"
+msgstr "Начать заново"
+
+#: templates/registration/verify.html
+msgid "Raqamni o'zgartirish"
+msgstr "Изменить номер"
+
+#: templates/registration/verify.html
+msgid "<strong>+%(phone)s</strong> uchun kod Telegram-botimizga keladi."
+msgstr "Код для <strong>+%(phone)s</strong> придёт в наш Telegram-бот."
+
+#: templates/registration/verify.html
+msgid "Botni oching va <b>Start</b> bosing"
+msgstr "Откройте бот и нажмите <b>Start</b>"
+
+#: templates/registration/verify.html
+msgid "<b>«📱 Raqamni yuborish»</b> tugmasini bosing"
+msgstr "Нажмите кнопку <b>«📱 Отправить номер»</b>"
+
+#: templates/registration/verify.html
+msgid "Bot ochilmagan bo'lsa, shu tugmani bosing — <b>@%(bot)s</b>"
+msgstr "Если бот не открылся, нажмите эту кнопку — <b>@%(bot)s</b>"
+
+#: templates/registration/verify.html
+msgid "Kod %(ttl)s daqiqa amal qiladi"
+msgstr "Код действует %(ttl)s минут"
+
+#: core/forms.py
+msgid "Telefon raqam yoki parol noto'g'ri."
+msgstr "Неверный номер телефона или пароль."
+
+#: core/forms.py
+msgid "Bu hisob faol emas."
+msgstr "Этот аккаунт неактивен."
+
+#: core/forms.py
+msgid "Telefon raqamini to'liq kiriting: +998 XX XXX XX XX"
+msgstr "Введите номер полностью: +998 XX XXX XX XX"
+
+#: core/forms.py
+msgid "Oylik daromad (so'm)"
+msgstr "Ежемесячный доход (сум)"
+
+#: core/forms.py
+msgid "Soha"
+msgstr "Сфера"
+
+#: core/forms.py
+msgid "Oylik rasmiy ish haqingiz (soliqdan oldin)"
+msgstr "Ваша официальная зарплата в месяц (до налогов)"
+
+#: core/forms.py
+msgid "Yillik to'lov summasi (kontrakt, bog'cha, davolanish)"
+msgstr "Сумма платежа за год (контракт, детсад, лечение)"
+
+#: core/forms.py
+msgid "To'lov farzandim yoki oila a'zom uchun"
+msgstr "Платёж за моего ребёнка или члена семьи"
+
+#: core/forms.py
+msgid "Telefon raqamini kiriting."
+msgstr "Введите номер телефона."
+
+#: core/forms.py
+msgid "Ismingizni kiriting."
+msgstr "Введите имя."
+
+#: core/forms.py
+msgid "Familiyangizni kiriting."
+msgstr "Введите фамилию."
+
+#: core/forms.py
+msgid "Parol o'ylab toping."
+msgstr "Придумайте пароль."
+
+#: core/forms.py
+msgid "Bu raqam allaqachon ro'yxatdan o'tgan — «Kirish» bo'limidan foydalaning."
+msgstr "Этот номер уже зарегистрирован — воспользуйтесь разделом «Войти»."
+
+#: core/forms.py
+msgid "STIR 9 ta raqamdan iborat bo'lishi kerak."
+msgstr "ИНН должен состоять из 9 цифр."
+
+#: core/forms.py
+msgid "To'lov summasini kiriting."
+msgstr "Введите сумму платежа."
+
+#: core/forms.py
+msgid "Ariza yuborilgan sanani kiriting."
+msgstr "Укажите дату отправки заявления."
+
+#: core/forms.py
+msgid "Summani kiriting."
+msgstr "Введите сумму."
+
+#: core/forms.py
+msgid "Masalan: ariza raqami, inspektor javobi"
+msgstr "Например: номер заявления, ответ инспектора"
+
+#: core/models.py
+msgid "Ta'lim (OTM, kontrakt)"
+msgstr "Образование (вуз, контракт)"
+
+#: core/models.py
+msgid "Boshqa shartnoma"
+msgstr "Другой договор"
+
+#: core/models.py
+msgid "Boshqa"
+msgstr "Другое"
+
+#: core/models.py
+msgid "Tasdiqlangan"
+msgstr "Подтверждён"
+
+#: core/models.py
+msgid "O'qib bo'lmadi"
+msgstr "Не удалось распознать"
+
+#: core/models.py
+msgid "Qoralama"
+msgstr "Черновик"
+
+#: core/models.py
+msgid "Yuborildi"
+msgstr "Отправлено"
+
+#: core/models.py
+msgid "Ko'rib chiqilmoqda"
+msgstr "На рассмотрении"
+
+#: core/models.py
+msgid "Pul tushdi"
+msgstr "Деньги поступили"
+
+#: core/models.py
+msgid "Kunduzgi"
+msgstr "Дневная"
+
+#: core/models.py
+msgid "Tungi"
+msgstr "Ночная"
+
+#: core/models.py
+msgid "Qurilma bo'yicha"
+msgstr "Как на устройстве"
+
+#: core/services/assistant.py
+msgid "🚀 2026-yilgi islohot bo'yicha yillik aylanmasi **1 mlrd so'mgacha** bo'lgan o'zini o'zi band qilganlar **1%** soliq to'laydi (12% o'rniga).\n\nOylik daromadingiz va sohangizni yozing — tejamkorlikni hisoblab beraman. Yoki [Frilanser 1%](/freelancer/) kalkulyatoridan foydalaning."
+msgstr "🚀 По реформе 2026 года самозанятые с годовым оборотом **до 1 млрд сум** платят **1%** налога (вместо 12%).\n\nНапишите ежемесячный доход и сферу — рассчитаю экономию. Или воспользуйтесь калькулятором [Фрилансер 1%](/freelancer/)."
+
+#: core/services/assistant.py
+msgid "🔍 **Avto-Audit** uchun Click, Payme, Uzum yoki Anorbank ilovasidan 1 yillik xarajatlar hisobotini PDF ko'rinishida yuklab oling va [Avto-Audit](/audit/) sahifasidagi **'Fayl yuklash'** maydoniga tashlang. Tizim universitet, bog'cha, maktab va tibbiyot to'lovlarini o'zi topib, qaytariladigan 12% ni hisoblaydi."
+msgstr "🔍 Для **Авто-аудита** скачайте годовую выписку расходов в PDF из Click, Payme, Uzum или Anorbank и перетащите её в поле **«Загрузка файла»** на странице [Авто-аудит](/audit/). Система сама найдёт платежи за вуз, детсад, школу и медицину и рассчитает 12% к возврату."
+
+#: core/services/assistant.py
+msgid "💸 **Ikki baravar foyda** formulasi:\n\nUmumiy foyda = **12% soliq qaytarilishi** + **ilova keshbegi** − **komissiya**\n\n[Keshbek optimizatori](/cashback/) bo'limiga shartnoma summasini kiriting — Click, Payme, Anorbank, Uzum va Zoomrad bir jadvalda taqqoslanadi."
+msgstr "💸 Формула **двойной выгоды**:\n\nОбщая выгода = **возврат 12% налога** + **кэшбэк приложения** − **комиссия**\n\nВведите сумму договора в [Оптимизаторе кэшбэка](/cashback/) — Click, Payme, Anorbank, Uzum и Zoomrad сравниваются в одной таблице."
+
+#: core/services/assistant.py
+msgid "📸 [Chek skanerlash](/scan/) sahifasida chek skrinshoti (PNG, JPG) yoki PDF kvitansiyani **'Fayl yuklash'** maydoniga tashlang.\n\nTizim **To'lov summasi**, **Sana** va **STIR** raqamini avtomatik ajratib, kalkulyator formasiga joylashtiradi — siz faqat tekshirib **'Tasdiqlash'** tugmasini bosasiz.\n\n💡 Rasm aniq, yorug' va to'liq kadrda bo'lsin."
+msgstr "📸 На странице [Сканирование чека](/scan/) перетащите скриншот чека (PNG, JPG) или PDF-квитанцию в поле **«Загрузка файла»**.\n\nСистема автоматически извлечёт **сумму платежа**, **дату** и **ИНН** и подставит их в форму — вам останется проверить и нажать **«Подтвердить»**.\n\n💡 Фото должно быть чётким, светлым и целиком в кадре."
+
+#: core/services/assistant.py
+msgid "🎓 Ta'lim (kontrakt), bog'cha, maktab va tibbiyot to'lovlaridan **12% JShOD** qaytariladi.\n\n1. [Chek skanerlash](/scan/) — chekni yuklang\n2. Ma'lumotlarni tasdiqlang\n3. [Shaxsiy kabinet](/dashboard/)da arizani shakllantiring\n\nTo'lov summasini yozsangiz, qancha qaytishini hozir hisoblab beraman."
+msgstr "🎓 С платежей за обучение (контракт), детсад, школу и медицину возвращается **12% НДФЛ**.\n\n1. [Сканирование чека](/scan/) — загрузите чек\n2. Подтвердите данные\n3. Сформируйте заявление в [Личном кабинете](/dashboard/)\n\nНапишите сумму платежа — сразу посчитаю, сколько вернётся."
+
+#: core/services/assistant.py
+msgid "🔒 Shaxsiy ma'lumotlaringiz (pasport, STIR, karta) Maxfiylik siyosatiga muvofiq himoyalangan holda saqlanadi. Biz hech qachon karta CVV kodi yoki SMS-kodni so'ramaymiz."
+msgstr "🔒 Ваши личные данные (паспорт, ИНН, карта) хранятся в защищённом виде согласно Политике конфиденциальности. Мы никогда не запрашиваем CVV-код карты или SMS-код."
+
+#: core/services/assistant.py
+msgid "Salom! 👋 Men **Magnit** AI-yordamchisiman. Quyidagilarda yordam beraman:\n\n- 🎓 Kontrakt, bog'cha, tibbiyot to'lovlaridan **12% soliqni qaytarish**\n- 📸 Cheklarni **OCR** orqali skanerlash\n- 🔍 PDF-hisobotni **Avto-Audit** qilish\n- 💸 Eng foydali **keshbek** va kam komissiyali to'lov usuli\n- 🚀 Frilanserlar uchun **12% → 1%** soliq optimizatsiyasi\n\nSavolingizni yozing yoki summani kiriting (masalan: *kontrakt 12 mln*)."
+msgstr "Здравствуйте! 👋 Я AI-помощник **Magnit**. Помогаю с:\n\n- 🎓 **возвратом 12% налога** за контракт, детсад, медицину\n- 📸 сканированием чеков через **OCR**\n- 🔍 **Авто-аудитом** PDF-выписки\n- 💸 самым выгодным **кэшбэком** и способом оплаты с низкой комиссией\n- 🚀 оптимизацией налога **12% → 1%** для фрилансеров\n\nНапишите вопрос или сумму (например: *контракт 12 млн*)."
+
+#: core/services/assistant.py
+msgid "🚀 Oylik daromad **%(monthly)s so'm** bo'lsa:\n- 12%% JShOD: **%(general)s so'm/yil**\n- 1%% (o'zini o'zi band): **%(reduced)s so'm/yil**\n\nSiz yiliga **%(savings)s so'm** tejaysiz!%(note)s\n\nBatafsil hisob uchun [Frilanser 1%%](/freelancer/) bo'limiga o'ting."
+msgstr "🚀 При ежемесячном доходе **%(monthly)s сум**:\n- 12%% НДФЛ: **%(general)s сум/год**\n- 1%% (самозанятый): **%(reduced)s сум/год**\n\nВы экономите **%(savings)s сум** в год!%(note)s\n\nПодробный расчёт — в разделе [Фрилансер 1%%](/freelancer/)."
+
+#: core/services/assistant.py
+msgid "🎓 **%(amount)s so'm** to'lovdan **%(refund)s so'm** (12%% JShOD) qaytarib olishingiz mumkin!\n\nBuning uchun to'lov chekini [Chek skanerlash](/scan/) sahifasiga yuklang, so'ng [Shaxsiy kabinet](/dashboard/)da **'Ariza shakllantirish'** tugmasini bosing."
+msgstr "🎓 С платежа **%(amount)s сум** можно вернуть **%(refund)s сум** (12%% НДФЛ)!\n\nДля этого загрузите чек на странице [Сканирование чека](/scan/), затем нажмите **«Сформировать заявление»** в [Личном кабинете](/dashboard/)."
+
+#: core/services/assistant.py
+msgid "_Oflayn rejim: to'liq AI javoblar uchun administrator API kalitni sozlashi kerak._"
+msgstr "_Офлайн-режим: для полноценных ответов AI администратору нужно настроить API-ключ._"
+
+#: core/services/assistant.py
+msgid "⚠️ Yillik aylanma 1 mlrd so'mdan oshadi — 1% rejim qo'llanilmaydi."
+msgstr "⚠️ Годовой оборот превышает 1 млрд сум — режим 1% не применяется."
+
+#: core/services/checkup.py
+msgid "Qarindoshlikni tasdiqlovchi hujjat (tug'ilganlik guvohnomasi, nikoh guvohnomasi) bormi?"
+msgstr "Есть ли документ, подтверждающий родство (свидетельство о рождении, о браке)?"
+
+#: core/services/checkup.py
+msgid "Farzand yoki oila a'zosi uchun to'lovda qarindoshlik isbotlanmasa, ariza qaytariladi."
+msgstr "Если при оплате за ребёнка или члена семьи родство не подтверждено, заявление вернут."
+
+#: core/services/checkup.py
+msgid "Hujjat nusxasini oldindan tayyorlang (elektron nusxasi my.gov.uz orqali olinishi mumkin)."
+msgstr "Подготовьте копию заранее (электронную копию можно получить через my.gov.uz)."
+
+#: core/services/checkup.py
+msgid "Rasmiy ish joyi"
+msgstr "Официальная работа"
+
+#: core/services/checkup.py
+msgid "To'lov o'z nomingizdan"
+msgstr "Платёж на ваше имя"
+
+#: core/services/checkup.py
+msgid "Shartnoma nusxasi"
+msgstr "Копия договора"
+
+#: core/services/checkup.py
+msgid "Chek yoki kvitansiya"
+msgstr "Чек или квитанция"
+
+#: core/services/checkup.py
+msgid "Muassasa litsenziyasi"
+msgstr "Лицензия учреждения"
+
+#: core/services/checkup.py
+msgid "Qarindoshlik hujjati"
+msgstr "Документ о родстве"
+
+#: core/services/checkup.py
+msgid "Pasport yoki ID-karta"
+msgstr "Паспорт или ID-карта"
+
+#: core/services/checkup.py
+msgid "Ish beruvchidan daromad va ushlangan JShOD haqida ma'lumotnoma"
+msgstr "Справка от работодателя о доходах и удержанном НДФЛ"
+
+#: core/services/checkup.py
+msgid "Muassasa bilan shartnoma (kontrakt) nusxasi"
+msgstr "Копия договора (контракта) с учреждением"
+
+#: core/services/checkup.py
+msgid "Har bir to'lov cheki yoki kvitansiyasi"
+msgstr "Чек или квитанция на каждый платёж"
+
+#: core/services/checkup.py
+msgid "Bank kartasi yoki hisob raqami rekvizitlari (pul qaytarilishi uchun)"
+msgstr "Реквизиты банковской карты или счёта (для возврата денег)"
+
+#: core/services/checkup.py
+msgid "Rasmiy ish joyingiz bor va maoshingizdan 12% JShOD ushlab qolinadimi?"
+msgstr "Есть ли у вас официальная работа и удерживается ли с зарплаты 12% НДФЛ?"
+
+#: core/services/checkup.py
+msgid "Rasmiy daromad va ushlangan JShOD bo'lmasa, qaytariladigan soliqning o'zi yo'q."
+msgstr "Без официального дохода и удержанного НДФЛ возвращать нечего."
+
+#: core/services/checkup.py
+msgid "Ish beruvchidan daromad va ushlangan soliq haqida ma'lumotnoma oling yoki my.soliq.uz'dagi daromadlaringiz bo'limini tekshiring."
+msgstr "Получите у работодателя справку о доходах и удержанном налоге или проверьте раздел доходов на my.soliq.uz."
+
+#: core/services/checkup.py
+msgid "To'lov o'z nomingizdan (o'z kartangiz yoki hisobingizdan) qilinganmi?"
+msgstr "Оплата произведена на ваше имя (с вашей карты или счёта)?"
+
+#: core/services/checkup.py
+msgid "Boshqa shaxs kartasidan to'langan bo'lsa, to'lov sizniki ekanini isbotlash qiyinlashadi."
+msgstr "Если оплачено с карты другого человека, доказать, что платёж ваш, сложнее."
+
+#: core/services/checkup.py
+msgid "Keyingi to'lovlarni o'z kartangizdan qiling; bu to'lov uchun to'lovchi nomi ko'rsatilgan kvitansiyani oling."
+msgstr "Следующие платежи делайте со своей карты; для этого платежа возьмите квитанцию с именем плательщика."
+
+#: core/services/checkup.py
+msgid "Muassasa bilan tuzilgan shartnoma (kontrakt) nusxasi bormi?"
+msgstr "Есть ли копия договора (контракта) с учреждением?"
+
+#: core/services/checkup.py
+msgid "Shartnomasiz to'lov maqsadini tasdiqlab bo'lmaydi."
+msgstr "Без договора назначение платежа не подтвердить."
+
+#: core/services/checkup.py
+msgid "O'quv yoki tibbiyot muassasasining buxgalteriyasidan shartnoma nusxasini so'rang."
+msgstr "Запросите копию договора в бухгалтерии учебного или медицинского учреждения."
+
+#: core/services/checkup.py
+msgid "Har bir to'lov uchun chek yoki kvitansiya bor va unda summa, sana va tashkilot STIR'i ko'rinadimi?"
+msgstr "Есть ли чек или квитанция на каждый платёж с суммой, датой и ИНН организации?"
+
+#: core/services/checkup.py
+msgid "Chekda STIR yoki sana bo'lmasa, to'lov tashkilotga bog'lanmaydi."
+msgstr "Если в чеке нет ИНН или даты, платёж не привязать к организации."
+
+#: core/services/checkup.py
+msgid "Ilova (Click, Payme va h.k.) tarixidan elektron chekni qayta yuklab oling yoki bankdan ko'chirma oling."
+msgstr "Скачайте электронный чек заново из истории приложения (Click, Payme и т. д.) или возьмите выписку в банке."
+
+#: core/services/checkup.py
+msgid "Muassasa davlat litsenziyasi yoki akkreditatsiyasiga egami?"
+msgstr "Есть ли у учреждения государственная лицензия или аккредитация?"
+
+#: core/services/checkup.py
+msgid "Litsenziyasiz o'quv markazlari va xususiy kurslar uchun to'lovlar odatda inobatga olinmaydi."
+msgstr "Платежи нелицензированным учебным центрам и частным курсам обычно не учитываются."
+
+#: core/services/checkup.py
+msgid "Muassasa litsenziyasini rasmiy reyestrdan tekshiring yoki to'g'ridan-to'g'ri muassasadan so'rang."
+msgstr "Проверьте лицензию в официальном реестре или спросите у самого учреждения."
+
+#: core/services/checkup.py
+msgid "To'lovning 12% i yil davomida ushlangan soliqdan ko'p — farqi qaytarilmaydi."
+msgstr "12% от платежа больше налога, удержанного за год, — разница не вернётся."
+
+#: core/services/checkup.py
+msgid "Qolgan qismni oila a'zosi (masalan, turmush o'rtog'i) nomidan rasmiylashtirish mumkinligini soliq inspeksiyasidan so'rang."
+msgstr "Уточните в налоговой, можно ли оформить оставшуюся часть на члена семьи (например, супруга)."
+
+#: core/services/checkup.py
+msgid "Qarindoshlikni tasdiqlovchi hujjat nusxasi"
+msgstr "Копия документа, подтверждающего родство"
+
+#: core/services/tax.py
+msgid "IT-mutaxassis / dasturchi"
+msgstr "IT-специалист / программист"
+
+#: core/services/tax.py
+msgid "Dizayner / kontent"
+msgstr "Дизайнер / контент"
+
+#: core/services/tax.py
+msgid "Repetitor / o'qituvchi"
+msgstr "Репетитор / преподаватель"
+
+#: core/services/tax.py
+msgid "Taksi haydovchisi"
+msgstr "Водитель такси"
+
+#: core/services/tax.py
+msgid "Kuryer / yetkazib berish"
+msgstr "Курьер / доставка"
+
+#: core/services/tax.py
+msgid "Hunarmand / usta"
+msgstr "Ремесленник / мастер"
+
+#: core/services/tax.py
+msgid "Boshqa xizmatlar"
+msgstr "Другие услуги"
+
+#: core/services/telegram.py
+msgid "Ro'yxatdan o'tish kodi"
+msgstr "Код регистрации"
+
+#: core/services/telegram.py
+msgid "Magnit'ga kirish kodi"
+msgstr "Код для входа в Magnit"
+
+#: core/services/telegram.py
+msgid "🔐 %(action)s: <code>%(code)s</code>\n\n%(hint)sKod %(minutes)s daqiqa amal qiladi. Uni hech kimga bermang — Magnit xodimlari kodni hech qachon so'ramaydi.\n\nBu so'rovni siz yubormagan bo'lsangiz, xabarni e'tiborsiz qoldiring."
+msgstr "🔐 %(action)s: <code>%(code)s</code>\n\n%(hint)sКод действует %(minutes)s минут. Никому его не сообщайте — сотрудники Magnit никогда не спрашивают код.\n\nЕсли вы не запрашивали код, просто проигнорируйте сообщение."
+
+#: core/services/telegram.py
+msgid "Kirish yoki ro'yxatdan o'tish uchun saytdagi Telegram tugmasini bosing."
+msgstr "Чтобы войти или зарегистрироваться, нажмите кнопку Telegram на сайте."
+
+#: core/services/telegram.py
+msgid "Kodni saytga kiriting, so'ng ism-familiyangizni yozing — hisobingiz yaratiladi."
+msgstr "Введите код на сайте, затем укажите имя и фамилию — аккаунт будет создан."
+
+#: core/services/telegram.py
+msgid "Assalomu alaykum! 👋\n\nMagnit'ga kirish uchun pastdagi <b>«📱 Raqamni yuborish»</b> tugmasini bosing — kirish kodi shu yerga keladi."
+msgstr "Здравствуйте! 👋\n\nЧтобы войти в Magnit, нажмите кнопку <b>«📱 Отправить номер»</b> ниже — код для входа придёт сюда."
+
+#: core/services/telegram.py
+msgid "📱 Raqamni yuborish"
+msgstr "📱 Отправить номер"
+
+#: core/services/telegram.py
+msgid "Assalomu alaykum, %(name)s! 👋\n\nRo'yxatdan o'tish uchun saytda <b>+%(phone)s</b> raqami kiritildi. Tasdiqlash uchun pastdagi <b>«📱 Raqamni yuborish»</b> tugmasini bosing."
+msgstr "Здравствуйте, %(name)s! 👋\n\nДля регистрации на сайте указан номер <b>+%(phone)s</b>. Чтобы подтвердить его, нажмите кнопку <b>«📱 Отправить номер»</b> ниже."
+
+#: core/services/telegram.py
+msgid "Faqat o'zingizning raqamingizni yuboring — pastdagi tugmadan foydalaning."
+msgstr "Отправьте только свой номер — используйте кнопку ниже."
+
+#: core/services/telegram.py
+msgid "Ariza topilmadi yoki muddati o'tgan. Saytda Telegram tugmasini qaytadan bosing."
+msgstr "Запрос не найден или истёк. Нажмите кнопку Telegram на сайте ещё раз."
+
+#: core/services/telegram.py
+msgid "Bu Telegram hisobi <b>+%(tg)s</b> raqamiga bog'langan, saytda esa <b>+%(site)s</b> kiritilgan.\n\nSaytda Telegram'ingizdagi raqamni kiriting."
+msgstr "Этот аккаунт Telegram привязан к номеру <b>+%(tg)s</b>, а на сайте указан <b>+%(site)s</b>.\n\nУкажите на сайте номер вашего Telegram."
+
+#: core/views.py
+msgid "Yan"
+msgstr "Янв"
+
+#: core/views.py
+msgid "Fev"
+msgstr "Фев"
+
+#: core/views.py
+msgid "Mar"
+msgstr "Мар"
+
+#: core/views.py
+msgid "Apr"
+msgstr "Апр"
+
+#: core/views.py
+msgid "May"
+msgstr "Май"
+
+#: core/views.py
+msgid "Iyun"
+msgstr "Июн"
+
+#: core/views.py
+msgid "Iyul"
+msgstr "Июл"
+
+#: core/views.py
+msgid "Avg"
+msgstr "Авг"
+
+#: core/views.py
+msgid "Sen"
+msgstr "Сен"
+
+#: core/views.py
+msgid "Okt"
+msgstr "Окт"
+
+#: core/views.py
+msgid "Noy"
+msgstr "Ноя"
+
+#: core/views.py
+msgid "Dek"
+msgstr "Дек"
+
+#: core/views.py
+msgid "Kuzatish"
+msgstr "Следить"
+
+#: core/views.py
+msgid "Chek o'chirildi."
+msgstr "Чек удалён."
+
+#: core/views.py
+msgid "📝 Ariza shakllantirildi! Uni chop eting yoki my.soliq.uz orqali yuboring."
+msgstr "📝 Заявление сформировано! Распечатайте его или отправьте через my.soliq.uz."
+
+#: core/views.py
+msgid "Arizam rad etilgani haqida xabar oldim. Rad etish asoslarini yozma ravishda tushuntirib berishingizni va kamchiliklarni bartaraf etib qayta topshirishim uchun qaysi hujjatlar yetishmasligini ko'rsatishingizni so'rayman."
+msgstr "Я получил(а) уведомление об отказе в моём заявлении. Прошу письменно разъяснить основания отказа и указать, каких документов не хватает, чтобы я мог(ла) устранить недостатки и подать заявление повторно."
+
+#: core/views.py
+msgid "____________ tumani (shahri) Davlat soliq inspeksiyasi boshlig'iga\nFuqaro %(name)sdan\nTel.: +%(phone)s\n\nMUROJAAT\n\nMen %(submitted)s sanada %(year)s-yil uchun ta'lim/tibbiyot to'lovlari bo'yicha %(refund)s so'm jismoniy shaxslardan olinadigan daromad solig'ini qaytarish to'g'risida ariza topshirganman.\n\n%(ask)s\n\nIlova: to'lov hujjatlari reestri.\n\nSana: %(today)s            Imzo: __________"
+msgstr "Начальнику Государственной налоговой инспекции ____________ района (города)\nот гражданина(ки) %(name)s\nТел.: +%(phone)s\n\nОБРАЩЕНИЕ\n\n%(submitted)s я подал(а) заявление о возврате налога на доходы физических лиц в размере %(refund)s сум по платежам за обучение/медицину за %(year)s год.\n\n%(ask)s\n\nПриложение: реестр платёжных документов.\n\nДата: %(today)s            Подпись: __________"
+
+#: core/views.py
+msgid "Bepul"
+msgstr "Бесплатный"
+
+#: core/views.py
+msgid "Bitta kontrakt yoki chekni sinab ko'rish uchun"
+msgstr "Чтобы попробовать на одном контракте или чеке"
+
+#: core/views.py
+msgid "Oila"
+msgstr "Семья"
+
+#: core/views.py
+msgid "Kontrakt, bog'cha va davolanishni to'laydigan oilalar uchun"
+msgstr "Для семей, которые платят за контракт, детсад и лечение"
+
+#: core/views.py
+msgid "Oila tarifini tanlash"
+msgstr "Выбрать «Семья»"
+
+#: core/views.py
+msgid "Frilanser"
+msgstr "Фрилансер"
+
+#: core/views.py
+msgid "O'zini o'zi band qilganlar va YTTlar uchun"
+msgstr "Для самозанятых и ИП"
+
+#: core/views.py
+msgid "Frilanser tarifini tanlash"
+msgstr "Выбрать «Фрилансер»"
+
+#: core/views.py
+msgid "AI chekni o'zi o'qiydi (Claude Vision)"
+msgstr "AI сам читает чек (Claude Vision)"
+
+#: core/views.py
+msgid "Avto-Audit (bank hisoboti)"
+msgstr "Авто-аудит (банковская выписка)"
+
+#: core/views.py
+msgid "Ariza tekshiruvi va reestr"
+msgstr "Проверка заявления и реестр"
+
+#: core/views.py
+msgid "Ariza holati va murojaat xati"
+msgstr "Статус заявления и обращение"
+
+#: core/views.py
+msgid "Oila a'zolari"
+msgstr "Члены семьи"
+
+#: core/views.py
+msgid "Telegram'da muddat eslatmalari"
+msgstr "Напоминания о сроках в Telegram"
+
+#: core/views.py
+msgid "1% rejim bo'yicha daromad hisobi"
+msgstr "Учёт дохода по режиму 1%"
+
+#: core/views.py
+msgid "Choraklik soliq kalendari"
+msgstr "Квартальный налоговый календарь"
+
+#: core/views.py
+msgid "Ustuvor yordam"
+msgstr "Приоритетная поддержка"
+
+#: core/views.py
+msgid "Magnit"
+msgstr "Magnit"
+
+#: core/views.py
+msgid "Qo'lda (my.soliq.uz)"
+msgstr "Вручную (my.soliq.uz)"
+
+#: core/views.py
+msgid "Buxgalter xizmati"
+msgstr "Услуги бухгалтера"
+
+#: core/views.py
+msgid "Oddiy kalkulyator"
+msgstr "Простой калькулятор"
+
+#: core/views.py
+msgid "Hammasi bitta joyda"
+msgstr "Всё в одном месте"
+
+#: core/views.py
+msgid "Chek, bank hisoboti, keshbek va frilanser soliqlari — boshqa servislar ularni alohida-alohida taklif qiladi."
+msgstr "Чеки, банковские выписки, кэшбэк и налоги фрилансеров — другие сервисы предлагают это по отдельности."
+
+#: core/views.py
+msgid "5 daqiqada ariza"
+msgstr "Заявление за 5 минут"
+
+#: core/views.py
+msgid "OCR va Avto-Audit qo'lda kiritishni yo'q qiladi: yuklang, tasdiqlang, chop eting."
+msgstr "OCR и Авто-аудит избавляют от ручного ввода: загрузите, подтвердите, распечатайте."
+
+#: core/views.py
+msgid "Shaffof narx"
+msgstr "Прозрачная цена"
+
+#: core/views.py
+msgid "Qaytgan pulingizdan foiz olmaymiz. Bepul tarif doimo bepul qoladi."
+msgstr "Мы не берём процент с вашего возврата. Бесплатный тариф всегда остаётся бесплатным."
+
+#: core/views.py
+msgid "Ikki baravar foyda"
+msgstr "Двойная выгода"
+
+#: core/views.py
+msgid "Faqat soliqni qaytarmaymiz — to'lovni qaysi ilovada qilsangiz ko'proq keshbek olishingizni ham ko'rsatamiz."
+msgstr "Мы не только возвращаем налог — но и показываем, в каком приложении платить, чтобы получить больше кэшбэка."
+
+#: core/views.py
+msgid "Rad etilmaydigan ariza"
+msgstr "Заявление без отказа"
+
+#: core/views.py
+msgid "Yuborishdan oldin tekshiruv: yetishmayotgan hujjatlar va haqiqatda qaytadigan summa — boshqalar faqat 12% ni ko'paytiradi."
+msgstr "Проверка перед отправкой: недостающие документы и реальная сумма возврата — другие просто умножают на 12%."
+
+#: core/views.py
+msgid "Pulingiz qayerdaligini bilasiz"
+msgstr "Вы знаете, где ваши деньги"
+
+#: core/views.py
+msgid "Ariza holatini bosqichma-bosqich kuzating; kechiksa — tayyor murojaat xati bir bosishda."
+msgstr "Отслеживайте заявление по этапам; при задержке — готовое обращение в один клик."
+
+#: core/views.py
+msgid "O'zbek tilidagi AI"
+msgstr "AI на узбекском языке"
+
+#: core/views.py
+msgid "Soliq savollariga kechayu kunduz oddiy tilda javob beradigan yordamchi."
+msgstr "Помощник, который круглосуточно простым языком отвечает на налоговые вопросы."
+
+#: core/views.py
+msgid "Umumiy"
+msgstr "Общее"
+
+#: core/views.py
+msgid "Foydalanish"
+msgstr "Использование"
+
+#: core/views.py
+msgid "Narx va xavfsizlik"
+msgstr "Цена и безопасность"
+
+#: core/views.py
+msgid "Ishga tushirildi"
+msgstr "Запущено"
+
+#: core/views.py
+msgid "OCR, Avto-Audit, keshbek va 1% kalkulyatorlari, AI-yordamchi"
+msgstr "OCR, Авто-аудит, калькуляторы кэшбэка и 1%, AI-помощник"
+
+#: core/views.py
+msgid "Keyingi bosqich"
+msgstr "Следующий этап"
+
+#: core/views.py
+msgid "Telegram-bot, oila kabineti, muddatlar haqida eslatmalar"
+msgstr "Telegram-бот, семейный кабинет, напоминания о сроках"
+
+#: core/views.py
+msgid "Kelajakda"
+msgstr "В будущем"
+
+#: core/views.py
+msgid "my.soliq.uz bilan integratsiya, bank API orqali avtomatik import, mobil ilova"
+msgstr "Интеграция с my.soliq.uz, автоимпорт через API банков, мобильное приложение"
+
+#: core/views.py
+msgid "Tasdiqlash"
+msgstr "Подтвердить"
+
+#: core/views.py
+msgid "Summa va STIR'ni tekshirib tasdiqlang — shundan keyin ular arizaga qo'shiladi."
+msgstr "Проверьте сумму и ИНН и подтвердите — после этого чеки войдут в заявление."
+
+#: core/views.py
+msgid "Yuklash"
+msgstr "Загрузить"
+
+#: core/views.py
+msgid "Birinchi chekingizni yuklang"
+msgstr "Загрузите первый чек"
+
+#: core/views.py
+msgid "Kontrakt, bog'cha yoki klinika cheki — 30 soniyada qancha qaytishini bilasiz."
+msgstr "Чек за контракт, детсад или клинику — за 30 секунд узнаете, сколько вернётся."
+
+#: core/views.py
+msgid "Shakllantirish"
+msgstr "Сформировать"
+
+#: core/views.py
+msgid "Arizani shakllantiring"
+msgstr "Сформируйте заявление"
+
+#: core/views.py
+msgid "Arizani my.soliq.uz orqali yuboring"
+msgstr "Отправьте заявление через my.soliq.uz"
+
+#: core/views.py
+msgid "Yuborgach, sanani belgilang — holatini biz kuzatib boramiz."
+msgstr "После отправки отметьте дату — мы будем следить за статусом."
+
+#: core/views.py
+msgid "Yangi chek"
+msgstr "Новый чек"
+
+#: core/views.py
+msgid "Pul tushdi! 🎉"
+msgstr "Деньги поступили! 🎉"
+
+#: core/views.py
+msgid "Yangi to'lovlaringizni qo'shib boring — keyingi yil uchun ham qaytaramiz."
+msgstr "Добавляйте новые платежи — вернём и за следующий год."
+
+#: core/views.py
+msgid "Murojaat"
+msgstr "Обращение"
+
+#: core/views.py
+msgid "Ariza rad etildi"
+msgstr "Заявление отклонено"
+
+#: core/views.py
+msgid "Tayyor murojaat xati bilan sababini so'rang va qayta topshiring."
+msgstr "Запросите причину готовым обращением и подайте снова."
+
+#: core/views.py
+msgid "Ariza holatini kuzatib boring."
+msgstr "Следите за статусом заявления."
+
+#: core/views.py
+msgid "Tasdiqlash muddati o'tgan. «Telegram orqali kirish»ni qaytadan bosing."
+msgstr "Срок подтверждения истёк. Нажмите «Войти через Telegram» ещё раз."
+
+#: core/views.py
+msgid "Kechirasiz, chekni to'liq o'qib bo'lmadi 😔 Iltimos, yorug'roq va aniqroq rasm yuklang yoki ma'lumotlarni quyidagi formaga qo'lda kiriting."
+msgstr "Извините, чек не удалось распознать полностью 😔 Загрузите более светлое и чёткое фото или введите данные в форму ниже вручную."
+
+#: core/views.py
+msgid "OCR dvigateli sozlanmagan. Ma'lumotlarni formaga qo'lda kiriting — chek fayli saqlandi."
+msgstr "OCR-движок не настроен. Введите данные в форму вручную — файл чека сохранён."
+
+#: core/views.py
+msgid "Ariza topshirilganiga %(days)s kun bo'ldi, biroq hozirgacha javob olmadim. Arizam qaysi bosqichda ekani va pul qachon qaytarilishi haqida yozma ma'lumot berishingizni so'rayman."
+msgstr "С момента подачи заявления прошло %(days)s дней, но ответа я так и не получил(а). Прошу письменно сообщить, на каком этапе моё заявление и когда будут возвращены деньги."
+
+#: core/views.py
+msgid "Yiliga 5 tagacha chek"
+msgstr "До 5 чеков в год"
+
+#: core/views.py
+msgid "1 marta Avto-Audit"
+msgstr "1 Авто-аудит"
+
+#: core/views.py
+msgid "Cheksiz chek — AI o'zi o'qiydi"
+msgstr "Безлимит чеков — AI читает сам"
+
+#: core/views.py
+msgid "Cheksiz Avto-Audit"
+msgstr "Безлимитный Авто-аудит"
+
+#: core/views.py
+msgid "4 kishigacha oila a'zolari"
+msgstr "До 4 членов семьи"
+
+#: core/views.py
+msgid "Oila tarifidagi hammasi"
+msgstr "Всё из тарифа «Семья»"
+
+#: core/views.py
+msgid "5 ta / yil"
+msgstr "5 / год"
+
+#: core/views.py
+msgid "Cheksiz"
+msgstr "Безлимит"
+
+#: core/views.py
+msgid "1 marta"
+msgstr "1 раз"
+
+#: core/views.py
+msgid "4 kishigacha"
+msgstr "до 4 человек"
+
+#: core/views.py
+msgid "Asosiy"
+msgstr "Базовый"
+
+#: core/views.py
+msgid "To'liq"
+msgstr "Полный"
+
+#: core/views.py
+msgid "Chekni rasmdan avtomatik o'qish (OCR)"
+msgstr "Автоматическое распознавание чека по фото (OCR)"
+
+#: core/views.py
+msgid "Bank/ilova hisobotidan to'lovlarni o'zi topish"
+msgstr "Автопоиск платежей в выписке банка/приложения"
+
+#: core/views.py
+msgid "12% qaytarishni darhol hisoblash"
+msgstr "Мгновенный расчёт возврата 12%"
+
+#: core/views.py
+msgid "Keshbek va komissiyani taqqoslash"
+msgstr "Сравнение кэшбэка и комиссии"
+
+#: core/views.py
+msgid "Frilanser 1% rejim kalkulyatori"
+msgstr "Калькулятор режима 1% для фрилансеров"
+
+#: core/views.py
+msgid "Tayyor ariza reestri"
+msgstr "Готовый реестр заявления"
+
+#: core/views.py
+msgid "Ariza rad etilish xavfini oldindan tekshirish"
+msgstr "Предварительная проверка риска отказа"
+
+#: core/views.py
+msgid "Ushlangan soliq bo'yicha haqiqiy summani hisoblash"
+msgstr "Расчёт реальной суммы с учётом удержанного налога"
+
+#: core/views.py
+msgid "Ariza holatini kuzatish va tayyor murojaat xati"
+msgstr "Отслеживание заявления и готовое обращение"
+
+#: core/views.py
+msgid "24/7 AI-maslahatchi o'zbek tilida"
+msgstr "AI-консультант 24/7 на узбекском"
+
+#: core/views.py
+msgid "Qaytgan puldan foiz olinmaydi"
+msgstr "Без процента с возврата"
+
+#: core/views.py
+msgid "Vaqt sarfi"
+msgstr "Затраты времени"
+
+#: core/views.py
+msgid "%(n)s ta chek tasdiqlashni kutmoqda"
+msgstr "Чеков ждут подтверждения: %(n)s"
+
+#: core/views.py
+msgid "Yuborilganiga %(n)s kun bo'ldi."
+msgstr "С момента отправки прошло дней: %(n)s."
+
+#: core/views.py
+msgid "Telegram orqali kirish vaqtincha ishlamayapti."
+msgstr "Вход через Telegram временно не работает."
+
+#: core/views.py
+msgid "Tasdiqlash muddati o'tgan. Qaytadan urinib ko'ring."
+msgstr "Срок подтверждения истёк. Попробуйте ещё раз."
+
+#: core/views.py
+msgid "Bu raqam allaqachon ro'yxatdan o'tgan. «Telegram orqali kirish» orqali kiring."
+msgstr "Этот номер уже зарегистрирован. Войдите через «Войти через Telegram»."
+
+#: core/views.py
+msgid "Xush kelibsiz, %(name)s! 🎉 Birinchi chekingizni yuklang."
+msgstr "Добро пожаловать, %(name)s! 🎉 Загрузите первый чек."
+
+#: core/views.py
+msgid "Ma'lumotlaringiz saqlandi."
+msgstr "Ваши данные сохранены."
+
+#: core/views.py
+msgid "Parol saqlandi."
+msgstr "Пароль сохранён."
+
+#: core/views.py
+msgid "Sozlamalar saqlandi."
+msgstr "Настройки сохранены."
+
+#: core/views.py
+msgid "✅ Chek tasdiqlandi! %(amount)s so'm to'lovdan %(refund)s so'm qaytariladi."
+msgstr "✅ Чек подтверждён! С платежа %(amount)s сум вернётся %(refund)s сум."
+
+#: core/views.py
+msgid "%(year)s-yil uchun arizaga kiritilmagan yangi to'lovlar topilmadi."
+msgstr "Новых платежей за %(year)s год, не вошедших в заявление, не найдено."
+
+#: core/views.py
+msgid "%(year)s-yil arizasi holati yangilandi: %(status)s."
+msgstr "Статус заявления за %(year)s год обновлён: %(status)s."
+
+#: core/views.py
+msgid "Holat saqlanmadi: %(errors)s"
+msgstr "Статус не сохранён: %(errors)s"
+
+#: core/views.py
+msgid "5 daqiqa"
+msgstr "5 минут"
+
+#: core/views.py
+msgid "2–3 soat"
+msgstr "2–3 часа"
+
+#: core/views.py
+msgid "1–2 kun"
+msgstr "1–2 дня"
+
+#: core/views.py
+msgid "30 daqiqa"
+msgstr "30 минут"
+
+#: core/views.py
+msgid "Magnit nima?"
+msgstr "Что такое Magnit?"
+
+#: core/views.py
+msgid "Magnit — ta'lim, bog'cha, maktab va tibbiyot to'lovlaridan 12% JShOD (daromad solig'i)ni qaytarib olishga yordam beruvchi platforma. Cheklarni o'qiydi, mos to'lovlarni topadi va ariza reestrini tayyorlaydi."
+msgstr "Magnit — платформа, которая помогает вернуть 12% НДФЛ (налога на доходы) с платежей за обучение, детсад, школу и медицину. Она читает чеки, находит подходящие платежи и готовит реестр заявления."
+
+#: core/views.py
+msgid "Kimlar soliqni qaytarib olishi mumkin?"
+msgstr "Кто может вернуть налог?"
+
+#: core/views.py
+msgid "Rasmiy ish joyidan maosh olib, 12% daromad solig'i to'layotgan har bir fuqaro o'zi, farzandi yoki yaqinlari uchun qilingan mos to'lovlar bo'yicha soliqni qaytarishi mumkin."
+msgstr "Каждый гражданин, получающий зарплату на официальной работе и платящий 12% налога на доходы, может вернуть налог по подходящим платежам за себя, своих детей или близких."
+
+#: core/views.py
+msgid "Qaysi to'lovlar mos keladi?"
+msgstr "Какие платежи подходят?"
+
+#: core/views.py
+msgid "Oliy ta'lim kontrakti, bog'cha, maktab, tibbiyot muassasalari va shartnomaviy to'lovlar. Aniq ro'yxat Soliq kodeksiga muvofiq yangilanib boriladi."
+msgstr "Контракт за высшее образование, детсад, школа, медицинские учреждения и договорные платежи. Точный список обновляется в соответствии с Налоговым кодексом."
+
+#: core/views.py
+msgid "\"Chek skanerlash\" bo'limida PNG, JPG yoki PDF faylni tashlang. Summa, sana va STIR avtomatik to'ldiriladi — siz faqat tekshirib tasdiqlaysiz."
+msgstr "В разделе «Сканирование чека» перетащите PNG, JPG или PDF-файл. Сумма, дата и ИНН заполнятся автоматически — вам останется проверить и подтвердить."
+
+#: core/views.py
+msgid "Avto-Audit qanday ishlaydi?"
+msgstr "Как работает Авто-аудит?"
+
+#: core/views.py
+msgid "Click, Payme, Uzum yoki Anorbank ilovasidan yillik PDF-hisobotni yuklaysiz. Tizim universitet, bog'cha, maktab va klinikalarga qilingan to'lovlarni o'zi ajratib beradi."
+msgstr "Вы загружаете годовую PDF-выписку из Click, Payme, Uzum или Anorbank. Система сама выделит платежи вузам, детсадам, школам и клиникам."
+
+#: core/views.py
+msgid "Ariza qayerga topshiriladi?"
+msgstr "Куда подаётся заявление?"
+
+#: core/views.py
+msgid "Magnit ariza reestrini tayyorlaydi. Rasmiy ariza my.soliq.uz orqali yoki soliq inspeksiyasiga topshiriladi."
+msgstr "Magnit готовит реестр заявления. Официальное заявление подаётся через my.soliq.uz или в налоговую инспекцию."
+
+#: core/views.py
+msgid "Xizmat pullikmi?"
+msgstr "Сервис платный?"
+
+#: core/views.py
+msgid "Bepul tarif doimo bepul. Oila va Frilanser tariflari qo'shimcha imkoniyatlar beradi. Biz qaytgan pulingizdan foiz olmaymiz."
+msgstr "Бесплатный тариф всегда бесплатен. Тарифы «Семья» и «Фрилансер» дают дополнительные возможности. Мы не берём процент с вашего возврата."
+
+#: core/views.py
+msgid "Ma'lumotlarim xavfsizmi?"
+msgstr "Мои данные в безопасности?"
+
+#: core/views.py
+msgid "Hujjatlaringiz faqat sizning kabinetingizda saqlanadi va uchinchi shaxslarga berilmaydi. Istalgan chekni o'zingiz o'chirishingiz mumkin."
+msgstr "Ваши документы хранятся только в вашем кабинете и не передаются третьим лицам. Любой чек вы можете удалить сами."
+
+#: core/views.py
+msgid "Hisob-kitoblar rasmiymi?"
+msgstr "Расчёты официальные?"
+
+#: core/views.py
+msgid "Hisob-kitoblar ma'lumot uchun. Yakuniy summa soliq organi tomonidan tasdiqlanadi."
+msgstr "Расчёты носят справочный характер. Окончательную сумму подтверждает налоговый орган."
+
+#: core/views.py
+msgid "Xabar bo'sh"
+msgstr "Пустое сообщение"
+
+#: core/views.py
+msgid "PDF faylni o'qib bo'lmadi. Ilovadan hisobotni qayta yuklab oling."
+msgstr "Не удалось прочитать PDF. Скачайте выписку из приложения заново."
+
+#: core/views.py
+msgid "Noto'g'ri so'rov"
+msgstr "Неверный запрос"
+
+#: core/views.py
+msgid "Bu raqam allaqachon ro'yxatdan o'tgan. «Kirish» bo'limidan foydalaning."
+msgstr "Этот номер уже зарегистрирован. Воспользуйтесь разделом «Войти»."
+
+#: core/views.py
+msgid "Xush kelibsiz! 👋"
+msgstr "Добро пожаловать! 👋"
+
+#: core/views.py
+msgid "Xush kelibsiz, %(name)s! 👋"
+msgstr "Добро пожаловать, %(name)s! 👋"

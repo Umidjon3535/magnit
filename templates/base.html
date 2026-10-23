@@ -1,0 +1,179 @@
+{% load static i18n %}{% get_current_language as LANG %}<!doctype html>
+<html lang="{{ LANG }}"{% if THEME == 'light' or THEME == 'dark' %} data-theme="{{ THEME }}"{% endif %}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% translate "Magnit — 12% soliqni qaytaring" %}{% endblock %}</title>
+  <meta name="theme-color" content="#1565c0">
+  <meta property="og:site_name" content="Magnit">
+  <meta property="og:title" content="{% translate "Magnit — 12% soliqni qaytaring" %}">
+  <meta name="description" content="{% translate "Kontrakt, bog'cha va tibbiyot to'lovlaridan 12% JShOD ni qaytarish, chek OCR, Avto-Audit, keshbek va frilanserlar uchun 1% soliq kalkulyatori." %}">
+  <script>
+    // Kirgan foydalanuvchida mavzu profildan keladi (THEME), aks holda brauzerda saqlangan tanlov
+    (function () {
+      var server = "{{ THEME }}";
+      try {
+        if (server === "system") { localStorage.removeItem("theme"); return; }
+        if (server) { localStorage.setItem("theme", server); return; }
+        var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}?v={{ ASSET_VERSION }}">
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+  <meta property="og:image" content="{% static 'img/logo.png' %}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  {% include "partials/icons.html" %}
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="bg-decor" aria-hidden="true">
+    <div class="aurora"></div>
+    <div class="blob a"></div><div class="blob b"></div><div class="blob c"></div><div class="blob d"></div>
+    <div class="grid"></div>
+    <canvas id="bg-particles"></canvas>
+    <div class="spot"></div>
+    <div class="noise"></div>
+  </div>
+
+  {% with url=request.resolver_match.url_name %}
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="{% url 'home' %}" class="logo" aria-label="{% translate "Magnit bosh sahifa" %}">
+        <img class="logo-img" src="{% static 'img/logo.png' %}" alt="" width="38" height="38">Magnit
+      </a>
+      <nav class="nav-links" aria-label="{% translate "Asosiy menyu" %}">
+        <div class="dropdown{% if url == 'scan' or url == 'audit' or url == 'audit_result' or url == 'application_detail' %} active{% endif %}">
+          <button type="button" class="dd-toggle" aria-expanded="false" aria-haspopup="true">{% translate "Soliq qaytarish" %}<svg><use href="#i-chevron"/></svg></button>
+          <div class="dd-menu" role="menu">
+            <a href="{% url 'scan' %}" role="menuitem" class="dd-item"><span class="feature-icon"><svg><use href="#i-scan"/></svg></span><span><strong>{% translate "Chek skanerlash" %}</strong><small>{% translate "Rasm yoki PDF'dan avto-to'ldirish" %}</small></span></a>
+            <a href="{% url 'audit' %}" role="menuitem" class="dd-item"><span class="feature-icon"><svg><use href="#i-search"/></svg></span><span><strong>{% translate "Avto-Audit" %}</strong><small>{% translate "Yillik hisobotdan mos to'lovlarni topish" %}</small></span></a>
+            <a href="{% url 'dashboard' %}" role="menuitem" class="dd-item"><span class="feature-icon"><svg><use href="#i-file"/></svg></span><span><strong>{% translate "Ariza tayyorlash" %}</strong><small>{% translate "Reestrni shakllantirish va chop etish" %}</small></span></a>
+          </div>
+        </div>
+        <div class="dropdown{% if url == 'cashback' or url == 'freelancer' %} active{% endif %}">
+          <button type="button" class="dd-toggle" aria-expanded="false" aria-haspopup="true">{% translate "Tejash" %}<svg><use href="#i-chevron"/></svg></button>
+          <div class="dd-menu" role="menu">
+            <a href="{% url 'cashback' %}" role="menuitem" class="dd-item"><span class="feature-icon"><svg><use href="#i-wallet"/></svg></span><span><strong>{% translate "Keshbek optimizatori" %}</strong><small>{% translate "Eng foydali to'lov ilovasini tanlang" %}</small></span></a>
+            <a href="{% url 'freelancer' %}" role="menuitem" class="dd-item"><span class="feature-icon"><svg><use href="#i-rocket"/></svg></span><span><strong>{% translate "Frilanser 1%" %}</strong><small>{% translate "12% o'rniga 1% soliq hisob-kitobi" %}</small></span></a>
+          </div>
+        </div>
+        <a href="{% url 'checkup' %}" class="nav-new{% if url == 'checkup' %} active{% endif %}" title="{% translate "Rad etilish xavfi va haqiqiy summa" %}" data-new="{% translate "Yangi" %}">{% translate "Ariza tekshiruvi" %}</a>
+        <a href="{% url 'tracker' %}" class="{% if url == 'tracker' %}active{% endif %}" title="{% translate "Arizangiz qaysi bosqichda" %}">{% translate "Ariza holati" %}</a>
+        <a href="{% url 'pricing' %}" class="{% if url == 'pricing' %}active{% endif %}">{% translate "Narxlar" %}</a>
+      </nav>
+      <div class="nav-right">
+        <div class="dropdown lang-switch hide-sm">
+          <button type="button" class="dd-toggle" aria-expanded="false" aria-haspopup="true" aria-label="{% translate "Til" %}">{{ LANG|upper }}<svg><use href="#i-chevron"/></svg></button>
+          <div class="dd-menu" role="menu">
+            <form method="post" action="{% url 'set_language' %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
+              {% for code, name in LANG_CHOICES %}<button type="submit" name="language" value="{{ code }}" class="dd-item" role="menuitem"{% if code == LANG %} aria-current="true"{% endif %}>{{ name }}<small>{{ code|upper }}</small></button>{% endfor %}
+            </form>
+          </div>
+        </div>
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="{% translate "Mavzuni almashtirish" %}"{% if user.is_authenticated %} data-save-url="{% url 'save_theme' %}"{% endif %}>
+          <svg class="sun"><use href="#i-sun"/></svg>
+        </button>
+        {% if user.is_authenticated %}
+          <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm hide-sm"><svg><use href="#i-grid"/></svg>{% translate "Kabinet" %}</a>
+        {% else %}
+          <a href="{% url 'home' %}#login" class="btn btn-ghost btn-sm hide-sm">{% translate "Kirish" %}</a>
+          <a href="{% url 'home' %}#register" class="btn btn-primary btn-sm"><span class="hide-xs">{% translate "Bepul boshlash" %}</span><span class="show-xs">{% translate "Boshlash" %}</span></a>
+        {% endif %}
+        <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="{% translate "Menyu" %}" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+      </div>
+    </div>
+    <div class="container mobile-menu" id="mobile-menu">
+      <div class="mm-group">{% translate "Soliq qaytarish" %}</div>
+      <a href="{% url 'scan' %}"><svg><use href="#i-scan"/></svg>{% translate "Chek skanerlash" %}</a>
+      <a href="{% url 'audit' %}"><svg><use href="#i-search"/></svg>{% translate "Avto-Audit" %}</a>
+      <a href="{% url 'dashboard' %}"><svg><use href="#i-file"/></svg>{% translate "Ariza tayyorlash" %}</a>
+      <div class="mm-group">{% translate "Arizam" %}</div>
+      <a href="{% url 'checkup' %}"><svg><use href="#i-shield"/></svg>{% translate "Ariza tekshiruvi" %}</a>
+      <a href="{% url 'tracker' %}"><svg><use href="#i-chart"/></svg>{% translate "Ariza holati" %}</a>
+      <div class="mm-group">{% translate "Tejash" %}</div>
+      <a href="{% url 'cashback' %}"><svg><use href="#i-wallet"/></svg>{% translate "Keshbek optimizatori" %}</a>
+      <a href="{% url 'freelancer' %}"><svg><use href="#i-rocket"/></svg>{% translate "Frilanser 1%" %}</a>
+      <div class="mm-group">Magnit</div>
+      <a href="{% url 'pricing' %}"><svg><use href="#i-tag"/></svg>{% translate "Narxlar" %}</a>
+      <div class="mm-actions">
+      {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm"><svg><use href="#i-grid"/></svg>{% translate "Shaxsiy kabinet" %}</a>
+        <a href="{% url 'settings' %}" class="btn btn-ghost btn-sm"><svg><use href="#i-settings"/></svg>{% translate "Sozlamalar" %}</a>      {% else %}
+        <a href="{% url 'home' %}#register" class="btn btn-primary btn-sm">{% translate "Bepul boshlash" %}</a>
+        <a href="{% url 'home' %}#login" class="btn btn-ghost btn-sm">{% translate "Kirish" %}</a>
+      {% endif %}
+      </div>
+      <form method="post" action="{% url 'set_language' %}" class="mm-lang">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
+        {% for code, name in LANG_CHOICES %}<button type="submit" name="language" value="{{ code }}"{% if code == LANG %} aria-current="true"{% endif %}>{{ code|upper }}</button>{% endfor %}
+      </form>
+    </div>
+  </header>
+  {% endwith %}
+
+  {% if messages %}
+  <div class="toasts" role="status">
+    {% for m in messages %}
+      <div class="alert alert-{{ m.tags }}"><svg><use href="#i-{% if m.tags == 'success' %}check-circle{% elif m.tags == 'info' %}info{% else %}alert{% endif %}"/></svg><span>{{ m }}</span></div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <main>{% block content %}{% endblock %}</main>
+
+  {% block footer %}
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="{% url 'home' %}" class="logo"><img class="logo-img" src="{% static 'img/logo.png' %}" alt="" width="38" height="38">Magnit</a>
+          <p>{% translate "Pulingizni o'ziga tortadi: 12% soliqni qaytarish, keshbek va frilanser soliqlari — bitta platformada." %}</p>
+          {% if SUPPORT.telegram or SUPPORT.email or SUPPORT.phone %}
+          <div class="footer-contacts">
+            {% if SUPPORT.telegram %}<a href="https://t.me/{{ SUPPORT.telegram }}" target="_blank" rel="noopener">Telegram: @{{ SUPPORT.telegram }}</a>{% endif %}
+            {% if SUPPORT.email %}<a href="mailto:{{ SUPPORT.email }}">{{ SUPPORT.email }}</a>{% endif %}
+            {% if SUPPORT.phone %}<a href="tel:{{ SUPPORT.phone }}">{{ SUPPORT.phone }}</a>{% endif %}
+          </div>
+          {% endif %}
+        </div>
+        <div>
+          <h4>{% translate "Mahsulot" %}</h4>
+          <a href="{% url 'scan' %}">{% translate "Chek skanerlash" %}</a>
+          <a href="{% url 'audit' %}">{% translate "Avto-Audit" %}</a>
+          <a href="{% url 'cashback' %}">{% translate "Keshbek optimizatori" %}</a>
+          <a href="{% url 'freelancer' %}">{% translate "Frilanser 1%" %}</a>
+          <a href="{% url 'checkup' %}">{% translate "Ariza tekshiruvi" %}</a>
+          <a href="{% url 'tracker' %}">{% translate "Ariza holati" %}</a>
+        </div>
+        <div>
+          <h4>{% translate "Kompaniya" %}</h4>
+          <a href="{% url 'about' %}">{% translate "Biz haqimizda" %}</a>
+          <a href="{% url 'why' %}">{% translate "Nega Magnit?" %}</a>
+          <a href="{% url 'pricing' %}">{% translate "Narxlar" %}</a>
+          <a href="{% url 'about' %}#roadmap">{% translate "Yo'l xaritasi" %}</a>
+        </div>
+        <div>
+          <h4>{% translate "Yordam" %}</h4>
+          <a href="{% url 'faq' %}">{% translate "Savol-javob" %}</a>
+          <a href="#" data-open-chat="">{% translate "AI-yordamchi" %}</a>
+          <a href="{% url 'about' %}#contact">{% translate "Bog'lanish" %}</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© {% now "Y" %} Magnit · {% translate "Moliyaviy va soliq platformasi" %}</span>
+        <span class="flex"><svg style="width:15px;height:15px"><use href="#i-shield"/></svg>{% translate "Ma'lumotlar himoyalangan · Hisob-kitoblar ma'lumot uchun" %}</span>
+      </div>
+    </div>
+  </footer>
+  {% endblock %}
+
+  {% include "partials/chat.html" %}
+
+  <script src="{% static 'js/app.js' %}?v={{ ASSET_VERSION }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load i18n money %}
+{% block title %}{% translate "Avto-Audit natijasi" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <a href="{% url 'audit' %}" class="small muted flex" style="margin-bottom:14px">← {% translate "Avto-Audit" %}</a>
+
+  {% if matches %}
+  <div class="audit-result">
+    <aside class="audit-summary">
+      <div class="result-banner">
+        <div class="flex between">
+          <span class="badge" style="background:rgba(255,255,255,.18);color:#fff;border:0">{% if statement.source %}{{ statement.source }}{% else %}{% translate "PDF-hisobot" %}{% endif %}</span>
+          <span class="small" style="opacity:.85">{{ statement.engine }}</span>
+        </div>
+        <p class="mt-2" style="opacity:.9">{% translate "Qaytarib olishingiz mumkin" %}</p>
+        <div class="big"><span id="s-refund">{{ summary.refund|som }}</span> {% translate "so'm" %}</div>
+        <p style="opacity:.9"><b id="s-count">{{ summary.count }}</b> {% translate "ta to'lov" %} · {% translate "jami" %} <b id="s-total">{{ summary.total|som }}</b> {% translate "so'm" %}</p>
+      </div>
+
+      <div class="card mt-2">
+        <div class="card-title mb-2">{% translate "Turlar bo'yicha" %}</div>
+        <div class="cat-list" id="s-cats">
+          {% for c in summary.categories %}
+          <div class="cat-row"><span>{{ c.label }}</span><b>+{{ c.refund|som }}</b></div>
+          {% endfor %}
+        </div>
+        <form method="post" action="{% url 'application_create' %}" class="mt-2">{% csrf_token %}
+          <input type="hidden" name="year" id="s-year" value="{{ summary.year|stringformat:"d" }}">
+          <button class="btn btn-primary btn-block" type="submit" id="s-apply"{% if not summary.count %} disabled{% endif %}><svg><use href="#i-file"/></svg>{% translate "Arizani shakllantirish" %}</button>
+        </form>
+        <p class="small muted text-center mt-1">{% translate "Noto'g'ri topilgan to'lovni o'ngdagi tugma bilan o'chiring" %}</p>
+      </div>
+    </aside>
+
+    <section class="card">
+      <div class="card-head"><div class="card-title">{% translate "Topilgan to'lovlar" %}</div><span class="badge">{% blocktranslate trimmed with n=matches|length %}{{ n }} ta{% endblocktranslate %}</span></div>
+      <div class="match-list">
+        {% for m in matches %}
+        <div class="match{% if m.excluded %} off{% endif %}">
+          <div class="match-main">
+            <div class="match-desc" title="{{ m.description }}">{{ m.description|payment_title }}</div>
+            <div class="small muted">{{ m.paid_at|date:"d.m.Y"|default:"—" }} · <span class="match-cat">{{ m.get_category_display }}</span>{% if m.stir %} · STIR {{ m.stir }}{% endif %}</div>
+          </div>
+          <div class="match-sum">
+            <b>{{ m.amount|som }}</b>
+            <small class="pos">+{{ m.refund|som }}</small>
+          </div>
+          <label class="switch" title="{% translate "Hisobga olish" %}">
+            <input type="checkbox" data-url="{% url 'audit_toggle' m.pk %}"{% if not m.excluded %} checked{% endif %} aria-label="{% translate "Hisobga olish" %}">
+            <span></span>
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+  {% else %}
+  <div class="card empty">
+    <div class="feature-icon"><svg><use href="#i-search"/></svg></div>
+    <h3>{% translate "Mos to'lovlar topilmadi" %}</h3>
+    <p>{% translate "Hisobotda ta'lim, bog'cha, maktab yoki tibbiyot to'lovlari aniqlanmadi. Boshqa davr yoki boshqa ilova hisobotini yuklab ko'ring." %}</p>
+    <a href="{% url 'audit' %}" class="btn btn-primary mt-2">{% translate "Boshqa hisobot yuklash" %}</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const { csrf } = window.Magnit;
+  const $ = (id) => document.getElementById(id);
+  document.querySelectorAll(".switch input").forEach((cb) => cb.addEventListener("change", async () => {
+    const row = cb.closest(".match");
+    row.classList.toggle("off", !cb.checked);
+    cb.disabled = true;
+    try {
+      const body = new URLSearchParams({ include: cb.checked ? "1" : "0" });
+      const res = await fetch(cb.dataset.url, { method: "POST", body, headers: { "X-CSRFToken": csrf() } });
+      const s = await res.json();
+      $("s-refund").textContent = s.refund; $("s-total").textContent = s.total; $("s-count").textContent = s.count;
+      $("s-year").value = s.year; $("s-apply").disabled = !s.count;
+      const cats = $("s-cats"); cats.innerHTML = "";
+      s.categories.forEach((c) => {
+        const r = document.createElement("div"); r.className = "cat-row";
+        r.innerHTML = "<span></span><b></b>"; r.firstChild.textContent = c.label; r.lastChild.textContent = "+" + c.refund;
+        cats.appendChild(r);
+      });
+    } catch (e) {
+      cb.checked = !cb.checked; row.classList.toggle("off", !cb.checked);
+    } finally { cb.disabled = false; }
+  }));
+})();
+</script>
+{% endblock %}

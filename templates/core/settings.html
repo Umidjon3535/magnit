@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Sozlamalar" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page" style="max-width:960px">
+  <div class="page-head">
+    <div>
+      <a href="{% url 'dashboard' %}" class="small muted">← {% translate "Shaxsiy kabinet" %}</a>
+      <h1>{% translate "Sozlamalar" %}</h1>
+      <p>{% translate "Shaxsiy ma'lumotlar, parol, til va ko'rinish." %}</p>
+    </div>
+  </div>
+
+  <div class="split">
+    <form method="post" class="card" id="profile">{% csrf_token %}
+      <input type="hidden" name="section" value="profile">
+      <div class="card-head"><div class="card-title"><svg style="width:20px;height:20px"><use href="#i-users"/></svg>{% translate "Shaxsiy ma'lumotlar" %}</div></div>
+      <div class="form-row">
+        <div class="field{% if profile_form.first_name.errors %} has-error{% endif %}">
+          <label for="s-first">{% translate "Ism" %}</label>
+          <input type="text" name="first_name" id="s-first" autocomplete="given-name" maxlength="150" required value="{{ profile_form.first_name.value|default:'' }}">
+          {% if profile_form.first_name.errors %}<div class="err">{{ profile_form.first_name.errors.0 }}</div>{% endif %}
+        </div>
+        <div class="field{% if profile_form.last_name.errors %} has-error{% endif %}">
+          <label for="s-last">{% translate "Familiya" %}</label>
+          <input type="text" name="last_name" id="s-last" autocomplete="family-name" maxlength="150" required value="{{ profile_form.last_name.value|default:'' }}">
+          {% if profile_form.last_name.errors %}<div class="err">{{ profile_form.last_name.errors.0 }}</div>{% endif %}
+        </div>
+      </div>
+      <div class="field">
+        <label>{% translate "Telefon raqam" %}</label>
+        <div class="readonly-row">
+          <strong>+{{ user.username }}</strong>
+          {% if telegram_linked %}<span class="badge badge-good"><svg style="width:13px;height:13px"><use href="#i-check"/></svg>{% translate "Telegram bog'langan" %}</span>
+          {% else %}<span class="badge">{% translate "Telegram bog'lanmagan" %}</span>{% endif %}
+        </div>
+        <div class="help">{% translate "Telefon raqam hisobingiz logini — u Telegram orqali tasdiqlangan." %}</div>
+      </div>
+      <button class="btn btn-primary" type="submit"><svg><use href="#i-check"/></svg>{% translate "Saqlash" %}</button>
+    </form>
+
+    <form method="post" class="card" id="password">{% csrf_token %}
+      <input type="hidden" name="section" value="password">
+      <div class="card-head"><div class="card-title"><svg style="width:20px;height:20px"><use href="#i-shield"/></svg>{% if has_password %}{% translate "Parolni o'zgartirish" %}{% else %}{% translate "Parol o'rnatish" %}{% endif %}</div></div>
+      {% if not has_password %}<p class="small muted mb-2">{% translate "Hozir faqat Telegram orqali kirasiz. Parol o'rnatsangiz, telefon va parol bilan ham kira olasiz." %}</p>{% endif %}
+      {% if password_form.non_field_errors %}<div class="alert alert-error mb-2"><svg><use href="#i-alert"/></svg>{{ password_form.non_field_errors.0 }}</div>{% endif %}
+      {% if has_password %}
+      <div class="field{% if password_form.old_password.errors %} has-error{% endif %}">
+        <label for="s-old">{% translate "Joriy parol" %}</label>
+        <input type="password" name="old_password" id="s-old" autocomplete="current-password" required>
+        {% if password_form.old_password.errors %}<div class="err">{{ password_form.old_password.errors.0 }}</div>{% endif %}
+      </div>
+      {% endif %}
+      <div class="field{% if password_form.new_password1.errors %} has-error{% endif %}">
+        <label for="s-new1">{% translate "Yangi parol" %}</label>
+        <input type="password" name="new_password1" id="s-new1" autocomplete="new-password" required>
+        {% if password_form.new_password1.errors %}<div class="err">{{ password_form.new_password1.errors.0 }}</div>{% else %}<div class="help">{% translate "Kamida 8 ta belgi, faqat raqamlardan iborat bo'lmasin" %}</div>{% endif %}
+      </div>
+      <div class="field{% if password_form.new_password2.errors %} has-error{% endif %}">
+        <label for="s-new2">{% translate "Yangi parolni takrorlang" %}</label>
+        <input type="password" name="new_password2" id="s-new2" autocomplete="new-password" required>
+        {% if password_form.new_password2.errors %}<div class="err">{{ password_form.new_password2.errors.0 }}</div>{% endif %}
+      </div>
+      <button class="btn btn-primary" type="submit"><svg><use href="#i-check"/></svg>{% translate "Parolni saqlash" %}</button>
+    </form>
+  </div>
+
+  <form method="post" class="card mt-2" id="prefs">{% csrf_token %}
+    <input type="hidden" name="section" value="prefs">
+    <div class="card-head"><div class="card-title"><svg style="width:20px;height:20px"><use href="#i-sparkle"/></svg>{% translate "Interfeys" %}</div></div>
+    <div class="split">
+      <fieldset class="choice-group">
+        <legend>{% translate "Til" %}</legend>
+        <div class="choices">
+          {% for value, label in prefs_form.fields.language.choices %}
+          <label class="choice"><input type="radio" name="language" value="{{ value }}"{% if prefs_form.language.value == value %} checked{% endif %}><span><strong>{{ label }}</strong><small>{{ value|upper }}</small></span></label>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <fieldset class="choice-group">
+        <legend>{% translate "Mavzu" %}</legend>
+        <div class="choices">
+          {% for value, label in prefs_form.fields.theme.choices %}
+          <label class="choice"><input type="radio" name="theme" value="{{ value }}"{% if prefs_form.theme.value == value %} checked{% endif %}><span><svg><use href="#i-{% if value == 'light' %}sun{% elif value == 'dark' %}moon{% else %}grid{% endif %}"/></svg><strong>{{ label }}</strong></span></label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </div>
+    <button class="btn btn-primary mt-2" type="submit"><svg><use href="#i-check"/></svg>{% translate "Saqlash" %}</button>
+  </form>
+
+  <form method="post" action="{% url 'logout' %}" class="card mt-2 flex between" id="logout">{% csrf_token %}
+    <div class="flex"><div class="feature-icon"><svg><use href="#i-logout"/></svg></div>
+      <div><div class="card-title">{% translate "Hisobdan chiqish" %}</div><div class="small muted">{% translate "Ushbu qurilmada tizimdan chiqasiz. Qayta kirish uchun telefon va parol yoki Telegram kerak bo'ladi." %}</div></div>
+    </div>
+    <button class="btn btn-danger" type="submit"><svg><use href="#i-logout"/></svg>{% translate "Chiqish" %}</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Mavzuni tanlash darhol ko'rinadi; "Saqlash" uni profilga yozadi
+document.querySelectorAll('#prefs input[name=theme]').forEach((r) => r.addEventListener("change", () => {
+  const root = document.documentElement;
+  if (r.value === "system") delete root.dataset.theme; else root.dataset.theme = r.value;
+  document.dispatchEvent(new CustomEvent("themechange"));
+}));
+</script>
+{% endblock %}

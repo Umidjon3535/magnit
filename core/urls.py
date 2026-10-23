@@ -1,0 +1,41 @@
+from django.contrib.auth import views as auth_views
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path("", views.home, name="home"),
+    path("register/", views.register, name="register"),
+    path("login/code/", views.login_code, name="login_code"),
+    path("verify/<str:token>/", views.verify, name="verify"),
+    path("signup/complete/", views.signup_complete, name="signup_complete"),
+    path("verify/<str:token>/status/", views.verify_status, name="verify_status"),
+    path("login/", views.login_password, name="login"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("dashboard/", views.dashboard, name="dashboard"),
+    path("dashboard/settings/", views.account_settings, name="settings"),
+    path("settings/theme/", views.save_theme, name="save_theme"),
+    path("i18n/setlang/", views.set_language, name="set_language"),
+    path("scan/", views.scan, name="scan"),
+    path("receipts/upload/", views.receipt_upload, name="receipt_upload"),
+    path("receipts/<int:pk>/confirm/", views.receipt_confirm, name="receipt_confirm"),
+    path("receipts/<int:pk>/delete/", views.receipt_delete, name="receipt_delete"),
+    path("audit/", views.audit, name="audit"),
+    path("audit/demo/", views.audit_demo, name="audit_demo"),
+    path("audit/<int:pk>/", views.audit_result, name="audit_result"),
+    path("audit/match/<int:pk>/toggle/", views.audit_toggle, name="audit_toggle"),
+    path("applications/create/", views.application_create, name="application_create"),
+    path("applications/<int:pk>/", views.application_detail, name="application_detail"),
+    path("cashback/", views.cashback, name="cashback"),
+    path("freelancer/", views.freelancer, name="freelancer"),
+    path("check/", views.checkup, name="checkup"),
+    path("tracker/", views.tracker, name="tracker"),
+    path("applications/<int:pk>/status/", views.application_status, name="application_status"),
+    path("pricing/", views.pricing, name="pricing"),
+    path("why-magnit/", views.why, name="why"),
+    path("faq/", views.faq, name="faq"),
+    path("about/", views.about, name="about"),
+    path("api/chat/", views.chat_api, name="chat_api"),
+    path("api/chat/reset/", views.chat_reset, name="chat_reset"),
+    path("telegram/webhook/", views.telegram_webhook, name="telegram_webhook"),
+]

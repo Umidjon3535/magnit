@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Keshbek optimizatori" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="page-head">
+    <div>
+      <span class="badge badge-brand"><svg style="width:13px;height:13px"><use href="#i-wallet"/></svg>{% translate "Keshbek optimizatori" %}</span>
+      <h1>{% translate "Qaysi ilova orqali to'lash foydaliroq?" %}</h1>
+      <p>{% translate "Summani kiriting — 12% soliq, keshbek va komissiyani hisoblab, ilovalarni foyda bo'yicha saralaymiz." %}</p>
+    </div>
+  </div>
+
+  <div class="cb-top">
+    <div class="card cb-input">
+      <label for="cb-amount" class="cb-label">{% translate "Shartnoma summasi" %}</label>
+      <div class="input-suffix"><input id="cb-amount" class="input input-xl" data-money inputmode="numeric" value="12 000 000"><span>{% translate "so'm" %}</span></div>
+      <div class="chips mt-2">
+        <button class="chip" data-v="5000000">5 {% translate "mln" %}</button><button class="chip active" data-v="12000000">12 {% translate "mln" %}</button>
+        <button class="chip" data-v="18000000">18 {% translate "mln" %}</button><button class="chip" data-v="25000000">25 {% translate "mln" %}</button>
+      </div>
+    </div>
+
+    <div class="cb-best">
+      <span class="cb-best-label">{% translate "Eng foydali:" %} <b id="best-name">—</b></span>
+      <div class="cb-best-value"><span id="best-total">0</span> <small>{% translate "so'm" %}</small></div>
+      <div class="cb-best-sub">{% translate "umumiy foyda" %}</div>
+      <div class="cb-formula">
+        <span><small>{% translate "12% soliq" %}</small><b id="f-refund">+0</b></span>
+        <i>+</i>
+        <span><small>{% translate "Keshbek" %}</small><b id="f-cashback">+0</b></span>
+        <i>−</i>
+        <span><small>{% translate "Komissiya" %}</small><b id="f-commission">0</b></span>
+      </div>
+    </div>
+  </div>
+
+  <section class="card mt-2">
+    <div class="card-head">
+      <div class="card-title"><svg style="width:20px;height:20px"><use href="#i-chart"/></svg>{% translate "Ilovalar reytingi" %}</div>
+      <button class="btn btn-soft btn-sm" data-open-chat="{% translate "Shartnomani qaysi ilova orqali to'lash foydaliroq?" %}"><svg><use href="#i-sparkle"/></svg>{% translate "AI maslahati" %}</button>
+    </div>
+    <div class="cb-list" id="cb-rows"></div>
+    <p class="small muted mt-2">ⓘ {% if updated %}{% blocktranslate trimmed with date=updated|date:"d.m.Y" %}Tariflar namuna sifatida berilgan ({{ date }} holatiga) va admin paneldan yangilanadi.{% endblocktranslate %}{% else %}{% translate "Tariflar namuna sifatida berilgan va admin paneldan yangilanadi." %}{% endif %} {% translate "To'lashdan oldin ilovadagi joriy shartlarni tekshiring." %}</p>
+  </section>
+</div>
+{{ providers|json_script:"providers" }}
+{% endblock %}
+
+{% block scripts %}
+{% translate "Eng foydali" as L_best %}{% translate "Komissiya" as L_commission %}{% translate "Keshbek" as L_cashback %}{% translate "Jami to'lov" as L_net %}{% translate "foyda" as L_benefit %}
+<script>
+(function () {
+  const L = { best: "{{ L_best|escapejs }}", commission: "{{ L_commission|escapejs }}", cashback: "{{ L_cashback|escapejs }}", net: "{{ L_net|escapejs }}", benefit: "{{ L_benefit|escapejs }}" };
+  const { fmt, parseNum, $$ } = window.Magnit;
+  const providers = JSON.parse(document.getElementById("providers").textContent);
+  const rate = {{ rate|stringformat:'s' }};
+  const input = document.getElementById("cb-amount"), rows = document.getElementById("cb-rows");
+  const setText = (id, v) => { document.getElementById(id).textContent = v; };
+  // Admin izohidagi "(namuna tarif)" har qatorda takrorlanmasin — bu pastdagi izohda aytilgan
+  const cleanNote = (n) => (n || "").replace(/\s*\((namuna tarif|пример|sample)[^)]*\)\s*/gi, "").trim();
+
+  function calc() {
+    const amount = parseNum(input.value), refund = Math.round(amount * rate);
+    const list = providers.map((p) => {
+      const commission = Math.round(amount * p.commission_percent / 100 + p.commission_fixed);
+      let cashback = Math.round(amount * p.cashback_percent / 100);
+      if (p.cashback_cap !== null) cashback = Math.min(cashback, p.cashback_cap);
+      return { ...p, commission, cashback, net: amount + commission - cashback, benefit: refund + cashback - commission };
+    }).sort((a, b) => b.benefit - a.benefit);
+
+    const top = list[0] ? Math.max(list[0].benefit, 1) : 1;
+    rows.innerHTML = "";
+    list.forEach((p, i) => {
+      const row = document.createElement("div");
+      row.className = "cb-row" + (i === 0 ? " best" : "");
+      row.innerHTML = `
+        <span class="cb-rank">${i + 1}</span>
+        <span class="prov-dot" style="background:${p.color}">${p.name[0]}</span>
+        <div class="cb-main">
+          <div class="cb-name"><b></b>${i === 0 ? `<span class="badge badge-good">${L.best}</span>` : ""}</div>
+          <div class="cb-note"></div>
+          <div class="cb-bar"><i style="width:${Math.max(4, (p.benefit / top) * 100)}%"></i></div>
+          <div class="cb-details">
+            <span>${L.cashback}: <b class="pos">+${fmt(p.cashback)}</b> <em>${p.cashback_percent}%</em></span>
+            <span>${L.commission}: <b class="${p.commission ? "neg" : ""}">${p.commission ? "−" + fmt(p.commission) : "0"}</b> <em>${p.commission_percent}%</em></span>
+            <span>${L.net}: <b>${fmt(p.net)}</b></span>
+          </div>
+        </div>
+        <div class="cb-benefit"><b>+${fmt(p.benefit)}</b><small>${L.benefit}</small></div>`;
+      row.querySelector(".cb-name b").textContent = p.name;
+      row.querySelector(".cb-note").textContent = cleanNote(p.note);
+      rows.appendChild(row);
+    });
+
+    const best = list[0];
+    if (!best) return;
+    setText("best-name", best.name);
+    setText("best-total", fmt(best.benefit));
+    setText("f-refund", "+" + fmt(refund));
+    setText("f-cashback", "+" + fmt(best.cashback));
+    setText("f-commission", best.commission ? fmt(best.commission) : "0");
+  }
+
+  input.addEventListener("input", () => { $$(".chip").forEach((c) => c.classList.remove("active")); calc(); });
+  $$(".chip[data-v]").forEach((c) => c.addEventListener("click", () => {
+    $$(".chip").forEach((x) => x.classList.remove("active")); c.classList.add("active");
+    input.value = fmt(c.dataset.v); calc();
+  }));
+  calc();
+})();
+</script>
+{% endblock %}

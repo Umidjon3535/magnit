@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n money static %}
+{% block title %}{% blocktranslate trimmed with year=app.year|stringformat:"d" %}{{ year }}-yil arizasi{% endblocktranslate %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page" style="max-width:900px">
+  <div class="flex between no-print mb-2">
+    <a href="{% url 'dashboard' %}" class="small muted">← {% translate "Shaxsiy kabinet" %}</a>
+    <div class="flex">
+      <button class="btn btn-ghost btn-sm" onclick="window.print()"><svg><use href="#i-print"/></svg>{% translate "Chop etish / PDF" %}</button>
+      <a href="https://my.soliq.uz" target="_blank" rel="noopener" class="btn btn-primary btn-sm">{% translate "my.soliq.uz'ga o'tish" %} <svg><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+
+  <div class="card doc" style="padding:32px">
+    <div class="flex between">
+      <div class="logo"><img class="logo-img" src="{% static 'img/logo.png' %}" alt="" width="38" height="38">Magnit</div>
+      <span class="badge badge-brand">{{ app.get_status_display }}</span>
+    </div>
+    <h1 class="mt-3" style="font-size:26px">{% translate "Jismoniy shaxs daromad solig'ini (JShOD) qaytarish uchun to'lovlar reestri" %}</h1>
+    <p class="muted mt-1">{% blocktranslate trimmed with year=app.year|stringformat:"d" created=app.created_at|date:"d.m.Y H:i" owner=user.get_full_name|default:user.username %}{{ year }}-yil · Shakllantirildi: {{ created }} · Ariza egasi: {{ owner }}{% endblocktranslate %}</p>
+
+    <div class="table-wrap mt-3">
+      <table class="table">
+        <thead><tr><th>#</th><th>{% translate "Sana" %}</th><th>{% translate "Tashkilot / tavsif" %}</th><th>{% translate "STIR" %}</th><th>{% translate "Turi" %}</th><th class="num">{% translate "Summa, so'm" %}</th></tr></thead>
+        <tbody>
+          {% for r in receipts %}
+          <tr><td class="muted">{{ forloop.counter }}</td><td>{{ r.paid_at|date:"d.m.Y" }}</td><td style="font-weight:600">{{ r.organization }}</td><td>{{ r.stir|default:"—" }}</td><td>{{ r.get_category_display }}</td><td class="num">{{ r.amount|som }}</td></tr>
+          {% endfor %}
+          {% for m in matches %}
+          <tr><td class="muted">{{ receipts|length|add:forloop.counter }}</td><td>{{ m.paid_at|date:"d.m.Y" }}</td><td style="font-weight:600">{{ m.description }}</td><td>{{ m.stir|default:"—" }}</td><td>{{ m.get_category_display }}</td><td class="num">{{ m.amount|som }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mock-total mt-3"><span>{% blocktranslate trimmed with total=app.total_amount|som %}Jami: {{ total }} so'm → qaytariladi (12%){% endblocktranslate %}</span><strong>{{ app.refund_amount|som }} {% translate "so'm" %}</strong></div>
+
+    <div class="alert alert-info mt-3 small"><svg><use href="#i-info"/></svg>
+      <span>{% translate "Ushbu reestr ma'lumot uchun tayyorlangan. Rasmiy arizani my.soliq.uz orqali yuboring va to'lov hujjatlari asl nusxalarini saqlab qo'ying. Qoidalar o'zgarishi mumkin — yakuniy summani soliq organi belgilaydi." %}</span></div>
+  </div>
+</div>
+{% endblock %}

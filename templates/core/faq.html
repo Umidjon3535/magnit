@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Savol-javob" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page" style="max-width:860px">
+  <div class="section-head reveal">
+    <span class="eyebrow">{% translate "Yordam markazi" %}</span>
+    <h2>{% translate "Ko'p beriladigan savollar" %}</h2>
+    <p>{% translate "Javob topmadingizmi? AI-yordamchidan so'rang — u 24/7 o'zbek tilida javob beradi." %}</p>
+  </div>
+
+  {% for group, items in faq %}
+  <div class="faq-group">
+    <h2>{{ group }}</h2>
+    {% for q, a in items %}
+    <details class="card faq-item"{% if forloop.parentloop.first and forloop.first %} open{% endif %}>
+      <summary>{{ q }}<svg><use href="#i-chevron"/></svg></summary>
+      <p>{{ a }}</p>
+    </details>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  <div class="card mt-4 flex between">
+    <div class="flex"><div class="feature-icon"><svg><use href="#i-bot"/></svg></div>
+      <div><strong>{% translate "Savolingiz qoldimi?" %}</strong><div class="small muted">{% translate "AI-yordamchi to'lovingizga qarab aniq hisoblab beradi." %}</div></div>
+    </div>
+    <a href="#" class="btn btn-primary btn-sm" data-open-chat=""><svg><use href="#i-sparkle"/></svg>{% translate "AI-yordamchidan so'rash" %}</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% load i18n %}{% csrf_token %}
+<button class="chat-fab" id="chat-fab" type="button" aria-label="{% translate "AI-yordamchini ochish" %}" aria-controls="chat-panel" aria-expanded="false">
+  <svg><use href="#i-chat"/></svg><span class="ping"></span>
+</button>
+<section class="chat-panel" id="chat-panel" aria-label="{% translate "AI-yordamchi" %}" data-url="{% url 'chat_api' %}" data-reset-url="{% url 'chat_reset' %}"
+         data-err-generic="{% translate "Xatolik yuz berdi." %}" data-err-network="{% translate "Aloqa uzildi 😔 Internetni tekshirib, qayta urinib ko'ring." %}">
+  <div class="chat-head">
+    <div class="avatar"><svg><use href="#i-sparkle"/></svg></div>
+    <div>
+      <div class="name">Magnit AI</div>
+      <div class="status"><span class="dot" style="color:#86efac"></span>{% if AI_ENABLED %}{% translate "Onlayn · Claude" %}{% else %}{% translate "Oflayn rejim" %}{% endif %}</div>
+    </div>
+    <button class="icon-btn" id="chat-reset" type="button" aria-label="{% translate "Suhbatni tozalash" %}" title="{% translate "Yangi suhbat" %}"><svg><use href="#i-refresh"/></svg></button>
+    <button class="icon-btn" id="chat-close" type="button" aria-label="{% translate "Yopish" %}" style="margin-left:6px"><svg><use href="#i-x"/></svg></button>
+  </div>
+  <div class="chat-body" id="chat-body" aria-live="polite">
+    <div class="msg bot"><p>{% blocktranslate trimmed %}Salom! 👋 Men <strong>Magnit AI</strong>. Kontrakt, bog'cha yoki tibbiyot to'lovlaringizdan <strong>12% soliqni</strong> qaytarishga yordam beraman.{% endblocktranslate %}</p><p>{% translate "Qanday yordam kerak?" %}</p></div>
+  </div>
+  <div class="chat-suggest" id="chat-suggest">
+    <button type="button">{% translate "Kontrakt 12 mln — qancha qaytadi?" %}</button>
+    <button type="button">{% translate "Chekni qanday yuklayman?" %}</button>
+    <button type="button">{% translate "Frilanser, oyiga 15 mln" %}</button>
+    <button type="button">{% translate "Qaysi ilovada keshbek ko'p?" %}</button>
+  </div>
+  <form class="chat-form" id="chat-form" autocomplete="off">
+    <input id="chat-input" type="text" placeholder="{% translate "Savolingizni yozing…" %}" maxlength="2000" aria-label="{% translate "Xabar" %}">
+    <button type="submit" aria-label="{% translate "Yuborish" %}"><svg><use href="#i-send"/></svg></button>
+  </form>
+  <div class="chat-note">{% translate "Karta raqami, CVV yoki SMS-kodni hech qachon yozmang 🔒" %}</div>
+</section>

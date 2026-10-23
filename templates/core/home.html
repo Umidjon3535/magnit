@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% load i18n money static %}
+{% block footer %}{% endblock %}
+{% block content %}
+<section class="landing{% if user.is_authenticated %} landing--user{% endif %}">
+  <div class="container landing-grid">
+    <div class="landing-copy reveal">
+      <span class="badge badge-brand"><span class="dot pulse"></span>{% translate "Kontrakt · bog'cha · maktab · tibbiyot" %}</span>
+      <h1 data-split>{% blocktranslate trimmed %}To'lovlaringizdan <span class="gradient-text">12% soliqni</span> qaytaring{% endblocktranslate %}</h1>
+      <p class="lead">{% translate "Chekni yuklang — AI uni o'qiydi, arizani rad etilmaydigan qilib tayyorlaydi va pulingiz qaytguncha kuzatib boradi." %}</p>
+
+      <figure class="process" aria-label="{% translate "Chek o'qiladi, ariza reestri chop etiladi, tasdiqlanadi va pul qaytadi" %}">
+        <div class="pr-stage" aria-hidden="true">
+          <div class="pr-receipt">
+            <div class="pr-receipt-head"><span class="pr-ico"><svg><use href="#i-receipt"/></svg></span><span><strong>{% translate "Kontrakt to'lovi" %}</strong><small>Click · 03.02.2026</small></span></div>
+            <div class="pr-row"><span>{% translate "Tashkilot" %}</span><b>TDIU</b></div>
+            <div class="pr-row"><span>STIR</span><b>201 122 334</b></div>
+            <div class="pr-row pr-sum"><span>{% translate "Summa" %}</span><b>12 000 000</b></div>
+            <span class="pr-scan"></span>
+          </div>
+
+          <div class="pr-flow"><span></span><span></span><span></span></div>
+
+          <div class="pr-printer">
+            <div class="pr-slot"></div>
+            <div class="pr-paper-wrap">
+              <div class="pr-paper">
+                <div class="pr-paper-head">
+                  <img src="{% static 'img/logo.png' %}" alt="" width="20" height="20">
+                  <strong>{% translate "Ariza reestri" %}</strong>
+                </div>
+                <div class="pr-line"><span>TDIU · 201 122 334</span><b>12 000 000</b></div>
+                <div class="pr-line pr-skel"><i></i><i></i></div>
+                <div class="pr-line pr-skel"><i></i><i></i></div>
+                <div class="pr-total"><span>{% translate "Qaytariladi (12%)" %}</span><b>1 440 000</b></div>
+                <div class="pr-stamp">{% translate "TASDIQLANDI" %} ✓</div>
+              </div>
+            </div>
+            <div class="pr-body"><span class="pr-led"></span><span class="pr-label">{% translate "Chop etilmoqda…" %}</span></div>
+          </div>
+
+          <div class="pr-coin"><svg><use href="#i-wallet"/></svg>+1 440 000 {% translate "so'm" %}</div>
+        </div>
+
+        <ol class="pr-steps">
+          <li><span class="n">1</span>{% translate "Chek o'qildi" %}</li>
+          <li><span class="n">2</span>{% translate "Ariza tayyor" %}</li>
+          <li><span class="n">3</span>{% translate "Tasdiqlandi" %}</li>
+          <li><span class="n">4</span>{% translate "Pul qaytdi" %}</li>
+        </ol>
+      </figure>
+    </div>
+
+    <div class="landing-auth reveal">
+      {% if user.is_authenticated %}
+      <div class="card me-card glow">
+        <div class="me-head">
+          <span class="me-avatar" aria-hidden="true">{{ me.initial }}</span>
+          <div class="me-hello">
+            {% translate "do'st" as friend %}<h2>{% blocktranslate trimmed with name=user.first_name|default:friend %}Salom, {{ name }} 👋{% endblocktranslate %}</h2>
+            <span class="small muted">{% blocktranslate trimmed with year=me.year|stringformat:"d" %}{{ year }}-yil holatingiz{% endblocktranslate %}</span>
+          </div>
+          <a href="{% url 'settings' %}" class="icon-btn me-settings" aria-label="{% translate "Sozlamalar" %}" title="{% translate "Sozlamalar" %}"><svg><use href="#i-settings"/></svg></a>
+        </div>
+
+        <a href="{% url 'dashboard' %}" class="me-stat">
+          <span class="me-stat-label"><svg><use href="#i-wallet"/></svg>{% translate "Qaytariladi (12%)" %}</span>
+          <span class="me-stat-value">{{ me.refund|som }} <small>{% translate "so'm" %}</small></span>
+          <span class="me-stat-meta">
+            <span>{% blocktranslate trimmed with n=me.count %}{{ n }} ta mos to'lov{% endblocktranslate %}</span>
+            <span>{% blocktranslate trimmed with total=me.total|som %}jami {{ total }} so'm{% endblocktranslate %}</span>
+          </span>
+        </a>
+
+        <a href="{{ me.next.url }}" class="next-step next-{{ me.next.kind }}">
+          <span class="next-icon"><svg><use href="#i-{{ me.next.icon }}"/></svg></span>
+          <span class="next-body">
+            <small>{% translate "Keyingi qadam" %}</small>
+            <strong>{{ me.next.title }}</strong>
+            <span>{{ me.next.text }}</span>
+          </span>
+          <span class="next-cta">{{ me.next.cta }}<svg><use href="#i-arrow"/></svg></span>
+        </a>
+
+        {% if me.app %}
+        <ol class="mini-steps{% if me.app.status == 'rejected' %} rejected{% endif %}" aria-label="{% translate "Ariza holati" %}">
+          {% for label in me.steps %}
+          <li class="{% if forloop.counter0 < me.app.step %}done{% elif forloop.counter0 == me.app.step %}current{% endif %}" title="{{ label }}"><span></span></li>
+          {% endfor %}
+        </ol>
+        {% endif %}
+
+        <div class="me-actions">
+          <a href="{% url 'scan' %}"><svg><use href="#i-scan"/></svg>{% translate "Chek qo'shish" %}</a>
+          <a href="{% url 'audit' %}"><svg><use href="#i-search"/></svg>{% translate "Avto-Audit" %}</a>
+          <a href="{% url 'tracker' %}"><svg><use href="#i-chart"/></svg>{% translate "Ariza holati" %}</a>
+          <a href="{% url 'dashboard' %}"><svg><use href="#i-grid"/></svg>{% translate "Kabinet" %}</a>
+        </div>
+      </div>
+      {% else %}
+      <div class="card auth-card glow" id="auth">
+        <div class="auth-tabs" role="tablist">
+          <button type="button" role="tab" id="tab-register" aria-controls="pane-register" aria-selected="{% if tab == 'register' %}true{% else %}false{% endif %}">{% translate "Ro'yxatdan o'tish" %}</button>
+          <button type="button" role="tab" id="tab-login" aria-controls="pane-login" aria-selected="{% if tab == 'login' %}true{% else %}false{% endif %}">{% translate "Kirish" %}</button>
+        </div>
+
+        <form method="post" action="{% url 'register' %}" id="pane-register" role="tabpanel" aria-labelledby="tab-register"{% if tab != 'register' %} hidden{% endif %}>{% csrf_token %}
+          <p class="muted small mb-2">{% translate "1 daqiqa — raqamingiz Telegram-bot orqali tasdiqlanadi" %}</p>
+          {% if reg_form.non_field_errors %}<div class="alert alert-error mb-2"><svg><use href="#i-alert"/></svg>{{ reg_form.non_field_errors.0 }}</div>{% endif %}
+          <div class="field{% if reg_form.phone.errors %} has-error{% endif %}">
+            <label for="reg-phone">{% translate "Telefon raqam" %}</label>
+            <div class="input-prefix"><span>+998</span>
+              <input type="tel" name="phone" id="reg-phone" data-phone inputmode="numeric" autocomplete="tel-national" placeholder="90 123 45 67" required value="{{ reg_form.phone.value|default:'' }}"></div>
+            {% if reg_form.phone.errors %}<div class="err">{{ reg_form.phone.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="form-row">
+            <div class="field{% if reg_form.first_name.errors %} has-error{% endif %}">
+              <label for="reg-first">{% translate "Ism" %}</label>
+              <input type="text" name="first_name" id="reg-first" autocomplete="given-name" maxlength="150" placeholder="{% translate "Aziz" %}" required value="{{ reg_form.first_name.value|default:'' }}">
+              {% if reg_form.first_name.errors %}<div class="err">{{ reg_form.first_name.errors.0 }}</div>{% endif %}
+            </div>
+            <div class="field{% if reg_form.last_name.errors %} has-error{% endif %}">
+              <label for="reg-last">{% translate "Familiya" %}</label>
+              <input type="text" name="last_name" id="reg-last" autocomplete="family-name" maxlength="150" placeholder="{% translate "Karimov" %}" required value="{{ reg_form.last_name.value|default:'' }}">
+              {% if reg_form.last_name.errors %}<div class="err">{{ reg_form.last_name.errors.0 }}</div>{% endif %}
+            </div>
+          </div>
+          <div class="field{% if reg_form.password.errors %} has-error{% endif %}">
+            <label for="reg-password">{% translate "Parol" %}</label>
+            <div class="input-suffix"><input type="password" name="password" id="reg-password" autocomplete="new-password" required>
+              <button type="button" class="pw-toggle" data-pw-toggle="reg-password" aria-label="{% translate "Parolni ko'rsatish" %}"><svg><use href="#i-eye"/></svg></button></div>
+            {% if reg_form.password.errors %}<div class="err">{{ reg_form.password.errors.0 }}</div>{% else %}<div class="help">{% translate "Kamida 8 ta belgi, faqat raqamlardan iborat bo'lmasin" %}</div>{% endif %}
+          </div>
+          <button class="btn btn-tg btn-lg btn-block" type="submit">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.7.8l-4.8-3.6-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.1l-4.7-1.5c-1-.3-1-1 .2-1.5L20.5 3c.9-.3 1.6.2 1.4 1.3z"/></svg>
+            {% translate "Ro'yxatdan o'tish" %}
+          </button>
+        </form>
+
+        <div id="pane-login" role="tabpanel" aria-labelledby="tab-login"{% if tab != 'login' %} hidden{% endif %}>
+          <form method="post" action="{% url 'login' %}">{% csrf_token %}
+            {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+            {% if login_form.non_field_errors %}<div class="alert alert-error mb-2"><svg><use href="#i-alert"/></svg>{{ login_form.non_field_errors.0 }}</div>{% endif %}
+            <div class="field">
+              <label for="login-phone">{% translate "Telefon raqam" %}</label>
+              <div class="input-prefix"><span>+998</span>
+                <input type="tel" name="username" id="login-phone" data-phone inputmode="numeric" autocomplete="tel-national" placeholder="90 123 45 67" required value="{{ login_form.username.value|default:'' }}"></div>
+            </div>
+            <div class="field">
+              <label for="login-password">{% translate "Parol" %}</label>
+              <div class="input-suffix"><input type="password" name="password" id="login-password" autocomplete="current-password" required>
+                <button type="button" class="pw-toggle" data-pw-toggle="login-password" aria-label="{% translate "Parolni ko'rsatish" %}"><svg><use href="#i-eye"/></svg></button></div>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">{% translate "Kirish" %}</button>
+          </form>
+
+          <div class="or-divider"><span>{% translate "yoki" %}</span></div>
+
+          <form method="post" action="{% url 'login_code' %}" id="tg-login-form">{% csrf_token %}
+            {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+            {% if login_error %}<div class="alert alert-error mb-2"><svg><use href="#i-alert"/></svg>{{ login_error }}</div>{% endif %}
+            <button class="btn btn-tg btn-lg btn-block" type="submit" id="tg-login">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.7.8l-4.8-3.6-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.1l-4.7-1.5c-1-.3-1-1 .2-1.5L20.5 3c.9-.3 1.6.2 1.4 1.3z"/></svg>
+              {% translate "Telegram orqali kirish" %}
+            </button>
+            <p class="small muted text-center mt-1">{% translate "Parolsiz: botda raqamingizni yuborasiz. Hisobingiz bo'lmasa — shu yo'l bilan ro'yxatdan o'tasiz" %}</p>
+          </form>
+        </div>
+
+        <p class="small muted text-center mt-2"><svg style="width:14px;height:14px;display:inline;vertical-align:-2px"><use href="#i-shield"/></svg> {% translate "Ma'lumotlaringiz uchinchi shaxslarga berilmaydi" %}</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container landing-foot small muted">© {% now "Y" %} Magnit · <a href="{% url 'why' %}">{% translate "Nega Magnit?" %}</a> · <a href="{% url 'pricing' %}">{% translate "Narxlar" %}</a> · <a href="{% url 'faq' %}">{% translate "Savol-javob" %}</a> · <a href="{% url 'about' %}">{% translate "Biz haqimizda" %}</a></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const tabs = { register: document.getElementById("tab-register"), login: document.getElementById("tab-login") };
+  if (!tabs.register) return;
+  const show = (name, focus) => {
+    Object.entries(tabs).forEach(([key, tab]) => {
+      const on = key === name;
+      tab.setAttribute("aria-selected", on);
+      document.getElementById("pane-" + key).hidden = !on;
+    });
+    const first = document.querySelector(`#pane-${name} input:not([type=hidden]), #pane-${name} button`);
+    if (focus && first) first.focus();
+  };
+  tabs.register.addEventListener("click", () => show("register", true));
+  tabs.login.addEventListener("click", () => show("login", true));
+  // Menyudagi "Kirish" / "Bepul boshlash" havolalari (#login, #register) tabni almashtiradi
+  const fromHash = (focus) => { const h = location.hash.slice(1); if (h in tabs) show(h, focus); };
+  addEventListener("hashchange", () => fromHash(true));
+  fromHash(false);
+  // Kirish: bot yangi oynada ochiladi (oyna bosish paytida ochiladi — brauzer bloklamasligi uchun),
+  // joriy sahifa esa kod kiritishga o'tadi
+  const loginForm = document.getElementById("tg-login-form");
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const win = window.open("", "_blank");
+    try {
+      const res = await fetch(loginForm.action, { method: "POST", body: new FormData(loginForm), headers: { Accept: "application/json" } });
+      const data = await res.json();
+      if (win) win.location = data.bot_url; else window.open(data.bot_url, "_blank");
+      location.href = data.verify_url;
+    } catch (err) {
+      if (win) win.close();
+      loginForm.submit();
+    }
+  });
+  const err = document.querySelector("#auth .has-error input");
+  if (err) err.focus();
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Chek skanerlash" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="page-head">
+    <div>
+      <span class="badge badge-brand"><svg style="width:13px;height:13px"><use href="#i-sparkle"/></svg>{% if AI_ENABLED %}{% translate "AI ulangan · Claude Vision" %}{% else %}{% translate "Sehrli Avto-To'ldirish" %}{% endif %}</span>
+      <h1>{% translate "Chekni yuklang — qolganini AI qiladi" %}</h1>
+      <p>{% translate "Summa, sana, tashkilot va to'lov turi avtomatik aniqlanadi. Siz faqat tasdiqlaysiz." %}</p>
+    </div>
+  </div>
+
+  <div class="split scan-split">
+    <div class="card scan-upload">
+      <label class="dropzone dropzone-lg" id="dropzone" data-url="{% url 'receipt_upload' %}">
+        <input type="file" id="file-input" accept="image/png,image/jpeg,image/webp,application/pdf">
+        <div class="feature-icon"><svg><use href="#i-upload"/></svg></div>
+        <h3>{% translate "Chek yoki kvitansiyani shu yerga tashlang" %}</h3>
+        <p>{% translate "yoki" %} <strong style="color:var(--brand-ink)">{% translate "tanlash uchun bosing" %}</strong> · PNG, JPG, PDF · 10 MB</p>
+      </label>
+      <label class="btn btn-ghost btn-block mt-2 camera-btn">
+        <input type="file" id="camera-input" accept="image/*" capture="environment" hidden>
+        <svg><use href="#i-scan"/></svg>{% translate "Suratga olish" %}
+      </label>
+
+      <div class="preview" id="preview"><div class="scan-line"></div><div id="preview-inner"></div></div>
+      <div class="progress-steps" id="progress" hidden>
+        <div class="pstep" data-step="1"><span class="ico"><svg><use href="#i-check"/></svg></span>{% translate "Fayl yuklanmoqda" %}</div>
+        <div class="pstep" data-step="2"><span class="ico"><svg><use href="#i-check"/></svg></span>{% if AI_ENABLED %}{% translate "AI chekni o'qimoqda" %}{% else %}{% translate "OCR: matn o'qilmoqda" %}{% endif %}</div>
+        <div class="pstep" data-step="3"><span class="ico"><svg><use href="#i-check"/></svg></span>{% translate "Summa, sana va STIR ajratilmoqda" %}</div>
+      </div>
+      <div id="scan-alert" class="mt-2"></div>
+      <p class="small muted mt-2 scan-tip"><svg><use href="#i-info"/></svg>{% translate "Chek to'liq kadrda, yorug' joyda va tekis bo'lsin." %}</p>
+    </div>
+
+    <form method="post" id="confirm-form" action="" class="card ai-result is-empty">{% csrf_token %}
+      <div class="card-head">
+        <div class="card-title"><svg style="width:20px;height:20px"><use href="#i-sparkle"/></svg>{% translate "AI natijasi" %}</div>
+        <span class="badge badge-brand" id="engine-badge" hidden></span>
+      </div>
+
+      <div class="ai-empty" id="ai-empty">
+        <div class="ai-skel"><i></i><i></i><i></i></div>
+        <p class="muted small">{% if AI_ENABLED %}{% translate "Chek yuklangach, AI aniqlagan ma'lumotlar shu yerda chiqadi." %}{% else %}{% translate "AI hozir ulanmagan — chek saqlanadi, ma'lumotlarni esa o'zingiz kiritasiz." %}{% endif %}</p>
+      </div>
+
+      <div class="ai-summary" id="ai-summary" hidden>
+        <div class="mock-total ai-total"><span>{% blocktranslate trimmed with p=JSHOD_PERCENT %}Qaytariladi ({{ p }}%){% endblocktranslate %}</span><strong id="refund-preview">0 {% translate "so'm" %}</strong></div>
+        <dl class="ai-facts">
+          <div data-field="amount"><dt>{% translate "To'lov summasi" %}</dt><dd id="v-amount">—</dd></div>
+          <div data-field="paid_at"><dt>{% translate "Sana" %}</dt><dd id="v-paid_at">—</dd></div>
+          <div data-field="organization"><dt>{% translate "Tashkilot" %}</dt><dd id="v-organization">—</dd></div>
+          <div data-field="stir"><dt>STIR</dt><dd id="v-stir">—</dd></div>
+          <div data-field="category"><dt>{% translate "To'lov turi" %}</dt><dd id="v-category">—</dd></div>
+        </dl>
+        <button type="button" class="link-btn" id="edit-toggle"><svg><use href="#i-file"/></svg><span>{% translate "Tahrirlash" %}</span></button>
+      </div>
+
+      <div class="ai-edit" id="ai-edit" hidden>
+        <p class="small muted mb-2" id="edit-hint"></p>
+        <div class="field" data-field="amount">
+          <label for="id_amount">{% translate "To'lov summasi" %}</label>
+          <div class="input-suffix"><input type="number" name="amount" id="id_amount" min="0" step="1" inputmode="numeric" required placeholder="0"><span>{% translate "so'm" %}</span></div>
+        </div>
+        <div class="form-row">
+          <div class="field" data-field="paid_at"><label for="id_paid_at">{% translate "To'lov sanasi" %}</label><input type="date" name="paid_at" id="id_paid_at"></div>
+          <div class="field" data-field="stir"><label for="id_stir">{% translate "Tashkilot STIR (INN)" %}</label><input type="text" name="stir" id="id_stir" inputmode="numeric" pattern="\d{9}" maxlength="9" placeholder="{% translate "9 ta raqam" %}"></div>
+        </div>
+        <div class="field" data-field="organization"><label for="id_organization">{% translate "Tashkilot nomi" %}</label><input type="text" name="organization" id="id_organization" maxlength="255" placeholder="{% translate "Masalan: TDIU" %}"></div>
+        <div class="field" data-field="category"><label for="id_category">{% translate "To'lov turi" %}</label>
+          <select name="category" id="id_category">{% for value, label in categories %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-lg btn-block mt-2" type="submit" id="confirm-btn" disabled><svg><use href="#i-check"/></svg>{% translate "Tasdiqlash va kabinetga saqlash" %}</button>
+      <p class="small muted text-center mt-1" id="confirm-hint">{% translate "Avval chek faylini yuklang" %}</p>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% translate "so'm" as L_som %}{% translate "Fayl hajmi 10 MB dan oshmasligi kerak." as L_too_big %}{% translate "Chek ko'rinishi" as L_preview %}{% translate "Faylni yuklab bo'lmadi." as L_upload_fail %}{% translate "Hammasi to'g'rimi? Tasdiqlang" as L_check %}{% translate "Server bilan aloqa uzildi. Qayta urinib ko'ring." as L_offline %}{% translate "AI aniqlay olmagan maydonlarni to'ldiring:" as L_missing %}{% translate "Kerak bo'lsa, ma'lumotlarni tuzating:" as L_edit %}{% translate "Yopish" as L_close %}{% translate "Tahrirlash" as L_edit_btn %}{% translate "✨ AI hamma ma'lumotni topdi — tekshirib, tasdiqlang." as L_filled %}
+<script>
+(function () {
+  const L = { som: "{{ L_som|escapejs }}", too_big: "{{ L_too_big|escapejs }}", preview: "{{ L_preview|escapejs }}", upload_fail: "{{ L_upload_fail|escapejs }}", check: "{{ L_check|escapejs }}", offline: "{{ L_offline|escapejs }}", missing: "{{ L_missing|escapejs }}", edit: "{{ L_edit|escapejs }}", close: "{{ L_close|escapejs }}", edit_btn: "{{ L_edit_btn|escapejs }}", filled: "{{ L_filled|escapejs }}" };
+  const { $$, fmt, csrf } = window.Magnit;
+  const $ = (id) => document.getElementById(id);
+  const dz = $("dropzone"), preview = $("preview"), inner = $("preview-inner"), progress = $("progress"), alertBox = $("scan-alert");
+  const form = $("confirm-form"), btn = $("confirm-btn"), summary = $("ai-summary"), edit = $("ai-edit");
+  const amount = $("id_amount"), category = $("id_category");
+  const eligible = ["education", "kindergarten", "school", "medical", "contract"];
+  const rate = {{ JSHOD_PERCENT }} / 100;
+  const FIELDS = ["amount", "paid_at", "stir", "organization", "category"];
+
+  const showValue = (k) => {
+    const el = $("id_" + k), out = $("v-" + k);
+    let v = el.value;
+    if (k === "amount") v = v ? fmt(v) + " " + L.som : "";
+    if (k === "category") v = el.options[el.selectedIndex].text;
+    if (k === "paid_at" && v) v = v.split("-").reverse().join(".");
+    out.textContent = v || "—";
+    out.parentElement.classList.toggle("missing", !v && k !== "stir");
+  };
+  const updateRefund = () => {
+    const v = eligible.includes(category.value) ? Math.round((Number(amount.value) || 0) * rate) : 0;
+    $("refund-preview").textContent = fmt(v) + " " + L.som;
+    FIELDS.forEach(showValue);
+  };
+  FIELDS.forEach((k) => $("id_" + k).addEventListener("input", updateRefund));
+  category.addEventListener("change", updateRefund);
+
+  // Tahrirlash: barcha maydonlar ochiladi; aks holda faqat AI topa olmaganlari ko'rinadi
+  const setEdit = (open, onlyMissing) => {
+    edit.hidden = !open;
+    $$(".field[data-field]", edit).forEach((f) => {
+      f.hidden = onlyMissing && !!$("id_" + f.dataset.field).value;
+      // Kiritish maydoni ko'rinayotgan qiymat xulosada takrorlanmaydi
+      document.querySelector(`.ai-facts > div[data-field="${f.dataset.field}"]`).hidden = open && !f.hidden;
+    });
+    $("edit-hint").textContent = onlyMissing ? L.missing : L.edit;
+    $("edit-toggle").querySelector("span").textContent = open ? L.close : L.edit_btn;
+  };
+  $("edit-toggle").addEventListener("click", () => setEdit(edit.hidden, false));
+
+  ["dragenter", "dragover"].forEach((e) => dz.addEventListener(e, (ev) => { ev.preventDefault(); dz.classList.add("drag"); }));
+  ["dragleave", "drop"].forEach((e) => dz.addEventListener(e, (ev) => { ev.preventDefault(); dz.classList.remove("drag"); }));
+  dz.addEventListener("drop", (ev) => { if (ev.dataTransfer.files[0]) handle(ev.dataTransfer.files[0]); });
+  ["file-input", "camera-input"].forEach((id) => $(id).addEventListener("change", (e) => { if (e.target.files[0]) handle(e.target.files[0]); }));
+
+  const setStep = (n) => $$(".pstep", progress).forEach((el) => {
+    const s = Number(el.dataset.step);
+    el.classList.toggle("done", s < n); el.classList.toggle("active", s === n);
+  });
+  const showAlert = (text, type) => {
+    alertBox.innerHTML = `<div class="alert alert-${type}"><svg><use href="#i-${type === "success" ? "check-circle" : "alert"}"/></svg><span></span></div>`;
+    alertBox.querySelector("span").textContent = text;
+  };
+
+  async function handle(file) {
+    if (file.size > 10 * 1024 * 1024) return showAlert(L.too_big, "warning");
+    alertBox.innerHTML = "";
+    preview.classList.add("show", "scanning");
+    if (file.type.startsWith("image/")) {
+      inner.innerHTML = `<img alt="${L.preview}">`;
+      inner.querySelector("img").src = URL.createObjectURL(file);
+    } else {
+      inner.innerHTML = `<div class="file-pill"><div class="thumb"><svg><use href="#i-file"/></svg></div><span></span></div>`;
+      inner.querySelector("span").textContent = file.name;
+    }
+    progress.hidden = false; setStep(1);
+    const t1 = setTimeout(() => setStep(2), 500), t2 = setTimeout(() => setStep(3), 1800);
+
+    const fd = new FormData(); fd.append("file", file);
+    try {
+      const res = await fetch(dz.dataset.url, { method: "POST", body: fd, headers: { "X-CSRFToken": csrf() } });
+      const data = await res.json();
+      clearTimeout(t1); clearTimeout(t2); setStep(4);
+      preview.classList.remove("scanning");
+      setTimeout(() => { progress.hidden = true; }, 900);
+      if (!data.receipt_id) return showAlert(data.message || L.upload_fail, "warning");
+
+      form.action = data.confirm_url;
+      form.classList.remove("is-empty");
+      $("ai-empty").hidden = true;
+      summary.hidden = false;
+      btn.disabled = false;
+      $("confirm-hint").textContent = L.check;
+      const badge = $("engine-badge");
+      if (data.engine) { badge.hidden = false; badge.textContent = data.engine; }
+
+      FIELDS.forEach((k) => { const v = data.fields[k]; if (v) $("id_" + k).value = v; });
+      updateRefund();
+      $$(".ai-facts > div").forEach((el, i) => { el.style.setProperty("--d", `${i * 90}ms`); el.classList.add("pop"); });
+      const missing = !amount.value || !$("id_paid_at").value || !$("id_organization").value;
+      setEdit(missing, true);
+      if (data.ok && !missing) showAlert(L.filled, "success");
+      else if (data.message) showAlert(data.message, "warning");
+    } catch (e) {
+      clearTimeout(t1); clearTimeout(t2);
+      preview.classList.remove("scanning"); progress.hidden = true;
+      showAlert(L.offline, "warning");
+    }
+  }
+})();
+</script>
+{% endblock %}

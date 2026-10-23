@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Nega Magnit?" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="section-head reveal">
+    <span class="eyebrow">{% translate "Nega Magnit?" %}</span>
+    <h2>{% blocktranslate trimmed %}Boshqalar bitta ishni qiladi — <span class="gradient-text">Magnit hammasini</span>{% endblocktranslate %}</h2>
+    <p>{% translate "Soliqni qaytarish, keshbekni ko'paytirish va frilanser soliqlarini kamaytirish — bitta kabinetda, 5 daqiqada." %}</p>
+  </div>
+
+  <div class="grid-3">
+    {% for icon, title, text in advantages %}
+    <div class="card feature">
+      <div class="feature-icon"><svg><use href="#{{ icon }}"/></svg></div>
+      <h3>{{ title }}</h3>
+      <p>{{ text }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="section-head mt-4" style="margin-bottom:24px">
+    <h2 style="font-size:clamp(24px,3vw,32px)">{% translate "Muqobil yo'llar bilan taqqoslash" %}</h2>
+  </div>
+  <div class="card">
+    <div class="table-wrap">
+      <table class="table compare-table">
+        <thead><tr><th>{% translate "Imkoniyat" %}</th>{% for c in comparison.columns %}<th{% if forloop.first %} class="us"{% endif %}>{{ c }}</th>{% endfor %}</tr></thead>
+        <tbody>
+          {% for label, values in comparison.rows %}
+          <tr>
+            <td>{{ label }}</td>
+            {% for v in values %}
+            <td{% if forloop.first %} class="us"{% endif %}>
+              {% if v is True %}<span class="yes" aria-label="{% translate "Bor" %}"><svg><use href="#i-check"/></svg></span>
+              {% elif v is False %}<span class="no" aria-label="{% translate "Yo'q" %}"><svg><use href="#i-x"/></svg></span>
+              {% elif v == "part" %}<span class="part" aria-label="{% translate "Qisman" %}">~</span>
+              {% else %}<strong>{{ v }}</strong>{% endif %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted mt-2">{% translate "~ — qisman yoki qo'shimcha haq evaziga." %}</p>
+  </div>
+
+  <div class="cta-band mt-4">
+    <h2>{% translate "Farqni o'zingiz ko'ring" %}</h2>
+    <p>{% translate "Birinchi chekni yuklang — 30 soniyada qancha qaytishini bilasiz." %}</p>
+    <a href="{% if user.is_authenticated %}{% url 'scan' %}{% else %}{% url 'register' %}{% endif %}" class="btn btn-lg">{% translate "Bepul boshlash" %} <svg><use href="#i-arrow"/></svg></a>
+  </div>
+</div>
+{% endblock %}

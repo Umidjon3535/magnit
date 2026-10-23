@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block footer %}{% endblock %}
+{% block title %}{% if is_login %}{% translate "Kirish" %}{% else %}{% translate "Telefonni tasdiqlash" %}{% endif %} — Magnit{% endblock %}
+{% block content %}
+<div class="container auth-wrap auth-fit">
+  <div class="card auth-card glow reveal">
+    <div class="auth-head">
+      <img class="logo-img logo-img-lg" src="{% static 'img/logo.png' %}" alt="Magnit" width="64" height="64">
+      <h1>{% if is_login %}{% translate "Kirish kodi" %}{% else %}{% translate "Raqamni tasdiqlang" %}{% endif %}</h1>
+    </div>
+
+    {% if is_login %}
+    <p class="muted mb-2">{% translate "Botda raqamingizni yuboring — kirish kodi Telegram'ga keladi." %}</p>
+    {% else %}
+    <p class="muted mb-2">{% blocktranslate trimmed with phone=v.phone %}<strong>+{{ phone }}</strong> uchun kod Telegram-botimizga keladi.{% endblocktranslate %}</p>
+    {% endif %}
+    <ol class="tg-steps" id="tg-steps">
+      <li id="st-open"{% if v.chat_id %} class="done"{% endif %}><span class="n">1</span><span>{% blocktranslate trimmed %}Botni oching va <b>Start</b> bosing{% endblocktranslate %}</span></li>
+      <li id="st-contact"{% if v.code %} class="done"{% endif %}><span class="n">2</span><span>{% blocktranslate trimmed %}<b>«📱 Raqamni yuborish»</b> tugmasini bosing{% endblocktranslate %}</span></li>
+      <li id="st-code"><span class="n">3</span><span>{% translate "Botdan kelgan 6 xonali kodni kiriting" %}</span></li>
+    </ol>
+    <a href="{{ link }}" target="_blank" rel="noopener" class="btn btn-tg btn-lg btn-block mt-2">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.7.8l-4.8-3.6-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.1l-4.7-1.5c-1-.3-1-1 .2-1.5L20.5 3c.9-.3 1.6.2 1.4 1.3z"/></svg>
+      {% if v.chat_id %}{% translate "Botni qayta ochish" %}{% else %}{% translate "Botni ochish" %}{% endif %}
+    </a>
+    <p class="small muted text-center mt-1">{% blocktranslate trimmed %}Bot ochilmagan bo'lsa, shu tugmani bosing — <b>@{{ bot }}</b>{% endblocktranslate %}</p>
+
+    <form method="post" class="mt-3" autocomplete="off" data-status-url="{% url 'verify_status' v.token %}" id="code-form">{% csrf_token %}
+      {% if error %}<div class="alert alert-error mb-2"><svg><use href="#i-alert"/></svg>{{ error }}</div>{% endif %}
+      <div class="field">
+        <label for="code">{% if is_login %}{% translate "Kirish kodi" %}{% else %}{% translate "Tasdiqlash kodi" %}{% endif %}</label>
+        <input type="text" name="code" id="code" class="input-xl code-input" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="\d{6}" placeholder="••••••" required{% if v.code %} autofocus{% endif %}>
+      </div>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">{% if is_login %}{% translate "Kirish" %}{% else %}{% translate "Tasdiqlash va hisob yaratish" %}{% endif %}</button>
+    </form>
+
+    <p class="text-center mt-2 small muted">{% blocktranslate trimmed %}Kod {{ ttl }} daqiqa amal qiladi{% endblocktranslate %} · <a href="{% url 'home' %}{% if is_login %}#login{% else %}#register{% endif %}" style="color:var(--brand-ink);font-weight:700">{% if is_login %}{% translate "Qaytadan boshlash" %}{% else %}{% translate "Raqamni o'zgartirish" %}{% endif %}</a></p>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const form = document.getElementById("code-form"), code = document.getElementById("code");
+  code.addEventListener("input", () => { code.value = code.value.replace(/\D/g, "").slice(0, 6); if (code.value.length === 6) form.requestSubmit(); });
+  if (!document.getElementById("tg-steps")) return;
+  let timer, submitting = false;
+  // Kod yuborilgach server yozuvni o'chiradi — kuzatuv sahifani qayta yuklab, yo'naltirishni buzmasligi kerak
+  form.addEventListener("submit", () => { submitting = true; clearInterval(timer); });
+  const poll = async () => {
+    try {
+      const s = await (await fetch(form.dataset.statusUrl, { cache: "no-store" })).json();
+      if (submitting) return;
+      if (s.expired) { location.reload(); return; }
+      document.getElementById("st-open").classList.toggle("done", s.bot_opened);
+      document.getElementById("st-contact").classList.toggle("done", s.code_sent);
+      if (s.code_sent) { document.getElementById("st-code").classList.add("current"); code.focus(); clearInterval(timer); }
+    } catch (e) {}
+  };
+  timer = setInterval(poll, 2500);
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Biz haqimizda" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="section-head reveal">
+    <span class="eyebrow">{% translate "Biz haqimizda" %}</span>
+    <h2>{% blocktranslate trimmed %}Pulingiz davlatda <span class="gradient-text">qolib ketmasin</span>{% endblocktranslate %}</h2>
+    <p>{% translate "Magnit — har bir oilaga qonuniy ravishda qaytishi kerak bo'lgan pulni oson qaytarib olishga yordam beradigan o'zbek fintex startapi." %}</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card feature">
+      <div class="feature-icon"><svg><use href="#i-alert"/></svg></div>
+      <h3>{% translate "Muammo" %}</h3>
+      <p>{% translate "Ko'pchilik kontrakt, bog'cha va tibbiyot to'lovlaridan 12% soliqni qaytarish mumkinligini bilmaydi yoki hujjat yig'ish qiyinligi sababli voz kechadi." %}</p>
+    </div>
+    <div class="card feature">
+      <div class="feature-icon"><svg><use href="#i-sparkle"/></svg></div>
+      <h3>{% translate "Yechim" %}</h3>
+      <p>{% translate "AI cheklarni o'qiydi, bank hisobotidan mos to'lovlarni topadi va ariza reestrini tayyorlaydi — jarayon soatlardan daqiqalarga qisqaradi." %}</p>
+    </div>
+    <div class="card feature">
+      <div class="feature-icon"><svg><use href="#i-heart"/></svg></div>
+      <h3>{% translate "Missiya" %}</h3>
+      <p>{% translate "Moliyaviy savodxonlikni oshirish va har bir so'mni oila byudjetiga qaytarish." %}</p>
+    </div>
+  </div>
+
+  <div class="section-head mt-4" id="roadmap" style="margin-bottom:24px">
+    <span class="eyebrow">{% translate "Yo'l xaritasi" %}</span>
+    <h2 style="font-size:clamp(24px,3vw,32px)">{% translate "Qayerdamiz va qayerga boramiz" %}</h2>
+  </div>
+  <div class="roadmap">
+    {% for stage, text, done in roadmap %}
+    <div class="card">
+      <span class="badge {% if done %}badge-good{% else %}badge-brand{% endif %}">{% if done %}<svg style="width:13px;height:13px"><use href="#i-check"/></svg>{% endif %}{{ stage }}</span>
+      <p>{{ text }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="card mt-4" id="contact">
+    <div class="flex between">
+      <div>
+        <h3 style="font-size:20px">{% translate "Bog'lanish" %}</h3>
+        <p class="muted mt-1">{% translate "Hamkorlik, investitsiya yoki taklif bo'yicha yozing." %}</p>
+      </div>
+      <div class="flex">
+        {% if SUPPORT.telegram %}<a href="https://t.me/{{ SUPPORT.telegram }}" class="btn btn-primary btn-sm" target="_blank" rel="noopener"><svg><use href="#i-send"/></svg>Telegram</a>{% endif %}
+        {% if SUPPORT.email %}<a href="mailto:{{ SUPPORT.email }}" class="btn btn-ghost btn-sm">{{ SUPPORT.email }}</a>{% endif %}
+        {% if SUPPORT.phone %}<a href="tel:{{ SUPPORT.phone }}" class="btn btn-ghost btn-sm">{{ SUPPORT.phone }}</a>{% endif %}
+        <a href="#" class="btn btn-ghost btn-sm" data-open-chat=""><svg><use href="#i-chat"/></svg>{% translate "AI-yordamchi" %}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

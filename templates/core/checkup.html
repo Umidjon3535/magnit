@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load i18n money %}
+{% block title %}{% translate "Ariza tekshiruvi" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="page-head">
+    <div>
+      <span class="badge badge-brand"><svg style="width:13px;height:13px"><use href="#i-shield"/></svg>{% translate "Yuborishdan oldin tekshiring" %}</span>
+      <h1>{% translate "Arizangiz rad etilmaydimi?" %}</h1>
+      <p>{% translate "Savollarga «Ha» yoki «Yo'q» deb javob bering — natija o'ng tomonda darhol chiqadi." %}</p>
+    </div>
+  </div>
+
+  <div class="ck-layout">
+    <form method="post" class="ck-form no-print" id="ck-form" novalidate>{% csrf_token %}
+      <section class="card">
+        <div class="ck-step-title"><span class="n">1</span>{% translate "Daromad va to'lov" %}</div>
+        <div class="form-row">
+          <div class="field">
+            <label for="id_monthly_salary">{% translate "Oylik maosh (rasmiy)" %}</label>
+            <div class="input-suffix"><input id="id_monthly_salary" name="monthly_salary" class="input" data-money inputmode="numeric" placeholder="6 000 000" value="{{ form.monthly_salary.value|default:'' }}"><span>{% translate "so'm" %}</span></div>
+          </div>
+          <div class="field">
+            <label for="id_payment">{% translate "Yillik to'lov (kontrakt, bog'cha…)" %}</label>
+            <div class="input-suffix"><input id="id_payment" name="payment" class="input" data-money inputmode="numeric" placeholder="12 000 000" value="{{ form.payment.value|default:'' }}"><span>{% translate "so'm" %}</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card mt-2">
+        <div class="ck-step-title flex between">
+          <span class="flex"><span class="n">2</span>{% translate "Hujjatlar" %}</span>
+          <span class="ck-progress"><b id="ck-answered">0</b>/<span id="ck-total">5</span> {% translate "javob" %}</span>
+        </div>
+        <div class="ck-bar"><i id="ck-bar"></i></div>
+
+        <div class="ck-q ck-family">
+          <div class="ck-q-text"><strong>{% translate "To'lov kim uchun?" %}</strong><small>{% translate "Farzand yoki oila a'zosi uchun bo'lsa, qarindoshlik hujjati ham kerak" %}</small></div>
+          <div class="seg">
+            <label><input type="radio" name="for_family" value=""{% if not form.for_family.value %} checked{% endif %}><span>{% translate "O'zim uchun" %}</span></label>
+            <label><input type="radio" name="for_family" value="on"{% if form.for_family.value %} checked{% endif %}><span>{% translate "Oila a'zosi" %}</span></label>
+          </div>
+        </div>
+
+        {% for q in questions %}
+        <div class="ck-q" data-key="{{ q.key }}"{% if q.key == "family_docs" %} id="family-q"{% if not form.for_family.value %} hidden{% endif %}{% endif %}>
+          <div class="ck-q-text"><strong>{{ q.title }}</strong><small>{{ q.text }}</small></div>
+          <div class="seg seg-yn">
+            <label class="yes"><input type="radio" name="{{ q.key }}" value="on"{% if q.answer == "on" %} checked{% endif %}><span>{% translate "Ha" %}</span></label>
+            <label class="no"><input type="radio" name="{{ q.key }}" value=""{% if q.answer == "" %} checked{% endif %}><span>{% translate "Yo'q" %}</span></label>
+          </div>
+        </div>
+        {% endfor %}
+        <noscript><button class="btn btn-primary btn-block mt-2" type="submit">{% translate "Tekshirish" %}</button></noscript>
+      </section>
+    </form>
+
+    <aside class="ck-aside" id="ck-result" aria-live="polite">
+      {% include "core/_checkup_result.html" %}
+    </aside>
+  </div>
+  <p class="small muted mt-2">{% translate "Tekshiruv amaliyotdagi tipik holatlarga asoslangan va ma'lumot uchun. Yakuniy qarorni soliq organi qabul qiladi." %}</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const form = document.getElementById("ck-form"), box = document.getElementById("ck-result");
+  const famQ = document.getElementById("family-q");
+  const { parseNum } = window.Magnit;
+  let timer, seq = 0;
+
+  const questions = () => [...form.querySelectorAll(".ck-q[data-key]")].filter((q) => !q.hidden);
+  const progress = () => {
+    const qs = questions(), done = qs.filter((q) => q.querySelector("input:checked")).length;
+    document.getElementById("ck-answered").textContent = done;
+    document.getElementById("ck-total").textContent = qs.length;
+    document.getElementById("ck-bar").style.width = (qs.length ? done / qs.length * 100 : 0) + "%";
+  };
+
+  // Javob o'zgarishi bilan natija serverda hisoblanadi va o'ng tomonda yangilanadi
+  const refresh = () => {
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      const salary = parseNum(form.monthly_salary.value), payment = parseNum(form.payment.value);
+      if (!salary || !payment) return;
+      const my = ++seq;
+      try {
+        const res = await fetch(location.pathname, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+        const data = await res.json();
+        if (my === seq) box.innerHTML = data.html;
+      } catch (e) { /* tarmoq xatosi — keyingi o'zgarishda qayta urinadi */ }
+    }, 250);
+  };
+
+  form.addEventListener("change", (e) => {
+    if (e.target.name === "for_family") famQ.hidden = e.target.value !== "on";
+    progress(); refresh();
+  });
+  form.addEventListener("input", refresh);
+  form.addEventListener("submit", (e) => { e.preventDefault(); refresh(); });
+  progress();
+})();
+</script>
+{% endblock %}

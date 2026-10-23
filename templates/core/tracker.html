@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load i18n money %}
+{% block footer %}{% endblock %}
+{% block title %}{% translate "Ariza holati" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page tracker-fit" style="max-width:960px">
+  <div class="page-head">
+    <div>
+      <span class="badge badge-brand"><svg style="width:13px;height:13px"><use href="#i-chart"/></svg>{% translate "Ariza kuzatuvi" %}</span>
+      <h1>{% translate "Pulim qayerda qoldi?" %}</h1>
+      <p>{% blocktranslate trimmed %}Har bir arizangiz qaysi bosqichda ekanini belgilab boring. Javob {{ expected_days }} kundan ko'p kechiksa yoki ariza rad etilsa, tayyor murojaat xatini beramiz.{% endblocktranslate %}</p>
+    </div>
+    <a href="{% url 'checkup' %}" class="btn btn-ghost"><svg><use href="#i-shield"/></svg>{% translate "Ariza tekshiruvi" %}</a>
+  </div>
+
+  {% for app in apps %}
+  <div class="card mb-2" id="app-{{ app.pk }}">
+    <div class="card-head">
+      <div>
+        <div class="card-title">{% blocktranslate trimmed with year=app.year|stringformat:"d" sum=app.refund_amount|som %}{{ year }}-yil arizasi · {{ sum }} so'm{% endblocktranslate %}</div>
+        <div class="small muted">
+          {% if app.submitted_at %}{% translate "Yuborilgan" %}: {{ app.submitted_at|date:"d.m.Y" }}{% if app.days_waiting is not None %} · {% blocktranslate trimmed with n=app.days_waiting %}{{ n }} kun o'tdi{% endblocktranslate %}{% endif %}{% else %}{% translate "Hali yuborilmagan" %}{% endif %}
+        </div>
+      </div>
+      <span class="badge {% if app.status == 'paid' %}badge-good{% elif app.status == 'rejected' %}badge-bad{% elif app.overdue %}badge-warn{% else %}badge-brand{% endif %}">{{ app.get_status_display }}</span>
+    </div>
+
+    <ol class="stepper{% if app.status == 'rejected' %} rejected{% endif %}">
+      {% for label in app.steps %}
+      <li class="{% if forloop.counter0 < app.step %}done{% elif forloop.counter0 == app.step %}current{% endif %}"><span class="dot"></span><span class="lbl">{% if app.status == 'rejected' and forloop.counter0 == app.step %}{% translate "Rad etildi" %}{% else %}{{ label }}{% endif %}</span></li>
+      {% endfor %}
+    </ol>
+
+    {% if app.status == 'draft' %}
+    <div class="alert alert-info small mt-2"><svg><use href="#i-info"/></svg><span>{% translate "Reestrni chop eting yoki PDF qiling va my.soliq.uz orqali yuboring. So'ng quyida «Yuborildi» holatini va sanani belgilang." %}</span></div>
+    {% endif %}
+
+    {% if app.letter %}
+    <div class="alert alert-warning small mt-2"><svg><use href="#i-alert"/></svg><span>{% if app.status == 'rejected' %}{% translate "Ariza rad etildi — sababini yozma so'rang va kamchilikni tuzatib qayta topshiring." %}{% else %}{% blocktranslate trimmed %}Javob {{ expected_days }} kundan ortiq kechikdi — soliq inspeksiyasiga murojaat qilish vaqti keldi.{% endblocktranslate %}{% endif %}</span></div>
+    <details class="letter mt-2" open>
+      <summary>{% translate "Tayyor murojaat xati" %}</summary>
+      <textarea class="input" rows="12" readonly id="letter-{{ app.pk }}">{{ app.letter }}</textarea>
+      <div class="flex mt-1">
+        <button type="button" class="btn btn-primary btn-sm" data-copy="letter-{{ app.pk }}"><svg><use href="#i-file"/></svg>{% translate "Nusxa olish" %}</button>
+        <a href="https://my.soliq.uz" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">{% translate "my.soliq.uz orqali yuborish" %} <svg><use href="#i-arrow"/></svg></a>
+      </div>
+    </details>
+    {% endif %}
+
+    <details class="status-edit mt-2"{% if app.status == 'draft' %} open{% endif %}>
+      <summary>{% translate "Holatni yangilash" %}</summary>
+      <form method="post" action="{% url 'application_status' app.pk %}" class="mt-2">{% csrf_token %}
+        <div class="form-row form-row-4">
+          <div class="field"><label for="{{ app.form.status.id_for_label }}">{% translate "Holat" %}</label>{{ app.form.status }}</div>
+          <div class="field"><label for="{{ app.form.submitted_at.id_for_label }}">{% translate "Yuborilgan sana" %}</label>{{ app.form.submitted_at }}</div>
+          <div class="field"><label for="{{ app.form.resolved_at.id_for_label }}">{% translate "Pul tushgan / rad etilgan sana" %}</label>{{ app.form.resolved_at }}</div>
+          <div class="field"><label for="{{ app.form.note.id_for_label }}">{% translate "Izoh" %}</label>{{ app.form.note }}</div>
+        </div>
+        <div class="flex">
+          <button class="btn btn-primary btn-sm" type="submit"><svg><use href="#i-check"/></svg>{% translate "Saqlash" %}</button>
+          <a href="{% url 'application_detail' app.pk %}" class="btn btn-ghost btn-sm"><svg><use href="#i-print"/></svg>{% translate "Reestrni ochish" %}</a>
+        </div>
+      </form>
+    </details>
+  </div>
+  {% empty %}
+  <div class="card empty">
+    <div class="feature-icon"><svg><use href="#i-file"/></svg></div>
+    <h3 class="mt-2">{% translate "Hali ariza yo'q" %}</h3>
+    <p class="muted mt-1">{% translate "Avval cheklarni yuklang va kabinetda arizani shakllantiring — keyin uni shu yerda kuzatasiz." %}</p>
+    <div class="flex mt-2" style="justify-content:center">
+      <a href="{% url 'checkup' %}" class="btn btn-ghost btn-sm">{% translate "Ariza tekshiruvi" %}</a>
+      <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm">{% translate "Ariza shakllantirish" %}</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% translate "Nusxa olindi ✓" as L_copied %}
+<script>
+  const L = { copied: "{{ L_copied|escapejs }}" };
+document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
+  const t = document.getElementById(b.dataset.copy);
+  try { await navigator.clipboard.writeText(t.value); } catch (e) { t.select(); document.execCommand("copy"); }
+  const old = b.innerHTML; b.textContent = L.copied; setTimeout(() => { b.innerHTML = old; }, 1800);
+}));
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+Django==6.1.2
+anthropic==1.15.0
+pypdf==6.21.1
+pillow==13.0.0
+python-dotenv==1.2.4
+whitenoise==6.12.0
+dj-database-url==3.1.2
+psycopg[binary]==3.3.6
+
+# Ixtiyoriy lokal OCR dvigatellari (Claude kaliti bo'lmasa ishlatiladi):
+# easyocr
+# pytesseract   # + Tesseract-OCR dasturi (rus+eng tillari bilan)
+
+# Faqat namuna PDF yaratish uchun (samples/make_sample_statement.py):
+# reportlab

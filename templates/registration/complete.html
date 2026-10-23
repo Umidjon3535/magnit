@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% translate "Hisobni yakunlash" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container auth-wrap">
+  <div class="card auth-card glow reveal">
+    <img class="logo-img logo-img-lg mb-2" src="{% static 'img/logo.png' %}" alt="Magnit" width="64" height="64">
+    <h1>{% translate "Oxirgi qadam" %}</h1>
+    <div class="alert alert-success mt-2 mb-2"><svg><use href="#i-check-circle"/></svg><span>{% blocktranslate trimmed %}<b>+{{ phone }}</b> raqami Telegram orqali tasdiqlandi.{% endblocktranslate %}</span></div>
+    <p class="muted mb-2">{% translate "Ism va familiyangizni kiriting — hisobingiz yaratiladi." %}</p>
+    <form method="post">{% csrf_token %}
+      <div class="form-row">
+        <div class="field{% if form.first_name.errors %} has-error{% endif %}">
+          <label for="p-first">{% translate "Ism" %}</label>
+          <input type="text" name="first_name" id="p-first" autocomplete="given-name" maxlength="150" placeholder="{% translate "Aziz" %}" required autofocus value="{{ form.first_name.value|default:'' }}">
+          {% if form.first_name.errors %}<div class="err">{{ form.first_name.errors.0 }}</div>{% endif %}
+        </div>
+        <div class="field{% if form.last_name.errors %} has-error{% endif %}">
+          <label for="p-last">{% translate "Familiya" %}</label>
+          <input type="text" name="last_name" id="p-last" autocomplete="family-name" maxlength="150" placeholder="{% translate "Karimov" %}" required value="{{ form.last_name.value|default:'' }}">
+          {% if form.last_name.errors %}<div class="err">{{ form.last_name.errors.0 }}</div>{% endif %}
+        </div>
+      </div>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">{% translate "Hisob yaratish va kirish" %}</button>
+    </form>
+    <p class="text-center mt-2 small muted">{% translate "Keyingi safar ham «Telegram orqali kirish» tugmasi bilan kirasiz" %}</p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% load i18n money %}
+{% block title %}{% translate "Shaxsiy kabinet" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="page-head dash-head">
+    <div>
+      <h1>{% blocktranslate trimmed with name=user.first_name|default:user.username %}Salom, {{ name }} 👋{% endblocktranslate %}</h1>
+      <p>{% blocktranslate trimmed with year=year|stringformat:"d" %}{{ year }}-yil bo'yicha soliq qaytarish holatingiz.{% endblocktranslate %}</p>
+    </div>
+    <div class="flex">
+      {% if years|length > 1 %}
+      <nav class="year-switch" aria-label="{% translate "Yil" %}">{% for y in years %}<a href="?year={{ y|stringformat:"d" }}"{% if y == year %} aria-current="true"{% endif %}>{{ y|stringformat:"d" }}</a>{% endfor %}</nav>
+      {% endif %}
+      <a href="{% url 'settings' %}" class="icon-btn" aria-label="{% translate "Sozlamalar" %}" title="{% translate "Sozlamalar" %}"><svg><use href="#i-settings"/></svg></a>
+      <a href="{% url 'scan' %}" class="btn btn-primary"><svg><use href="#i-scan"/></svg>{% translate "Chek qo'shish" %}</a>
+    </div>
+  </div>
+
+  <div class="dash-top">
+    <div class="dash-hero">
+      <div class="dash-hero-main">
+        <span class="dash-hero-label"><svg><use href="#i-wallet"/></svg>{% blocktranslate trimmed with year=year|stringformat:"d" %}{{ year }}-yilda qaytariladi (12%){% endblocktranslate %}</span>
+        <span class="dash-hero-value">{{ refund|som }} <small>{% translate "so'm" %}</small></span>
+        <span class="dash-hero-meta">
+          <span>{% blocktranslate trimmed with n=payments_count %}{{ n }} ta mos to'lov{% endblocktranslate %}</span>
+          <span>{% blocktranslate trimmed with total=total|som %}jami {{ total }} so'm{% endblocktranslate %}</span>
+        </span>
+      </div>
+      <form method="post" action="{% url 'application_create' %}">{% csrf_token %}<input type="hidden" name="year" value="{{ year|stringformat:"d" }}">
+        <button class="btn btn-lg dash-hero-btn" type="submit"{% if not payments_count %} disabled{% endif %}><svg><use href="#i-file"/></svg>{% translate "Ariza shakllantirish" %}</button>
+      </form>
+    </div>
+
+    <a href="#receipts" class="card dash-stat{% if pending_count %} warn{% endif %}">
+      <span class="dash-stat-icon"><svg><use href="#i-receipt"/></svg></span>
+      <span class="dash-stat-label">{% translate "Tasdiq kutmoqda" %}</span>
+      <span class="dash-stat-value">{{ pending_count }}</span>
+      <span class="dash-stat-sub">{% if pending_count %}{% translate "Ko'rib chiqish →" %}{% else %}{% translate "hammasi tayyor ✓" %}{% endif %}</span>
+    </a>
+
+    <a href="{% url 'tracker' %}" class="card dash-stat{% if year_app.status == 'paid' %} good{% elif year_app.status == 'rejected' %} bad{% endif %}">
+      <span class="dash-stat-icon"><svg><use href="#i-chart"/></svg></span>
+      <span class="dash-stat-label">{% translate "Ariza holati" %}</span>
+      <span class="dash-stat-value dash-stat-text">{% if year_app %}{{ year_app.get_status_display }}{% else %}—{% endif %}</span>
+      <span class="dash-stat-sub">{% if year_app.days_waiting is not None %}{% blocktranslate trimmed with n=year_app.days_waiting %}{{ n }} kun o'tdi{% endblocktranslate %}{% elif year_app %}{% translate "Batafsil →" %}{% else %}{% translate "Hali shakllantirilmagan" %}{% endif %}</span>
+    </a>
+  </div>
+
+  <section class="card dash-stats mt-2">
+    <div class="card-head">
+      <div class="card-title"><svg style="width:20px;height:20px"><use href="#i-chart"/></svg>{% translate "Statistika" %}</div>
+      <span class="badge">{{ year|stringformat:"d" }}</span>
+    </div>
+    {% if has_chart %}
+    <div class="dash-stats-body">
+      <div>
+        <div class="dash-sub">{% translate "Oylik mos to'lovlar, so'm" %}</div>
+        <div class="chart-box"><canvas id="monthly-chart" aria-label="{% translate "Oylar bo'yicha mos to'lovlar" %}" role="img"></canvas></div>
+      </div>
+      <div class="dash-cats">
+        <div class="dash-sub">{% translate "To'lov turlari bo'yicha" %}</div>
+        <div class="legend" id="cat-legend"></div>
+      </div>
+    </div>
+    {% else %}
+    <div class="empty"><div class="feature-icon"><svg><use href="#i-chart"/></svg></div><h3>{% translate "Hali ma'lumot yo'q" %}</h3><p>{% translate "Chek yuklang yoki Avto-Audit'dan foydalaning — grafik shu yerda paydo bo'ladi." %}</p>
+      <div class="flex mt-2" style="justify-content:center"><a href="{% url 'scan' %}" class="btn btn-primary btn-sm">{% translate "Chek yuklash" %}</a><a href="{% url 'audit' %}" class="btn btn-ghost btn-sm">{% translate "Avto-Audit" %}</a></div></div>
+    {% endif %}
+  </section>
+
+  <section class="card dash-docs mt-2" id="receipts">
+    <div class="card-head">
+      <div class="doc-tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-tab="receipts">{% translate "Cheklar" %}<span>{{ receipts|length }}</span></button>
+        <button type="button" role="tab" aria-selected="false" data-tab="statements">{% translate "Avto-Audit" %}<span>{{ statements|length }}</span></button>
+        <button type="button" role="tab" aria-selected="false" data-tab="applications">{% translate "Arizalar" %}<span>{{ applications|length }}</span></button>
+      </div>
+      <div class="doc-add">
+        <a href="{% url 'scan' %}" class="btn btn-soft btn-sm" data-for="receipts">{% translate "+ Yangi" %}</a>
+        <a href="{% url 'audit' %}" class="btn btn-soft btn-sm" data-for="statements" hidden>+ PDF</a>
+        <a href="{% url 'tracker' %}" class="btn btn-soft btn-sm" data-for="applications" hidden>{% translate "Ariza holati" %}</a>
+      </div>
+    </div>
+
+    <div class="doc-panel" data-panel="receipts">
+      {% for r in receipts %}
+      <div class="doc-row">
+        <a class="doc-icon" href="{{ r.file.url }}" target="_blank" rel="noopener" aria-label="{% translate "Faylni ochish" %}"><svg><use href="#i-receipt"/></svg></a>
+        <div class="doc-main">
+          <div class="doc-title">{% translate "Nomsiz chek" as noname %}{{ r.organization|default:noname }}</div>
+          <div class="doc-meta">{% if r.paid_at %}{{ r.paid_at|date:"d.m.Y" }} · {% endif %}{{ r.get_category_display }}</div>
+        </div>
+        <div class="doc-amount">
+          {% if r.amount %}<b>{{ r.amount|som }}</b>{% endif %}
+          {% if r.status == "confirmed" %}<span class="chip-status good">+{{ r.refund|som }}</span>
+          {% elif r.status == "unreadable" %}<span class="chip-status bad">{% translate "O'qilmadi" %}</span>
+          {% else %}<span class="chip-status warn">{% translate "Tasdiqlanmagan" %}</span>{% endif %}
+        </div>
+        <form method="post" action="{% url 'receipt_delete' r.pk %}" {% translate "Chekni o'chirasizmi?" as ask %}onsubmit="return confirm('{{ ask|escapejs }}')">{% csrf_token %}
+          <button class="icon-btn doc-del" type="submit" aria-label="{% translate "O'chirish" %}" title="{% translate "O'chirish" %}"><svg><use href="#i-trash"/></svg></button></form>
+      </div>
+      {% empty %}
+      <div class="empty"><div class="feature-icon"><svg><use href="#i-receipt"/></svg></div><h3>{% translate "Cheklar yo'q" %}</h3><p>{% translate "Birinchi chekingizni yuklang — 30 soniya kifoya." %}</p></div>
+      {% endfor %}
+    </div>
+
+    <div class="doc-panel" data-panel="statements" hidden>
+      {% for s in statements %}
+      <a href="{% url 'audit_result' s.pk %}" class="doc-row">
+        <span class="doc-icon"><svg><use href="#i-file"/></svg></span>
+        <div class="doc-main">
+          <div class="doc-title">{% translate "PDF-hisobot" as pdf %}{{ s.source|default:pdf }}</div>
+          <div class="doc-meta">{% blocktranslate trimmed with n=s.included_count %}{{ n }} ta mos to'lov{% endblocktranslate %} · {{ s.created_at|date:"d.m.Y" }}</div>
+        </div>
+        <div class="doc-amount"><b>{{ s.total|som }}</b><span class="chip-status good">+{{ s.refund|som }}</span></div>
+        <span class="doc-go"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      {% empty %}
+      <div class="empty"><div class="feature-icon"><svg><use href="#i-file"/></svg></div><h3>{% translate "Hali hisobot yuklanmagan." %}</h3><p>{% translate "Universitet, bog'cha, maktab va klinika to'lovlari avtomatik ajratiladi." %}</p></div>
+      {% endfor %}
+    </div>
+
+    <div class="doc-panel" data-panel="applications" hidden>
+      {% for a in applications %}
+      <a href="{% url 'application_detail' a.pk %}" class="doc-row">
+        <span class="doc-icon"><svg><use href="#i-print"/></svg></span>
+        <div class="doc-main">
+          <div class="doc-title">{% blocktranslate trimmed with year=a.year|stringformat:"d" %}{{ year }}-yil arizasi{% endblocktranslate %}</div>
+          <div class="doc-meta">{{ a.created_at|date:"d.m.Y" }}</div>
+        </div>
+        <div class="doc-amount"><b>{{ a.refund_amount|som }}</b><span class="chip-status {% if a.status == 'paid' %}good{% elif a.status == 'rejected' %}bad{% else %}brand{% endif %}">{{ a.get_status_display }}</span></div>
+        <span class="doc-go"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      {% empty %}
+      <div class="empty"><div class="feature-icon"><svg><use href="#i-print"/></svg></div><h3>{% translate "Ariza shakllantirilmagan." %}</h3><p>{% translate "To'lovlaringiz tayyor — reestrni bir bosishda yarating." %}</p></div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{{ chart|json_script:"chart-data" }}
+{% endblock %}
+
+{% block scripts %}
+{% if has_chart %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+{% translate "so'm" as L_som %}{% translate "Qaytadi" as L_refund %}{% translate "mln" as L_mln %}<script>
+(function () {
+  const { fmt } = window.Magnit;
+  const L = { som: "{{ L_som|escapejs }}", refund: "{{ L_refund|escapejs }}", mln: "{{ L_mln|escapejs }}" };
+  const data = JSON.parse(document.getElementById("chart-data").textContent);
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const series = ["--chart-1", "--chart-2", "--chart-3", "--chart-4", "--chart-5"];
+
+  // Turlar bo'yicha: gorizontal bar ro'yxati (to'g'ridan-to'g'ri yorliqlar bilan)
+  const legend = document.getElementById("cat-legend");
+  const max = Math.max(...data.categories.map((c) => c.value), 1);
+  legend.innerHTML = "";
+  data.categories.forEach((c, i) => {
+    const color = `var(${series[Math.min(i, series.length - 1)]})`;
+    const row = document.createElement("div");
+    row.innerHTML = `<div class="legend-row"><span class="sw" style="background:${color}"></span><span class="lbl"></span><span class="val">${fmt(c.value)}</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(c.value / max) * 100}%;background:${color}"></div></div>
+      <div class="small muted" style="margin-left:22px">${L.refund}: <strong class="pos">+${fmt(c.refund)} ${L.som}</strong></div>`;
+    row.querySelector(".lbl").textContent = c.label;
+    legend.appendChild(row);
+  });
+
+  let chart;
+  const draw = () => {
+    chart && chart.destroy();
+    const muted = css("--axis"), grid = css("--grid");
+    chart = new Chart(document.getElementById("monthly-chart"), {
+      type: "bar",
+      data: { labels: data.months, datasets: [{ data: data.monthly, backgroundColor: css("--chart-1"), hoverBackgroundColor: css("--brand-2"), borderRadius: { topLeft: 4, topRight: 4 }, borderSkipped: "bottom", maxBarThickness: 28 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: { duration: 700 },
+        plugins: {
+          legend: { display: false },
+          tooltip: { padding: 10, cornerRadius: 10, displayColors: false, callbacks: { label: (ctx) => fmt(ctx.parsed.y) + " " + L.som, afterLabel: (ctx) => L.refund + ": " + fmt(ctx.parsed.y * 0.12) + " " + L.som } },
+        },
+        scales: {
+          x: { grid: { display: false }, border: { color: grid }, ticks: { color: muted, font: { family: "Plus Jakarta Sans", weight: 600 } } },
+          y: { beginAtZero: true, grid: { color: grid }, border: { display: false }, ticks: { color: muted, maxTicksLimit: 5, callback: (v) => v >= 1e6 ? (v / 1e6) + " " + L.mln : fmt(v) } },
+        },
+      },
+    });
+  };
+  draw();
+  document.addEventListener("themechange", draw);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+})();
+</script>
+{% endif %}
+<script>
+// Hujjatlar kartasi: Cheklar / Avto-Audit / Arizalar tablari
+(function () {
+  const box = document.querySelector(".dash-docs");
+  if (!box) return;
+  const tabs = box.querySelectorAll("[data-tab]");
+  tabs.forEach((t) => t.addEventListener("click", () => {
+    tabs.forEach((x) => x.setAttribute("aria-selected", x === t));
+    box.querySelectorAll("[data-panel]").forEach((p) => { p.hidden = p.dataset.panel !== t.dataset.tab; });
+    box.querySelectorAll(".doc-add [data-for]").forEach((a) => { a.hidden = a.dataset.for !== t.dataset.tab; });
+  }));
+})();
+</script>
+{% endblock %}

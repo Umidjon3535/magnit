@@ -1,0 +1,50 @@
+{% load i18n money %}{% if result %}
+<div class="card ck-result risk-{{ result.level }}">
+  <div class="ck-score">
+    <div class="ck-ring" style="--p:{{ result.score }}"><b>{{ result.score }}</b><small>/100</small></div>
+    <div>
+      <span class="badge risk-badge">{% if result.level == "low" %}{% translate "Rad etilish xavfi past" %}{% elif result.level == "medium" %}{% translate "Xavf o'rtacha" %}{% else %}{% translate "Xavf yuqori" %}{% endif %}</span>
+      <p class="small muted mt-1">{% if result.issues %}{% blocktranslate trimmed with n=result.issues|length %}Tuzatish kerak: {{ n }}{% endblocktranslate %}{% else %}{% translate "Hammasi joyida — arizani yuborishingiz mumkin." %}{% endif %}</p>
+    </div>
+  </div>
+
+  {% if result.unanswered %}
+  <p class="ck-note"><svg><use href="#i-info"/></svg>{% blocktranslate trimmed with n=result.unanswered %}{{ n }} ta savol hali javobsiz — natija taxminiy.{% endblocktranslate %}</p>
+  {% endif %}
+  <div class="ck-sums">
+    <div><small>{% blocktranslate trimmed with p=JSHOD_PERCENT %}Kutilgan (to'lovning {{ p }}%){% endblocktranslate %}</small><b class="{% if result.capped %}strike{% endif %}">{{ result.expected_refund|som }} {% translate "so'm" %}</b></div>
+    <div class="ck-real"><small>{% translate "Haqiqatda qaytadi" %}</small><b>{{ result.real_refund|som }} {% translate "so'm" %}</b></div>
+  </div>
+  {% if result.capped %}
+  <p class="ck-note"><svg><use href="#i-info"/></svg>{% blocktranslate trimmed with tax=result.tax_withheld|som %}Qaytariladigan summa yil davomida maoshingizdan ushlangan JShOD'dan ({{ tax }} so'm) oshmaydi. Ko'p kalkulyatorlar buni hisobga olmaydi.{% endblocktranslate %}</p>
+  {% endif %}
+
+  {% if result.issues %}
+  <div class="ck-block">
+    <div class="ck-block-title">{% translate "Nimani tuzatish kerak" %}</div>
+    <div class="issues">
+      {% for i in result.issues %}
+      <div class="issue{% if i.critical %} critical{% endif %}"><strong>{{ i.problem }}</strong><span>{{ i.fix }}</span></div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="ck-block">
+    <div class="ck-block-title flex between">{% translate "Sizning hujjatlar ro'yxatingiz" %}
+      <button type="button" class="link-btn no-print" onclick="window.print()"><svg><use href="#i-print"/></svg>{% translate "Chop etish" %}</button></div>
+    <ul class="doc-list">{% for d in result.documents %}<li><label><input type="checkbox"> {{ d }}</label></li>{% endfor %}</ul>
+  </div>
+  <div class="flex mt-2 no-print">
+    <a href="{% if user.is_authenticated %}{% url 'scan' %}{% else %}{% url 'home' %}#register{% endif %}" class="btn btn-primary btn-sm"><svg><use href="#i-scan"/></svg>{% translate "Cheklarni yuklash" %}</a>
+    <a href="{% url 'tracker' %}" class="btn btn-ghost btn-sm">{% translate "Ariza holatini kuzatish" %}</a>
+  </div>
+</div>
+{% else %}
+<div class="card ck-empty">
+  <div class="feature-icon"><svg><use href="#i-shield"/></svg></div>
+  <h3>{% translate "Natija shu yerda chiqadi" %}</h3>
+  <p class="muted">{% translate "Maosh va to'lov summasini kiriting, savollarga «Ha» yoki «Yo'q» deb javob bering — rad etilish xavfi va haqiqiy summa darhol hisoblanadi." %}</p>
+  {% if form.errors %}<div class="alert alert-error mt-2 small"><svg><use href="#i-alert"/></svg><span>{% translate "Maosh va to'lov summasini kiriting." %}</span></div>{% endif %}
+</div>
+{% endif %}

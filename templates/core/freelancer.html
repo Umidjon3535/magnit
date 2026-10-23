@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Frilanserlar uchun 1%" %} — Magnit{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="page-head">
+    <div>
+      <span class="badge badge-brand"><svg style="width:13px;height:13px"><use href="#i-rocket"/></svg>{% translate "2026-yilgi islohot" %}</span>
+      <h1>{% blocktranslate trimmed %}12% o'rniga <span class="gradient-text">1%</span> soliq to'lang{% endblocktranslate %}</h1>
+      <p>{% translate "O'zini o'zi band qilgan shaxs sifatida yillik aylanma 1 mlrd so'mgacha bo'lsa — atigi 1% soliq." %}</p>
+    </div>
+  </div>
+
+  <div class="cb-top">
+    <div class="card cb-input">
+      <label for="fl-income" class="cb-label">{% translate "Oylik daromad" %}</label>
+      <div class="input-suffix"><input id="fl-income" class="input input-xl" data-money inputmode="numeric" value="15 000 000"><span>{% translate "so'm" %}</span></div>
+      <input type="range" id="fl-range" min="1000000" max="100000000" step="500000" value="15000000" aria-label="{% translate "Oylik daromad" %}" class="fl-range">
+      <div class="chips">
+        <button class="chip" data-v="5000000">5 {% translate "mln" %}</button><button class="chip" data-v="10000000">10 {% translate "mln" %}</button>
+        <button class="chip active" data-v="15000000">15 {% translate "mln" %}</button><button class="chip" data-v="30000000">30 {% translate "mln" %}</button>
+      </div>
+      <div class="field mt-2 mb-0">
+        <label for="fl-field">{% translate "Sohangiz" %}</label>
+        <select id="fl-field">{% for value, label in fields %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select>
+      </div>
+    </div>
+
+    <div class="cb-best fl-result">
+      <span class="cb-best-label">{% translate "Yiliga tejaysiz" %}</span>
+      <div class="cb-best-value"><span id="savings">0</span> <small>{% translate "so'm" %}</small></div>
+      <div class="cb-best-sub">{% translate "Oyiga" %} ≈ <b id="monthly-savings">0</b> {% translate "so'm" %}</div>
+      <div class="fl-bars">
+        <div class="fl-bar"><div class="fl-bar-top"><span>{% translate "Jismoniy shaxs · 12%" %}</span><b id="tax-general">0</b></div><div class="fl-track"><i id="bar-general" style="width:100%"></i></div></div>
+        <div class="fl-bar"><div class="fl-bar-top"><span>{% translate "O'zini o'zi band · 1%" %}</span><b id="tax-reduced">0</b></div><div class="fl-track"><i id="bar-reduced" class="good" style="width:8.3%"></i></div></div>
+      </div>
+      <a href="https://my.soliq.uz" target="_blank" rel="noopener" class="btn fl-cta">{% translate "my.soliq.uz'da ro'yxatdan o'tish" %} <svg><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+
+  <div id="limit-warn" class="alert alert-warning mt-2" hidden><svg><use href="#i-alert"/></svg><span>{% translate "Yillik aylanma 1 mlrd so'mdan oshadi — 1% rejim qo'llanilmaydi. YaTT yoki boshqa soliq rejimini ko'rib chiqing." %}</span></div>
+
+  <section class="card mt-2">
+    <div class="card-head">
+      <div class="card-title"><svg style="width:20px;height:20px"><use href="#i-rocket"/></svg>{% translate "Qanday o'tish mumkin?" %}</div>
+      <button class="btn btn-soft btn-sm" id="ask-ai"><svg><use href="#i-sparkle"/></svg>{% translate "AI maslahati" %}</button>
+    </div>
+    <ol class="fl-steps">
+      <li><span class="n">1</span><div><strong>{% translate "my.soliq.uz yoki «Soliq» ilovasi" %}</strong><small>{% translate "«O'zini o'zi band qilgan shaxs» sifatida ro'yxatdan o'ting" %}</small></div></li>
+      <li><span class="n">2</span><div><strong>{% translate "Faoliyat turini tanlang" %}</strong><small>{% translate "Ro'yxatda sohangiz borligini tekshiring" %}</small></div></li>
+      <li><span class="n">3</span><div><strong>{% translate "Daromadni chek orqali qayd eting" %}</strong><small>{% translate "Har bir tushum uchun elektron chek" %}</small></div></li>
+    </ol>
+    <p class="small muted mt-2">{% translate "ⓘ Hisob-kitob ma'lumot uchun. Rejim shartlari va faoliyat turlari ro'yxatini soliq.uz'da tekshiring." %}</p>
+  </section>
+</div>
+{{ rates|json_script:"rates" }}
+{% endblock %}
+
+{% block scripts %}
+{% translate "so'm" as L_som %}{% translate "Men {field} sifatida ishlayman, oylik daromadim {income} so'm. 1% rejimga o'tsam qancha tejayman va nimalarga e'tibor berishim kerak?" as L_ask %}
+<script>
+(function () {
+  const L = { som: "{{ L_som|escapejs }}", ask: "{{ L_ask|escapejs }}" };
+  const { fmt, parseNum, $$ } = window.Magnit;
+  const rates = JSON.parse(document.getElementById("rates").textContent);
+  const income = document.getElementById("fl-income"), range = document.getElementById("fl-range"), field = document.getElementById("fl-field");
+  const set = (id, v) => { document.getElementById(id).textContent = v; };
+
+  function calc() {
+    const monthly = parseNum(income.value), annual = monthly * 12;
+    const general = Math.round(annual * rates.general), reduced = Math.round(annual * rates.reduced);
+    set("tax-general", fmt(general) + " " + L.som);
+    set("tax-reduced", fmt(reduced) + " " + L.som);
+    document.getElementById("bar-reduced").style.width = Math.max(2, general ? (reduced / general) * 100 : 0) + "%";
+    set("savings", fmt(general - reduced));
+    set("monthly-savings", fmt((general - reduced) / 12));
+    document.getElementById("limit-warn").hidden = annual <= rates.limit;
+  }
+  const clearChips = () => $$(".chip").forEach((c) => c.classList.remove("active"));
+  income.addEventListener("input", () => { range.value = parseNum(income.value); clearChips(); calc(); });
+  range.addEventListener("input", () => { income.value = fmt(range.value); clearChips(); calc(); });
+  $$(".chip[data-v]").forEach((c) => c.addEventListener("click", () => {
+    clearChips(); c.classList.add("active");
+    income.value = fmt(c.dataset.v); range.value = c.dataset.v; calc();
+  }));
+  document.getElementById("ask-ai").addEventListener("click", () => {
+    const name = field.options[field.selectedIndex].text.toLowerCase();
+    window.Magnit.openChat(L.ask.replace("{field}", name).replace("{income}", income.value));
+  });
+  calc();
+})();
+</script>
+{% endblock %}
